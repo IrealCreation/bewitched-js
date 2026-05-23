@@ -17,7 +17,7 @@ export class GameManager {
     }
 
     helloWorld() {
-        console.log("Hello, world!");
+        console.log("Hello, Bewitched!");
     }
 }
 

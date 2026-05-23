@@ -12,12 +12,22 @@
   },
   "license": "ISC",
   "author": "Richard Legrand",
-  "type": "typescript",
-  "main": "index.js",
   "scripts": {
-    "compile": "tsc"
+    "compile": "tsc",
+    "build": "webpack --mode=production --config-node-env=production",
+    "dev": "webpack --mode=development",
+    "watch": "webpack --watch"
   },
   "devDependencies": {
-    "typescript": "^6.0.3"
+    "@types/node": "^25.9.1",
+    "css-loader": "^7.1.4",
+    "less": "^4.6.4",
+    "less-loader": "^13.0.0",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3",
+    "webpack": "^5.107.1",
+    "webpack-cli": "^7.0.2"
   }
 }
