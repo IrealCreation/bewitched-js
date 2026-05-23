@@ -1,49 +1,20 @@
-/**
- * Le GameManager est responsable de la gestion globale du jeu, et peut être appelé via sa valeur statique "instance".
- */
-export class GameManager {
-    // Singleton instance for global access
-    static instance: GameManager;
-
-    dialogues: DialogueStorage;
-
-    constructor() {
-        this.dialogues = new DialogueStorage();
-        GameManager.instance = this;
-    }
-
-    addDialogue(dialogue: Dialogue) {
-        this.dialogues[dialogue.id] = dialogue;
-    }
-
-    helloWorld() {
-        console.log("Hello, Bewitched!");
-    }
-}
-
-export class DialogueStorage {
+export interface DialogueStorage {
     [id: string]: Dialogue;
 }
 
+export interface CardStorage {
+    [id: string]: Card;
+}
+
 /**
- * Un dialogue est un ensemble d'une ou plusieurs séquences de texte, pouvant éventuellement finir par des options de dialogue ou dans le cas où il n'y en a pas, par une transition vers un autre dialogue.
+ * Un dialogue est un ensemble d'une ou plusieurs séquences de texte, pouvant finir par des options de dialogue ou (dans le cas où il n'y en a pas) par une transition vers un autre dialogue.
  */
-export class Dialogue {
+export interface Dialogue {
     id: string;
     texts: string[];
     options?: DialogueOption[];
-    goto: string;
-    cardGain?: Card[];
-
-    constructor(id: string, texts: string[], goto: string) {
-        this.id = id;
-        this.texts = texts;
-        this.goto = goto;
-        this.options = [];
-        this.cardGain = [];
-
-        GameManager.instance.addDialogue(this);
-    }
+    goto: string; // ID du dialogue vers lequel aller à la fin de ce dialogue s'il n'y a pas d'options
+    cardGain?: string[]; // IDs des cartes gagnées à la fin du dialogue
 }
 
 /**
@@ -51,7 +22,7 @@ export class Dialogue {
  */
 export interface DialogueOption {
     text: string;
-    mood: Mood[];
+    moods: Mood[];
     score: number;
     goto: string;
 }
@@ -62,7 +33,7 @@ export interface DialogueOption {
 export interface Card {
     id: string;
     name: string;
-    mood: Mood[];
+    moods: Mood[];
     score: number;
 }
 

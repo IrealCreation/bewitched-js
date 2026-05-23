@@ -1,0 +1,10 @@
+{
+    "intro_001": {
+        "id": "intro_001",
+        "texts": [
+            "Boujour joueur.",
+            "Bienvenue dans Bewitched"
+        ],
+        "goto": "intro_002"
+    }
+}

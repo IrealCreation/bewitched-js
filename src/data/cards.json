@@ -1,0 +1,62 @@
+{
+    "a_c_1": {
+        "id": "a_c_1",
+        "name": "Instinct",
+        "moods": ["Agressif", "Calme"],
+        "score": 1
+    },
+    "a_h_1": {
+        "id": "a_h_1",
+        "name": "Mépris",
+        "moods": ["Agressif", "Hautain"],
+        "score": 1
+    },
+    "a_j_1": {
+        "id": "a_j_1",
+        "name": "Rivalité",
+        "moods": ["Agressif", "Joyeux"],
+        "score": 1
+    },
+    "a_s_1": {
+        "id": "a_s_1",
+        "name": "Mordillement",
+        "moods": ["Agressif", "Séducteur"],
+        "score": 1
+    },
+    "c_h_1": {
+        "id": "c_h_1",
+        "name": "Moquerie",
+        "moods": ["Calme", "Hautain"],
+        "score": 1
+    },
+    "c_j_1": {
+        "id": "c_j_1",
+        "name": "Optimisme",
+        "moods": ["Calme", "Joyeux"],
+        "score": 1
+    },
+    "c_s_1": {
+        "id": "c_s_1",
+        "name": "Confidence",
+        "moods": ["Calme", "Séducteur"],
+        "score": 1
+    },
+    "h_j_1": {
+        "id": "h_j_1",
+        "name": "Moquerie",
+        "moods": ["Hautain", "Joyeux"],
+        "score": 1
+    },
+    "h_s_1": {
+        "id": "h_s_1",
+        "name": "Indifférence",
+        "moods": ["Hautain", "Séducteur"],
+        "score": 1
+    },
+    "j_s_1": {
+        "id": "j_s_1",
+        "name": "Oeillade",
+        "moods": ["Joyeux", "Séducteur"],
+        "score": 1
+    }
+}

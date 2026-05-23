@@ -10,23 +10,43 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/gameManager.ts"
+/*!****************************!*\
+  !*** ./src/gameManager.ts ***!
+  \****************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ GameManager)\n/* harmony export */ });\n/* harmony import */ var _data_dialogues_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./data/dialogues.json */ \"./src/data/dialogues.json\");\n/* harmony import */ var _data_cards_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./data/cards.json */ \"./src/data/cards.json\");\n\n\n/**\n * Le GameManager est responsable de la gestion globale du jeu, et peut être appelé via sa valeur statique \"instance\".\n */\nclass GameManager {\n    constructor() {\n        this.dialogues = _data_dialogues_json__WEBPACK_IMPORTED_MODULE_0__;\n        this.cards = _data_cards_json__WEBPACK_IMPORTED_MODULE_1__;\n        GameManager.instance = this;\n    }\n    helloWorld() {\n        console.log(\"Hello, Bewitched!\");\n    }\n    printDialogues() {\n        console.log(this.dialogues);\n    }\n    printCards() {\n        console.log(this.cards);\n    }\n}\n\n\n//# sourceURL=webpack://bewitched/./src/gameManager.ts?\n}");
+
+/***/ },
+
 /***/ "./src/index.ts"
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ \"./src/types.ts\");\n// Note : le \".js\" dans l'import est nécessaire pour ne pas d'avoir de blocage MIME lors de l'exécution du code compilé en JavaScript.\n\n// Test de fonctionnement de la classe GameManager\nconst gameManager = new _types__WEBPACK_IMPORTED_MODULE_0__.GameManager();\ngameManager.helloWorld();\n\n\n//# sourceURL=webpack://bewitched/./src/index.ts?\n}");
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _gameManager__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameManager */ \"./src/gameManager.ts\");\n\n// Test de fonctionnement de la classe GameManager\nconst gameManager = new _gameManager__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\ngameManager.helloWorld();\ngameManager.printDialogues();\ngameManager.printCards();\n\n\n//# sourceURL=webpack://bewitched/./src/index.ts?\n}");
 
 /***/ },
 
-/***/ "./src/types.ts"
-/*!**********************!*\
-  !*** ./src/types.ts ***!
-  \**********************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ "./src/data/cards.json"
+/*!*****************************!*\
+  !*** ./src/data/cards.json ***!
+  \*****************************/
+(module) {
 
-eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Dialogue: () => (/* binding */ Dialogue),\n/* harmony export */   DialogueStorage: () => (/* binding */ DialogueStorage),\n/* harmony export */   GameManager: () => (/* binding */ GameManager)\n/* harmony export */ });\n/**\n * Le GameManager est responsable de la gestion globale du jeu, et peut être appelé via sa valeur statique \"instance\".\n */\nclass GameManager {\n    constructor() {\n        this.dialogues = new DialogueStorage();\n        GameManager.instance = this;\n    }\n    addDialogue(dialogue) {\n        this.dialogues[dialogue.id] = dialogue;\n    }\n    helloWorld() {\n        console.log(\"Hello, Bewitched!\");\n    }\n}\nclass DialogueStorage {\n}\n/**\n * Un dialogue est un ensemble d'une ou plusieurs séquences de texte, pouvant éventuellement finir par des options de dialogue ou dans le cas où il n'y en a pas, par une transition vers un autre dialogue.\n */\nclass Dialogue {\n    constructor(id, texts, goto) {\n        this.id = id;\n        this.texts = texts;\n        this.goto = goto;\n        this.options = [];\n        this.cardGain = [];\n        GameManager.instance.addDialogue(this);\n    }\n}\n\n\n//# sourceURL=webpack://bewitched/./src/types.ts?\n}");
+eval("{module.exports = /*#__PURE__*/JSON.parse('{\"a_c_1\":{\"id\":\"a_c_1\",\"name\":\"Instinct\",\"moods\":[\"Agressif\",\"Calme\"],\"score\":1},\"a_h_1\":{\"id\":\"a_h_1\",\"name\":\"Mépris\",\"moods\":[\"Agressif\",\"Hautain\"],\"score\":1},\"a_j_1\":{\"id\":\"a_j_1\",\"name\":\"Rivalité\",\"moods\":[\"Agressif\",\"Joyeux\"],\"score\":1},\"a_s_1\":{\"id\":\"a_s_1\",\"name\":\"Mordillement\",\"moods\":[\"Agressif\",\"Séducteur\"],\"score\":1},\"c_h_1\":{\"id\":\"c_h_1\",\"name\":\"Moquerie\",\"moods\":[\"Calme\",\"Hautain\"],\"score\":1},\"c_j_1\":{\"id\":\"c_j_1\",\"name\":\"Optimisme\",\"moods\":[\"Calme\",\"Joyeux\"],\"score\":1},\"c_s_1\":{\"id\":\"c_s_1\",\"name\":\"Confidence\",\"moods\":[\"Calme\",\"Séducteur\"],\"score\":1},\"h_j_1\":{\"id\":\"h_j_1\",\"name\":\"Moquerie\",\"moods\":[\"Hautain\",\"Joyeux\"],\"score\":1},\"h_s_1\":{\"id\":\"h_s_1\",\"name\":\"Indifférence\",\"moods\":[\"Hautain\",\"Séducteur\"],\"score\":1},\"j_s_1\":{\"id\":\"j_s_1\",\"name\":\"Oeillade\",\"moods\":[\"Joyeux\",\"Séducteur\"],\"score\":1}}');\n\n//# sourceURL=webpack://bewitched/./src/data/cards.json?\n}");
+
+/***/ },
+
+/***/ "./src/data/dialogues.json"
+/*!*********************************!*\
+  !*** ./src/data/dialogues.json ***!
+  \*********************************/
+(module) {
+
+eval("{module.exports = /*#__PURE__*/JSON.parse('{\"intro_001\":{\"id\":\"intro_001\",\"texts\":[\"Boujour joueur.\",\"Bienvenue dans Bewitched\"],\"goto\":\"intro_002\"}}');\n\n//# sourceURL=webpack://bewitched/./src/data/dialogues.json?\n}");
 
 /***/ }
 
