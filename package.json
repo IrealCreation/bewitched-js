@@ -1,0 +1,23 @@
+{
+  "name": "bewitched",
+  "version": "1.0.0",
+  "description": "A narrative deck-builder game about opposing wills and changing minds",
+  "homepage": "https://github.com/IrealCreation/bewitched-js#readme",
+  "bugs": {
+    "url": "https://github.com/IrealCreation/bewitched-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IrealCreation/bewitched-js.git"
+  },
+  "license": "ISC",
+  "author": "Richard Legrand",
+  "type": "typescript",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
