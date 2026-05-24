@@ -2,9 +2,167 @@
     "intro_001": {
         "id": "intro_001",
         "texts": [
-            "Boujour joueur.",
-            "Bienvenue dans Bewitched"
+            "“Tabula Rasa”. Telles sont les grandes lettres en néon intense, brillantes dans la nuit, qui ornent la façade du bâtiment dans lequel tu t'engouffres. Un choix évocateur dont tu ne peux qu'apprécier l'ironie.",
+            "Laissant derrière toi une file d'attente qui ne cesse de s'allonger, tu dépasses le regard d'un videur qui te jauge d'un rapide coup d'oeil puis tu paies le droit de passage à une hôtesse qui t'accueille d'un “bonsoir et amusez-vous bien mademoiselle” distrait.",
+            "Devant toi s'étend un long couloir plongé dans la pénombre enfumée fait office d'antichambre de ces profondeurs où résonne une musique encore étouffée ; antre nocturne dédiée aux divinités modernes de stupre et de lucre...",
+            "Mais ce n'est pas pour t'amuser que tu es venue ici. Tu as une tâche à accomplir. Une tâche importante, dont des vies dépendent - à commencer par la tienne. Ce que tu mets en jeu en entrant ici n'est rien de moins que ta propre psyché.",
+            "Face à cette perspective, tu te sens..."
+        ],
+        "options": [
+            {
+                "text": "Sereine, confiante dans la suite des événements.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["2cj_paix_interieure"]
+            },
+            {
+                "text": "Telle une prédatrice se mettant en chasse, l'adrénaline dans les veines.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["2as_en_chasse"]
+            },
+            {
+                "text": "Déterminée et pleinement concentrée sur ton objectif.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["2ch_mental_acier"]
+            },
+            {
+                "text": "Frissonnante d'impatience de voir ce que la nuit te réserve.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["2aj_rage_vivre"]
+            },
+            {
+                "text": "Blasée : ce n'est pas ton premier rodéo, ni ton dernier.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["2hs_femme_experience"]
+            }
         ],
         "goto": "intro_002"
+    },
+    "intro_002": {
+        "id": "intro_002",
+        "texts": [
+            "Tu avances dans le couloir au travers de la foule qui s'y trouve, consciente de pénétrer dans la tanière de celui que tu es venu traquer ; mais tu le fais en connaissance de cause. Tu es loin d'être une proie désarmée, et cette illusion que d'autres se feront de toi sera ta meilleure alliée tandis que tu évolueras en terrain ennemi.",
+            "Depuis la porte à l'extrémité du corridor filtrent de puissantes vibrations de basses et des éclats de lumière stroboscopiques. Tu peux presque ressentir les élans des émotions humaines qui s'agitent en ce lieu, sur fond de musique battante et de relents d'alcool.",
+            "A tes lèvres apparaît..."
+        ],
+        "options": [
+            {
+                "text": "Une moue de dédain. Les lieux que tu fréquentes habituellement sont plus... distingués.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["3h_gouts_luxe"]
+            },
+            {
+                "text": "Un sourire. Tu n'es pas une habituée de cette adresse, mais tu sais faire de chaque environnement ton élément.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["3j_optimisme"]
+            },
+            {
+                "text": "Un rictus. Peu importe l'endroit : tu franchirais les cercles infernaux s'il le fallait pour accomplir ton objectif.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["3a_traversee_enfers"]
+            },
+            {
+                "text": "Un tressaillement. Tu n'es pas à l'aise au milieu d'autant de gens, mais tu seras ton propre phare au cœur de la tempête.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["3c_oeil_tempete"]
+            },
+            {
+                "text": "Un mordillement. C'est là où s'ébattent les plus vives passions que tu te sens le plus vivante.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["3s_viles_passions"]
+            }
+        ],
+        "goto": "intro_003"
+    },
+    "intro_003": {
+        "id": "intro_003",
+        "texts": [
+            "Poursuivant ta marche, tu passes à côté d'une vitre teintée qui perce le mur à ta droite. A l'occasion d'un nouvel éclat de lumière se dessine sur cette surface lisse et sombre ton reflet éphémère, auquel tu jettes un furtif coup d'œil.",
+            "Tu te vois apprêtée pour le combat ; même si celui-ci doit voir s'opposer la force de deux volontés plutôt que deux puissances physiques... Un affrontement bien plus subtil, mais non moins brutal - voire mortel. Tu remontes légèrement le col couvrant ta nuque, camouflant ainsi le tatouage aux formes inhabituelles qu'on commençait à y entrapercevoir.",
+            "Dans cette armure de bataille que ton reflet arbore, les détails qui sautent aux yeux sont..."
+        ],
+        "options": [
+            {
+                "text": "Du cuir clouté et des bottes renforcées prêtes à botter des arrière-trains.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["3a_punk_rock"]
+            },
+            {
+                "text": "Un maquillage parfait et juste ce qu'il faut de peau dénudée pour attirer les regards.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["3s_glamour"]
+            },
+            {
+                "text": "La brillance des perles et le logo discret d'une maison de haute couture sur tes vêtements.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["3h_haute_couture"]
+            },
+            {
+                "text": "Des tissus fluides et un assortiment de breloques artisanales à ton cou et à tes poignets.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["3j_hippie"]
+            },
+            {
+                "text": "Des chaussures confortables et une tenue où tu demeures avant tout libre de tes mouvements.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["3c_cocooning"]
+            }
+        ],
+        "goto": "intro_004"
+    },
+    "intro_004": {
+        "id": "intro_004",
+        "texts": [
+            "Arrivée à la porte au bout du couloir, tu prends une longue inspiration avant de franchir ce dernier sas afin de te recentrer. Tu sais quel est ton objectif en venant ici. La personne que tu es venue traquer, et qui a un nom : Amir.",
+            "Une crispation parcourt ton poing à cette pensée. C'est dans son territoire que tu t'apprêtes à entrer, et tu as parfaitement consciente des risques que tu y encours. Mais pourtant... si toi tu n'accomplis pas cela, personne d'autre ne le fera. Tu sais ce qu'il a fait à ses victimes, et ce qu'il refera encore si tu n'y mets pas un terme ; et tu sais qu'à cette liste de victimes viendra ce soir s'ajouter ton nom si sa volonté surpasse la tienne.",
+            "Une deuxième profonde inspiration vient calmer ton rythme cardiaque. Tu dois rester concentrée sur ton objectif : trouver Amir, l'isoler, et... faire ce que tu as à faire. D'ici la fin de la soirée, tu comptes bien..."
+        ],
+        "options": [
+            {
+                "text": "Avoir mis ce sale type hors d'état de nuire.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["2ac_poing_justice"]
+            },
+            {
+                "text": "Avoir au moins obtenu une explication à ses actes.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["2cj_empathie"]
+            },
+            {
+                "text": "Démontrer que nul n'est en mesure de prendre l'ascendant sur toi.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["2ah_farouche_independance"]
+            },
+            {
+                "text": "Le soumettre et le faire ramper à tes pieds.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["2hs_domina"]
+            },
+            {
+                "text": "Avoir kiffé le moment - après tout, on ne vit qu'une fois.",
+                "moods": [],
+                "score": 0,
+                "cardGain": ["2js_yolo"]
+            }
+        ],
+        "goto": "end"
     }
 }

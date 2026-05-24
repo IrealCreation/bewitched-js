@@ -1,62 +1,185 @@
 {
-    "a_c_1": {
-        "id": "a_c_1",
+    "1ac": {
+        "id": "1ac",
         "name": "Instinct",
         "moods": ["Agressif", "Calme"],
         "score": 1
     },
-    "a_h_1": {
-        "id": "a_h_1",
+    "1ah": {
+        "id": "1ah",
         "name": "Mépris",
         "moods": ["Agressif", "Hautain"],
         "score": 1
     },
-    "a_j_1": {
-        "id": "a_j_1",
+    "1aj": {
+        "id": "1aj",
         "name": "Rivalité",
         "moods": ["Agressif", "Joyeux"],
         "score": 1
     },
-    "a_s_1": {
-        "id": "a_s_1",
+    "1as": {
+        "id": "1as",
         "name": "Mordillement",
         "moods": ["Agressif", "Séducteur"],
         "score": 1
     },
-    "c_h_1": {
-        "id": "c_h_1",
+    "1ch": {
+        "id": "1ch",
         "name": "Moquerie",
         "moods": ["Calme", "Hautain"],
         "score": 1
     },
-    "c_j_1": {
-        "id": "c_j_1",
+    "1cj": {
+        "id": "1cj",
         "name": "Optimisme",
         "moods": ["Calme", "Joyeux"],
         "score": 1
     },
-    "c_s_1": {
-        "id": "c_s_1",
+    "1cs": {
+        "id": "1cs",
         "name": "Confidence",
         "moods": ["Calme", "Séducteur"],
         "score": 1
     },
-    "h_j_1": {
-        "id": "h_j_1",
+    "1hj": {
+        "id": "1hj",
         "name": "Moquerie",
         "moods": ["Hautain", "Joyeux"],
         "score": 1
     },
-    "h_s_1": {
-        "id": "h_s_1",
+    "1hs": {
+        "id": "1hs",
         "name": "Indifférence",
         "moods": ["Hautain", "Séducteur"],
         "score": 1
     },
-    "j_s_1": {
-        "id": "j_s_1",
+    "1js": {
+        "id": "1js",
         "name": "Oeillade",
         "moods": ["Joyeux", "Séducteur"],
         "score": 1
+    },
+
+    "2cj_paix_interieure": {
+        "id": "2cj_paix_interieure",
+        "name": "Paix intérieure",
+        "moods": ["Calme", "Joyeux"],
+        "score": 2
+    },
+    "2as_en_chasse": {
+        "id": "2as_en_chasse",
+        "name": "En chasse",
+        "moods": ["Agressif", "Séducteur"],
+        "score": 2
+    },
+    "2ch_mental_acier": {
+        "id": "2ch_mental_acier",
+        "name": "Mental d'acier",
+        "moods": ["Calme", "Hautain"],
+        "score": 2
+    },
+    "2aj_rage_vivre": {
+        "id": "2aj_rage_vivre",
+        "name": "Rage de vivre",
+        "moods": ["Joyeux", "Agressif"],
+        "score": 2
+    },
+    "2hs_femme_experience": {
+        "id": "2hs_femme_experience",
+        "name": "Femme d'expérience",
+        "moods": ["Hautain", "Séducteur"],
+        "score": 2
+    },
+    "2ac_poing_justice": {
+        "id": "2ac_poing_justice",
+        "name": "Poing de la justice",
+        "moods": ["Agressif", "Calme"],
+        "score": 2
+    },
+    "2hs_domina": {
+        "id": "2hs_domina",
+        "name": "Domina",
+        "moods": ["Hautain", "Séducteur"],
+        "score": 2
+    },
+    "2cj_empathie": {
+        "id": "2cj_empathie",
+        "name": "Empathie",
+        "moods": ["Calme", "Joyeux"],
+        "score": 2
+    },
+    "2ah_farouche_independance": {
+        "id": "2ah_farouche_independance",
+        "name": "Farouche indépendance",
+        "moods": ["Agressif", "Hautain"],
+        "score": 2
+    },
+    "2js_yolo": {
+        "id": "2js_yolo",
+        "name": "You only live once",
+        "moods": ["Joyeux", "Séducteur"],
+        "score": 2
+    },
+
+
+    "3h_gouts_luxes": {
+        "id": "3h_gouts_luxes",
+        "name": "Goûts de luxe",
+        "moods": ["Hautain"],
+        "score": 3
+    },
+    "3j_optimisme": {
+        "id": "3j_optimisme",
+        "name": "Optimisme",
+        "moods": ["Joyeux"],
+        "score": 3
+    },
+    "3a_traversee_enfers": {
+        "id": "3a_traversee_enfers",
+        "name": "Traversée des enfers",
+        "moods": ["Agressif"],
+        "score": 3
+    },
+    "3c_oeil_tempete": {
+        "id": "3c_oeil_tempete",
+        "name": "Oeil de la tempête",
+        "moods": ["Calme"],
+        "score": 3
+    },
+    "3s_viles_passions": {
+        "id": "3s_viles_passions",
+        "name": "Viles passions",
+        "moods": ["Séducteur"],
+        "score": 3
+    },
+    "3a_punk_rock": {
+        "id": "3a_punk_rock",
+        "name": "Punk rock",
+        "moods": ["Agressif"],
+        "score": 3
+    },
+    "3s_glamour": {
+        "id": "3s_glamour",
+        "name": "Glamour",
+        "moods": ["Séducteur"],
+        "score": 3
+    },
+    "3h_haute_couture": {
+        "id": "3h_haute_couture",
+        "name": "Haute couture",
+        "moods": ["Hautain"],
+        "score": 3
+    },
+    "3j_hippie": {
+        "id": "3j_hippie",
+        "name": "Hippie",
+        "moods": ["Joyeux"],
+        "score": 3
+    },
+    "3c_cocooning": {
+        "id": "3c_cocooning",
+        "name": "Cocooning",
+        "moods": ["Calme"],
+        "score": 3
     }
 }
