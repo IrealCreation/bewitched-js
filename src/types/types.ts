@@ -6,6 +6,10 @@ export interface CardStorage {
     [id: string]: Card;
 }
 
+export interface GameVariableStorage {
+    [variable: string]: number;
+}
+
 /**
  * Un dialogue est un ensemble d'une ou plusieurs séquences de texte, pouvant finir par des options de dialogue ou par une transition vers un autre dialogue.
  */
