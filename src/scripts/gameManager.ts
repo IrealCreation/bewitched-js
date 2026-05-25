@@ -38,7 +38,9 @@ export default class GameManager {
      */
     playIntroScreen() {
         // TODO: do stylish intro stuff
-        this.dialogueShowText();
+        // this.dialogueShowText();
+        // Test d'affichage des cartes
+        this.dialogueCardGain();
     }
 
     /** Le joueur a cliqué pour la prochaine interaction au sein d'un dialogue */
@@ -84,7 +86,10 @@ export default class GameManager {
     }
 
     dialogueCardGain() {
-
+        // Test avec des cartes prédéfinies pour l'instant
+        const cardsToGain = [this.cards["1ac"], this.cards["2ah_farouche_independance"], this.cards["3c_oeil_tempete"]];
+        this.displayManager.displayNewCards(cardsToGain);
+        this.currentDialogueCardsGained = true;
     }
 
     dialogueGoto(dialogueId: string) {
