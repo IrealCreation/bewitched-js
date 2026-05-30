@@ -1,5 +1,6 @@
 import { DialogueStorage, CardStorage, GameVariableStorage, Dialogue, DialogueOption, Card, Mood } from "../types/types";
 import DisplayManager from "./displayManager";
+import PlayerManager from "./playerManager";
 
 // JSON data
 import Dialogues from "../data/dialogues.json";
@@ -15,7 +16,9 @@ export default class GameManager {
     dialogues: DialogueStorage;
     cards: CardStorage;
     gameVariables: GameVariableStorage;
+
     displayManager: DisplayManager;
+    playerManager: PlayerManager;
 
     currentDialogue: Dialogue;
     currentDialogueText: number = 0; // Key de l'entrée du tableau "texts" actuellement affichée du dialogue en cours
@@ -27,9 +30,11 @@ export default class GameManager {
         this.dialogues = Dialogues as DialogueStorage;
         this.cards = Cards as CardStorage;
         this.gameVariables = {} as GameVariableStorage;
-        this.displayManager = new DisplayManager();
 
-        this.currentDialogue = this.dialogues["intro_001"];
+        this.displayManager = new DisplayManager();
+        this.playerManager = new PlayerManager();
+
+        this.currentDialogue = this.dialogues["test"];
         this.playIntroScreen();
     }
 
@@ -38,9 +43,7 @@ export default class GameManager {
      */
     playIntroScreen() {
         // TODO: do stylish intro stuff
-        // this.dialogueShowText();
-        // Test d'affichage des cartes
-        this.dialogueCardGain();
+        this.dialogueShowText();
     }
 
     /** Le joueur a cliqué pour la prochaine interaction au sein d'un dialogue */
@@ -85,21 +88,53 @@ export default class GameManager {
 
     }
 
+    /**
+     * Fais gagner au joueur les cartes du dialogue et affiche l'interface correspondante
+     */
     dialogueCardGain() {
-        // Test avec des cartes prédéfinies pour l'instant
-        const cardsToGain = [this.cards["1ac"], this.cards["2ah_farouche_independance"], this.cards["3c_oeil_tempete"]];
+        const cardsToGain: Card[] = []; 
+        // Récupération des objets Card avec leurs id
+        if(typeof this.currentDialogue.cardGain != "undefined") {
+            this.currentDialogue.cardGain.forEach(cardId => {
+                cardsToGain.push(this.getCard(cardId));
+            });
+        }
         this.displayManager.displayNewCards(cardsToGain);
         this.currentDialogueCardsGained = true;
+        
+        // On ajoute ces cartes au deck du joueur (pioche par défaut)
+        this.playerManager.gainCards(cardsToGain);
     }
 
+    /**
+     * Passe au dialogue indiqué
+     * @param dialogueId - string : l'id du dialogue vers lequel aller
+     */
     dialogueGoto(dialogueId: string) {
         // On réinitialise les valeurs de contrôle du dialogue
         this.currentDialogueText = 0;
         this.currentDialogueCardsGained = false;
 
+        // Vérification de validité
+        if(!(dialogueId in this.dialogues)) {
+            console.error("GameManager::dialogueGoto() : dialogueId %s inconnu", dialogueId);
+        }
         this.currentDialogue = this.dialogues[dialogueId];
 
         this.dialogueShowText();
+    }
+
+    /**
+     * Récupère une carte du storage grâce à son id
+     * @param cardId - string : l'id de la carte à récupérer
+     */
+    getCard(cardId: string): Card {
+        // Vérification de validité
+        if(!(cardId in this.cards)) {
+            console.error("GameManager::getCard() : cardId %s inconnu", cardId);
+        }
+        const card = this.cards[cardId];
+        return card;
     }
 
     helloWorld() {
