@@ -37,6 +37,9 @@ export default class DisplayManager {
 
         this.newCardsOverlay = document.createElement("div");
         this.newCardsOverlay.classList.add("new-cards-overlay");
+        this.newCardsOverlay.addEventListener("click", () => {
+            GameManager.instance.newCardsOverlayClick();
+        });
         this.gameContainer.append(this.newCardsOverlay);
         const newCardsContainer = document.createElement("div");
         newCardsContainer.classList.add("new-cards-container");
@@ -117,13 +120,48 @@ export default class DisplayManager {
         this.writingText = "";
     }
 
-    displayNewCards(cards: Card[]): void {
+    async displayNewCards(cards: Card[]): Promise<void> {
+        // On prévient le GameManager qu'une animation est en cours pour bloquer les interactions du joueur pendant ce temps
+        GameManager.instance.awaitingForAnimation = true;
+        
         this.newCardsFlexbox.innerHTML = ""; // Reset des cartes déjà affichées
         cards.forEach(card => {
             const cardElement = this.createCard(card);
             this.newCardsFlexbox.append(cardElement);
         });
         this.newCardsOverlay.classList.add("active");
+
+        // Gestion de la durée d'animation
+        await this.transitionPromise(this.newCardsOverlay);
+        // On prévient le GameManager qu'une animation est terminée pour autoriser les interactions du joueur
+        GameManager.instance.awaitingForAnimation = false;
+    }
+
+    async hideNewCards(): Promise<void> {
+        // On prévient le GameManager qu'une animation est en cours pour bloquer les interactions du joueur pendant ce temps
+        GameManager.instance.awaitingForAnimation = true;
+
+        this.newCardsOverlay.classList.remove("active");
+
+        // Gestion de la durée d'animation
+        await this.transitionPromise(this.newCardsOverlay);
+        // On prévient le GameManager qu'une animation est terminée pour autoriser les interactions du joueur
+        GameManager.instance.awaitingForAnimation = false;
+    }
+
+    /**
+     * Crée une promesse qui se résout à la fin de la transition CSS d'un élément, pour pouvoir synchroniser les changements d'état du jeu avec les animations CSS
+     * @param element - HTMLElement : l'élément dont on attend la fin de la transition
+     * @returns Promise<void> : La promesse qui se résout à la fin de la transition
+     */
+    async transitionPromise(element: HTMLElement): Promise<void> {
+        return new Promise(resolve => {
+            const transitionDuration = parseFloat(getComputedStyle(element).transitionDuration) * 1000;
+            // console.log("Transition duration (ms) : ", transitionDuration);
+            setTimeout(() => {
+                resolve();
+            }, transitionDuration);
+        });
     }
 
     /**
