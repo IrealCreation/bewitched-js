@@ -1,5 +1,5 @@
 import GameManager from "./gameManager";
-import { Card, Dialogue } from "../types/types";
+import { Card, Dialogue, DialogueOption } from "../types/types";
 
 /**
  * Le DisplayManager est responsable de l'affichage du jeu
@@ -10,7 +10,12 @@ export default class DisplayManager {
 
     gameContainer: HTMLElement;
 
+    /** Arborescence des éléments HTML :
+     *      Les overlays sont des enfants directs du gameContainer qui couvrent l'intégralité de l'écran et interceptent les interactions joueurs
+     */
+
     // --- Affichage des dialogues
+    dialogueOverlay: HTMLElement;
     dialoguesContainer: HTMLElement;
     currentDialogueBox: HTMLElement;
     isWriting: boolean = false; // Indique si un texte de dialogue est en train d'être affiché lettre par lettre, pour éviter les interactions du joueur pendant ce temps
@@ -18,7 +23,16 @@ export default class DisplayManager {
     writingIndex: number = 0; // Index de la lettre actuellement affichée du texte de dialogue en cours d'affichage
     writingText: string = ""; // Texte de dialogue en cours d'affichage lettre par lettre
 
-    // --- Affichage des cartes
+    // Options de dialogue
+    dialogueOptionsContainer: HTMLElement;
+    dialogueOptionsFlexbox: HTMLElement;
+    dialogueOptionElements: HTMLElement[] = [];
+
+    // Affichage du deck
+    deckContainer: HTMLElement;
+    handContainer: HTMLElement;
+
+    // --- Affichage des cartes gagnées
     newCardsOverlay: HTMLElement;
     newCardsFlexbox: HTMLElement;
 
@@ -30,37 +44,60 @@ export default class DisplayManager {
         this.gameContainer.classList.add("game-container");
         this.body.append(this.gameContainer);
 
-        // Dialogues
+        // --- Dialogues
+        // Overlay
+        this.dialogueOverlay = document.createElement("div"),
+        this.dialogueOverlay.classList.add("dialogue-overlay");
+        this.gameContainer.append(this.dialogueOverlay);
+        this.dialogueOverlay.addEventListener("click", () => {
+            GameManager.instance.dialogueOverlayClick();
+        });
+        // Container
         this.dialoguesContainer = document.createElement("div");
         this.dialoguesContainer.classList.add("dialogues-container");
-        this.gameContainer.append(this.dialoguesContainer);
+        this.dialogueOverlay.append(this.dialoguesContainer);
+        // Initialisation de la current dialogue box vide
+        this.currentDialogueBox = document.createElement("div");
 
+        // Options de dialogue
+        this.dialogueOptionsContainer = document.createElement("div");
+        this.dialogueOptionsContainer.classList.add("dialogue-options-container");
+        this.dialogueOverlay.append(this.dialogueOptionsContainer);
+        this.dialogueOptionsFlexbox = document.createElement("div");
+        this.dialogueOptionsFlexbox.classList.add("dialogue-options-flexbox");
+        this.dialogueOptionsContainer.append(this.dialogueOptionsFlexbox);
+
+        // Container global du deck du joueur
+        this.deckContainer = document.createElement("div");
+        this.deckContainer.classList.add("deck-container");
+        this.dialogueOverlay.append(this.deckContainer);
+        // Main du joueur
+        this.handContainer = document.createElement("div");
+        this.handContainer.classList.add("hand-container");
+        this.deckContainer.append(this.handContainer);
+
+        // --- New cards
+        // Overlay
         this.newCardsOverlay = document.createElement("div");
         this.newCardsOverlay.classList.add("new-cards-overlay");
         this.newCardsOverlay.addEventListener("click", () => {
             GameManager.instance.newCardsOverlayClick();
         });
+        // Container
         this.gameContainer.append(this.newCardsOverlay);
         const newCardsContainer = document.createElement("div");
         newCardsContainer.classList.add("new-cards-container");
         this.newCardsOverlay.append(newCardsContainer);
+        // Flexbox
         this.newCardsFlexbox = document.createElement("div");
         this.newCardsFlexbox.classList.add("new-cards-flexbox");
         newCardsContainer.append(this.newCardsFlexbox);
-
-        // Current dialogue box vide (dummy)
-        this.currentDialogueBox = document.createElement("div");
-
-        // Pour l'instant on met l'event listener de click sur le dialoguesContainer entier, mais on le rendra plus précis plus tard
-        this.dialoguesContainer.addEventListener("click", () => {
-            GameManager.instance.dialogueClick();
-        });
     }
 
     /**
      * Lance l'affichage d'un texte de dialogue
-     * @param dialogue 
-     * @param key 
+     * @param dialogue - Dialogue
+     * @param key - number : la key de l'entrée du tableau "texts" du dialogue à afficher
      */
     displayDialogueText(dialogue: Dialogue, key: number): void {
         // Création de la zone de texte du dialogue
@@ -120,48 +157,52 @@ export default class DisplayManager {
         this.writingText = "";
     }
 
-    async displayNewCards(cards: Card[]): Promise<void> {
-        // On prévient le GameManager qu'une animation est en cours pour bloquer les interactions du joueur pendant ce temps
-        GameManager.instance.awaitingForAnimation = true;
+    displayDialogueOptions(options: DialogueOption[]): void {
+        this.dialogueOptionElements = [];
+        this.dialogueOptionsFlexbox.innerHTML = "";
         
+        // On crée le HTML des options de dialogue
+        options.forEach((option, index) => {
+            const optionElement = document.createElement("div");
+            optionElement.classList.add("dialogue-option-box");
+            optionElement.id = "dialogue-option-" + index;
+            optionElement.textContent = option.text;
+            optionElement.addEventListener("click", () => {
+                GameManager.instance.dialogueOptionClick(index);
+            });
+            this.dialogueOptionsFlexbox.append(optionElement);
+            this.dialogueOptionElements.push(optionElement);
+        });
+
+        // On affiche le container des options
+        this.dialogueOptionsContainer.classList.add("active");
+        // Gestion de la transition (sans attente)
+        this.awaitTransition(this.dialogueOptionsContainer);
+
+        // On affiche le container du deck
+        this.deckContainer.classList.add("active");
+        // Gestion de la transition (sans attente)
+        this.awaitTransition(this.deckContainer);
+    }
+
+    async displayNewCards(cards: Card[]): Promise<void> {
         this.newCardsFlexbox.innerHTML = ""; // Reset des cartes déjà affichées
         cards.forEach(card => {
             const cardElement = this.createCard(card);
             this.newCardsFlexbox.append(cardElement);
         });
         this.newCardsOverlay.classList.add("active");
-
-        // Gestion de la durée d'animation
-        await this.transitionPromise(this.newCardsOverlay);
-        // On prévient le GameManager qu'une animation est terminée pour autoriser les interactions du joueur
-        GameManager.instance.awaitingForAnimation = false;
+        
+        // Gestion de l'animation
+        await this.awaitTransition(this.newCardsOverlay);
     }
 
     async hideNewCards(): Promise<void> {
-        // On prévient le GameManager qu'une animation est en cours pour bloquer les interactions du joueur pendant ce temps
-        GameManager.instance.awaitingForAnimation = true;
 
         this.newCardsOverlay.classList.remove("active");
 
-        // Gestion de la durée d'animation
-        await this.transitionPromise(this.newCardsOverlay);
-        // On prévient le GameManager qu'une animation est terminée pour autoriser les interactions du joueur
-        GameManager.instance.awaitingForAnimation = false;
-    }
-
-    /**
-     * Crée une promesse qui se résout à la fin de la transition CSS d'un élément, pour pouvoir synchroniser les changements d'état du jeu avec les animations CSS
-     * @param element - HTMLElement : l'élément dont on attend la fin de la transition
-     * @returns Promise<void> : La promesse qui se résout à la fin de la transition
-     */
-    async transitionPromise(element: HTMLElement): Promise<void> {
-        return new Promise(resolve => {
-            const transitionDuration = parseFloat(getComputedStyle(element).transitionDuration) * 1000;
-            // console.log("Transition duration (ms) : ", transitionDuration);
-            setTimeout(() => {
-                resolve();
-            }, transitionDuration);
-        });
+        // Gestion de l'animation
+        await this.awaitTransition(this.newCardsOverlay);
     }
 
     /**
@@ -194,6 +235,35 @@ export default class DisplayManager {
         cardElement.append(cardScore);
 
         return cardElement;
+    }
+
+    /**
+     * Indique au GameManager d'attendre la fin d'une animation pour autoriser les interactions
+     * @param element - HTMLElement : l'élément dont on attend la fin de la transition
+     * @returns Promise<void> : La promesse qui se résout à la fin de la transition
+     */
+    async awaitTransition(element: HTMLElement): Promise<void> {
+        // On prévient le GameManager qu'une animation est en cours pour bloquer les interactions du joueur pendant ce temps
+        GameManager.instance.awaitingForAnimation = true;
+        // Attente de la fin de l'animation
+        await this.transitionPromise(element);
+        // On prévient le GameManager qu'une animation est terminée pour autoriser les interactions du joueur
+        GameManager.instance.awaitingForAnimation = false;
+    }
+
+    /**
+     * Crée une promesse qui se résout à la fin de la transition CSS d'un élément, pour pouvoir synchroniser les changements d'état du jeu avec les animations CSS
+     * @param element - HTMLElement : l'élément dont on attend la fin de la transition
+     * @returns Promise<void> : La promesse qui se résout à la fin de la transition
+     */
+    async transitionPromise(element: HTMLElement): Promise<void> {
+        return new Promise(resolve => {
+            const transitionDuration = parseFloat(getComputedStyle(element).transitionDuration) * 1000;
+            // console.log("Transition duration (ms) : ", transitionDuration);
+            setTimeout(() => {
+                resolve();
+            }, transitionDuration);
+        });
     }
 
 

@@ -36,7 +36,7 @@ export default class GameManager {
         this.displayManager = new DisplayManager();
         this.playerManager = new PlayerManager();
 
-        this.currentDialogue = this.dialogues["test"];
+        this.currentDialogue = this.dialogues["intro_001"];
         this.playIntroScreen();
     }
 
@@ -49,7 +49,7 @@ export default class GameManager {
     }
 
     /** Le joueur a cliqué pour la prochaine interaction au sein d'un dialogue */
-    dialogueClick() {
+    dialogueOverlayClick() {
         if(this.awaitingForAnimation)
             return; // On attend une fin d'animation : pas d'interaction
 
@@ -83,7 +83,7 @@ export default class GameManager {
             return;
         }
         // Si non... y a un problème
-        console.error("dialogueClick s'est fini sans résolution valable");
+        console.error("GameManager::dialogueOverlayClick() : s'est fini sans résolution valable");
     }
 
     dialogueShowText() {
@@ -91,7 +91,8 @@ export default class GameManager {
     }
 
     dialogueShowOptions() {
-
+        // TODO: gestion des conditions d'affichage des options
+        this.displayManager.displayDialogueOptions(this.currentDialogue.options!);
     }
 
     /**
@@ -100,11 +101,9 @@ export default class GameManager {
     dialogueCardGain() {
         const cardsToGain: Card[] = []; 
         // Récupération des objets Card avec leurs id
-        if(typeof this.currentDialogue.cardGain != "undefined") {
-            this.currentDialogue.cardGain.forEach(cardId => {
-                cardsToGain.push(this.getCard(cardId));
-            });
-        }
+        this.currentDialogue.cardGain!.forEach(cardId => {
+            cardsToGain.push(this.getCard(cardId));
+        });
         this.displayManager.displayNewCards(cardsToGain);
         this.currentDialogueCardsGained = true;
         
@@ -123,8 +122,23 @@ export default class GameManager {
         this.displayManager.hideNewCards()
             .then(() => {
                 // Après la fin de l'animation de disparition de l'overlay, on passe à la suite des dialogues
-                this.dialogueClick();
+                this.dialogueOverlayClick();
             });
+    }
+
+    dialogueOptionClick(optionIndex: number): void {
+        if(this.awaitingForAnimation)
+            return;
+        const option = this.currentDialogue.options?.[optionIndex];
+        if(!option) {
+            console.error("GameManager::dialogueOptionClick() : optionIndex %d invalide", optionIndex);
+            return;
+        }
+        console.log("Option choisie : ", option);
+        // TODO: Traitement de l'option cliquée
+        // if(option.goto) {
+        //     this.dialogueGoto(option.goto);
+        // }
     }
 
     /**

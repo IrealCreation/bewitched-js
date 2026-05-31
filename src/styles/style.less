@@ -1,3 +1,11 @@
+:root {
+    --bg-dark: rgb(46, 46, 46);
+    --bg-light: rgb(92, 92, 92);
+
+    --text-white: white;
+    --text-grey: rgb(197, 197, 197);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,8 +13,8 @@
 }
 
 body {
-    background-color: rgb(46, 46, 46);
-    color: white;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
 }
 
 .game-container {
@@ -19,19 +27,93 @@ body {
     overflow: hidden;
 }
 
-.dialogues-container {
-    text-align: left;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.5rem;
-    width: 100%;
+.dialogue-overlay {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100vw;
     height: 100vh;
-    padding: 2em;
-    cursor: pointer;
 
-    .dialogue-box {
-        margin: 1em auto;
-        width: 44em;
-        max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    .dialogues-container {
+        text-align: left;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 1.5rem;
+        // height: 34vh;
+        flex: 1;
+        padding: 2em;
+        cursor: pointer;
+        overflow: auto;
+
+        .dialogue-box {
+            margin: 1em auto;
+            width: 44em;
+            max-width: 100%;
+        }
+    }
+    
+    .dialogue-options-container {
+        flex: 1;
+        padding: 3em 6em;
+        font-size: 1.5rem;
+
+        display: none; // On doit utiliser display et non visibilité, sans quoi l'élément ne sort pas de la mise en page
+        &.active {
+            display: flex;
+        }
+
+        .dialogue-options-flexbox {
+            display: flex;
+            justify-content: space-evenly;
+
+            .dialogue-option-box {
+                border: 1px solid var(--bg-light);
+                border-radius: 5px;
+                padding: 1em;
+                margin: 1em;
+                max-width: 18em;
+                cursor: pointer;
+
+                flex-basis: 0;
+                flex-grow: 1;
+
+                &:not(.disabled):hover {
+                    background-color: var(--bg-light);
+                }
+
+                &.disabled {
+                    cursor: not-allowed;
+                    border-style: dashed;
+                    opacity: 0.6;
+                }
+            }
+
+        }
+
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .deck-container {
+        flex: 1;
+        // height: 33vh;
+        display: none;
+        &.active {
+            display: flex;
+        }
+
+        .hand-container {
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+            padding: 2em;
+        }
+
     }
 }
 
@@ -58,8 +140,8 @@ body {
     justify-content: center;
 
     .new-cards-container {
-        background-color: rgb(46, 46, 46);
-        border: 1px solid rgb(92, 92, 92);
+        background-color: var(--bg-dark);
+        border: 1px solid var(--bg-light);
         border-radius: 3vw;
         overflow: hidden;
 
@@ -83,8 +165,8 @@ body {
     width: 200px;
     height: 200px;
     padding: 1em;
-    background-color: rgb(92, 92, 92);
-    border-radius: 5px;
+    background-color: var(--bg-light);
+    border-radius: 10px;
     text-align: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     cursor: default;
@@ -101,7 +183,7 @@ body {
     }
     .moods {
         font-size: 0.9rem;
-        color: rgb(197, 197, 197);
+        color: var(--text-grey);
         font-style: italic;
     }
     .score {
