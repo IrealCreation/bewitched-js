@@ -86,9 +86,26 @@ body {
                 }
 
                 &.disabled {
+                    // Pas sûr de le conserver
                     cursor: not-allowed;
                     border-style: dashed;
                     opacity: 0.6;
+                }
+
+                &.selected {
+                    // Le joueur a cliqué sur cette option, mais il n'a pas encore sélectionné les cartes requises
+                    border-width: 3px;
+                    border-color: yellow;
+                }
+                &.matchable {
+                    // Cette option peut matcher avec les cartes que le joueur a sélectionnées, mais il n'a pas encore cliqué dessus
+                    border-width: 3px;
+                    border-color: rgba(62, 249, 255, 0.5);
+                }
+                &.match {
+                    // Le joueur a sélectionné cette option qui match avec ses cartes 
+                    border-width: 3px;
+                    border-color: rgb(62, 249, 255);
                 }
             }
 
@@ -188,5 +205,26 @@ body {
     }
     .score {
         font-size: 1.88rem;
+    }
+
+    &.selected {
+        // Le joueur a cliqué sur cette carte, mais il n'a pas encore sélectionné d'option
+        border-width: 3px;
+        border-color: yellow;
+    }
+    &.matchable {
+        // Cette carte peut matcher avec l'option qu'il a sélectionné, mais il n'a pas encore cliqué dessus
+        border-width: 3px;
+        border-color: rgba(62, 249, 255, 0.5);
+    }
+    &.match {
+        // Le joueur a sélectionné cette carte qui match avec l'option sélectionnée
+        border-width: 3px;
+        border-color: rgb(62, 249, 255);
+    }
+    &.nomatch {
+        // Le joueur a sélectionné cette carte qui ne match pas ou est superflue avec l'option sélectionnée
+        border-width: 3px;
+        border-color: darkred;
     }
 }

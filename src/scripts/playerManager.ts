@@ -9,6 +9,9 @@ export default class PlayerManager {
     
     // Cartes dans la main du joueur (nom en anglais pour éviter une confusion sur le terme "main")
     hand: Card[] = [];
+
+    // Cartes actuellement sélectionnées par le joueur dans sa main
+    cardsSelected: Card[] = []; 
     
     // Cartes dans la défausse du joueur
     defausse: Card[] = [];

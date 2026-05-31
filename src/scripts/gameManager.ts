@@ -24,6 +24,8 @@ export default class GameManager {
     currentDialogueText: number = 0; // Key de l'entrée du tableau "texts" actuellement affichée du dialogue en cours
     currentDialogueCardsGained: boolean = false;
 
+    dialogueOptionSelected: DialogueOption | null = null; // L'option de dialogue actuellement sélectionnée par le joueur (null si aucune)
+
     awaitingForAnimation: boolean = false; // True si on attend une fin d'animation et que les interactions sont interdites pendant ce temps
 
     constructor() {
@@ -126,19 +128,87 @@ export default class GameManager {
             });
     }
 
+    /**
+     * Clic du joueur sur une option de dialogue
+     * @param optionIndex 
+     * @returns 
+     */
     dialogueOptionClick(optionIndex: number): void {
         if(this.awaitingForAnimation)
             return;
+        
         const option = this.currentDialogue.options?.[optionIndex];
         if(!option) {
             console.error("GameManager::dialogueOptionClick() : optionIndex %d invalide", optionIndex);
             return;
         }
-        console.log("Option choisie : ", option);
-        // TODO: Traitement de l'option cliquée
-        // if(option.goto) {
-        //     this.dialogueGoto(option.goto);
-        // }
+        console.log("Option cliquée : ", option);
+
+        if(this.dialogueOptionSelected == option) {
+            // C'est option qui est déjà sélectionnée : on la deselect
+            this.dialogueOptionSelected = null;
+            // TODO: update de l'affichage pour montrer que l'option n'est plus sélectionnée, ainsi que de l'affichage des cartes pour que toutes celles sélectionnées repassent en "selected"
+            return;
+        }
+        this.dialogueOptionSelected = option;
+        this.reviewCardsSelectedForDialogueOptionSelected();
+    }
+
+    /**
+     * Passe en revue les cartes sélectionnées par le joueur pour l'option de dialogue sélectionnée. Appelé quand le joueur pré-sélectionne une option dans un choix de dialogue
+     * @returns boolean True si l'option de dialogue est un match
+     */
+    reviewCardsSelectedForDialogueOptionSelected(): boolean {
+        if(this.playerManager.cardsSelected.length == 0)
+            return false;
+
+        let scoreFromCards = 0;
+        const option: DialogueOption = this.dialogueOptionSelected!;
+        
+        this.playerManager.cardsSelected.forEach(card => {
+            if(scoreFromCards >= option.score) {
+                // Cette option est superflue : nomatch
+            }
+            else if(this.cardMatchWithDialogueOption(card, option)) {
+                // Cette option correspond : match
+                scoreFromCards += card.score;
+            }
+            else {
+                // Cette option ne correspond pas : nomatch
+            }
+        });
+        return scoreFromCards >= option.score;
+    }
+
+    /**
+     * Cette option de dialogue matche-t-elle avec les cartes actuellement sélectionnées par le joueur ? Appelé quand le joueur clique sur une carte dans un choix de dialogue
+     * @param option - DialogueOption
+     * @returns boolean
+     */
+    dialogueOptionMatchableWithCardsSelected(option: DialogueOption): boolean {
+        if(option.score <= 0) 
+            return true; // Pas de pré-requis de score : forcément vrai
+        if(this.playerManager.cardsSelected.length == 0)
+            return false; // Pas de cartes sélectionnées : forcément faux
+
+        // On va parcourir les cartes sélectionnées par le joueur qui correspondent aux moods de l'option, et calculer leurs scores
+        let scoreFromCards = 0;
+        this.playerManager.cardsSelected.forEach(card => {
+            if(this.cardMatchWithDialogueOption(card, option)) {
+                scoreFromCards += card.score;
+            }
+        });
+        return scoreFromCards >= option.score;
+    }
+
+    /**
+     * Cette carte matche-t-elle avec cette option de dialogue ?
+     * @param card - Card
+     * @returns boolean 
+     */
+    cardMatchWithDialogueOption(card: Card, option: DialogueOption): boolean {
+        // Une carte matche avec une option de dialogue si elle correspond à au moins un des moods de l'option
+        return option.moods.some(mood => card.moods.includes(mood));
     }
 
     /**
