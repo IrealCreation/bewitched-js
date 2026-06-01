@@ -25,6 +25,7 @@ export default class GameManager {
     currentDialogueText: number = 0; // Key de l'entrée du tableau "texts" actuellement affichée du dialogue en cours
     currentDialogueCardsGained: boolean = false;
 
+    inDialogueChoice: boolean = false; // True si un choix de dialogue est affiché et qu'on attend que le joueur sélectionne une option
     dialogueOptionSelected: DialogueOption | null = null; // L'option de dialogue actuellement sélectionnée par le joueur (null si aucune)
 
     awaitingForAnimation: boolean = false; // True si on attend une fin d'animation et que les interactions sont interdites pendant ce temps
@@ -96,6 +97,8 @@ export default class GameManager {
     dialogueShowOptions() {
         // TODO: gestion des conditions d'affichage des options
         this.displayManager.displayDialogueOptions(this.currentDialogue.options!);
+
+        this.inDialogueChoice = true;
     }
 
     /**
@@ -130,6 +133,24 @@ export default class GameManager {
     }
 
     /**
+     * Clic du joueur sur une carte de sa main
+     */
+    cardClick(card: Card): void {
+        // Il ne se passe rien si on n'est pas dans un choix de dialogue ou si on attend une fin d'animation
+        if(!this.inDialogueChoice || this.awaitingForAnimation)
+            return;
+
+        // Ajoute / retire la carte en question
+        this.playerManager.toggleCard(card);
+
+        // Update de l'affichage des cartes
+        this.cardsUpdateStatus();
+
+        // Update de l'affichage des options de dialogue
+        this.dialogueOptionsUpdateStatus();
+    }
+
+    /**
      * Clic du joueur sur une option de dialogue
      * @param optionIndex 
      * @returns 
@@ -150,49 +171,98 @@ export default class GameManager {
             this.unselectDialogueOption();
             return;
         }
-        this.selectDialogueOption(option);
+        this.selectDialogueOption(option, optionIndex);
     }
 
-    selectDialogueOption(option: DialogueOption) {
+    selectDialogueOption(option: DialogueOption, optionIndex: number) {
         this.dialogueOptionSelected = option;
-        
-        /* On passe en revue les cartes du joueur pour mettre à jour leur affichage
-         *  - match : la carte est sélectionnée et contribue à l'option
-         *  - nomatch : la carte est sélectionnée et ne contribue pas à l'option ou est superflue
-         *  - matchable : la carte n'est pas sélectionnée mais pourrait contribuer à l'option
-         */
-        let scoreFromCards = 0;
-        this.playerManager.hand.forEach(card => {
-            if(this.playerManager.cardsSelected.includes(card)) {
-                // Cette carte est sélectionnée...
-                if(scoreFromCards >= option.score) {
-                    // ... et elle est superflue : nomatch
-                    
-                }
-                else if(this.cardMatchWithDialogueOption(card, option)) {
-                    // ... et elle correspond à l'option : match
-                    scoreFromCards += card.score;
-                }
-                else {
-                    // Et elle ne correspond pas à l'option : nomatch
-                }
-            }
-            else {
-                // Cette carte n'est pas sélectionnée...
-                if(this.cardMatchWithDialogueOption(card, option)) {
-                    // ... et elle correspond à l'option : matchable
-                }
-            }
-        });
 
+        const scoreFromCards = this.cardsUpdateStatus();
+
+        // On met à jour l'affichage de l'option de dialogue. Pas besoin de refaire l'update de toutes les options avec dialogueOptionsUpdateStatus(), seule l'option sélectionnée est impactée
         if(scoreFromCards >= option.score) {
             // L'option match
+            this.displayManager.changeDialogueOptionStatus(optionIndex, "match");
+        }
+        else {
+            // L'option est simplement sélectionnée
+            this.displayManager.changeDialogueOptionStatus(optionIndex, "selected");
         }
     }
 
     unselectDialogueOption() {
         this.dialogueOptionSelected = null;
-        // Update de l'affichage pour montrer que l'option n'est plus sélectionnée, ainsi que de l'affichage des cartes
+
+        // Update de l'affichage des options de dialogue
+        this.dialogueOptionsUpdateStatus();
+
+        // Update de l'affichage des cartes
+        this.cardsUpdateStatus();
+    }
+
+    /**
+     * Met à jour le statut d'affichage des cartes de la main du joueur ("selected" | "match" | "nomatch" | "matchable" | null) et renvoie le score des cartes sélectionnées pour l'option sélectionnée
+     * @returns number : le score des cartes sélectionnées pour l'option sélectionnée (0 si pas d'option sélectionnée)
+     */
+    cardsUpdateStatus(): number {
+        if(this.dialogueOptionSelected) {
+            // Une option est sélectionnée
+            const option = this.dialogueOptionSelected;
+        
+            /* On passe en revue les cartes du joueur pour mettre à jour leur affichage
+            *  - match : la carte est sélectionnée et contribue à l'option
+            *  - nomatch : la carte est sélectionnée et ne contribue pas à l'option ou est superflue
+            *  - matchable : la carte n'est pas sélectionnée mais pourrait contribuer à l'option
+            */
+            let scoreFromCards = 0;
+            this.playerManager.hand.forEach(card => {
+                if(this.playerManager.cardsSelected.includes(card)) {
+                    // Cette carte est sélectionnée...
+                    if(scoreFromCards >= option.score) {
+                        // ... et elle est superflue : nomatch
+                        this.displayManager.changeCardStatus(card, "nomatch");
+                    }
+                    else if(this.cardMatchWithDialogueOption(card, option)) {
+                        // ... et elle correspond à l'option : match
+                        this.displayManager.changeCardStatus(card, "match");
+                        scoreFromCards += card.score;
+                    }
+                    else {
+                        // Et elle ne correspond pas à l'option : nomatch
+                        this.displayManager.changeCardStatus(card, "nomatch");
+                    }
+                }
+                else {
+                    // Cette carte n'est pas sélectionnée...
+                    if(this.cardMatchWithDialogueOption(card, option)) {
+                        // ... et elle correspond à l'option : matchable
+                        this.displayManager.changeCardStatus(card, "matchable");
+                    }
+                }
+            });
+            return scoreFromCards;
+        }
+        else {
+            // Pas d'option sélectionnée
+            this.playerManager.hand.forEach(card => {
+                if(this.playerManager.cardsSelected.includes(card)) {
+                    // Cette carte est sélectionnée : selected
+                    this.displayManager.changeCardStatus(card, "selected");
+                }
+                else {
+                    // Cette carte n'est pas sélectionnée : affichage normal
+                    this.displayManager.changeCardStatus(card, null);
+                }
+            });
+            return 0;
+        }
+    }
+
+    /**
+     * Passe en revue les options de dialogue affichées pour définir leur statut ("match" | "matchable" | "selected" | rien) en fonction des cartes sélectionnées par le joueur
+     * @returns boolean
+     */
+    dialogueOptionsUpdateStatus(): void {
         // On calcule le score par mood pour montrer les options de dialogue matchable
         const scoreByMood = {
             "Agressif": 0,
@@ -202,39 +272,42 @@ export default class GameManager {
             "Séducteur": 0
         } as Record<Mood, number>;
 
-        this.playerManager.hand.forEach(card => {
-            if(this.playerManager.cardsSelected.includes(card)) {
-                // Cette carte est sélectionnée : selected
-                // On ajoute le score des moods
-                card.moods.forEach(mood => {
-                    scoreByMood[mood] += card.score;
-                });
+        this.playerManager.cardsSelected.forEach(card => {
+            // On ajoute le score aux moods correspondants
+            card.moods.forEach(mood => {
+                scoreByMood[mood] += card.score;
+            });
+        });
+
+        // On passe en revue les options de dialogue pour voir lesquelles sont matchable
+        this.currentDialogue.options?.forEach((option, index) => {
+            let score: number = 0;
+            option.moods.forEach(mood => {
+                score += scoreByMood[mood];
+            });
+            if(score >= option.score) {
+                // La conditions de score de l'option est remplie...
+                if(this.dialogueOptionSelected == option) {
+                    // ... et c'est l'option sélectionnée : match
+                    this.displayManager.changeDialogueOptionStatus(index, "match");
+                }
+                else {
+                    // ... et elle n'est pas sélectionnée : matchable
+                    this.displayManager.changeDialogueOptionStatus(index, "matchable");
+                }
             }
             else {
-                // Cette carte n'est pas sélectionnée : affichage normal
+                // Score insufisant...
+                if(this.dialogueOptionSelected == option) {
+                    // ... et c'est l'option sélectionnée : selected
+                    this.displayManager.changeDialogueOptionStatus(index, "selected");
+                }
+                else {
+                    // ... et elle n'est pas sélectionnée : null
+                    this.displayManager.changeDialogueOptionStatus(index, null);
+                }
             }
         });
-    }
-
-    /**
-     * Cette option de dialogue matche-t-elle avec les cartes actuellement sélectionnées par le joueur ? Appelé quand le joueur clique sur une carte dans un choix de dialogue
-     * @param option - DialogueOption
-     * @returns boolean
-     */
-    dialogueOptionMatchableWithCardsSelected(option: DialogueOption): boolean {
-        if(option.score <= 0) 
-            return true; // Pas de pré-requis de score : forcément vrai
-        if(this.playerManager.cardsSelected.length == 0)
-            return false; // Pas de cartes sélectionnées : forcément faux
-
-        // On va parcourir les cartes sélectionnées par le joueur qui correspondent aux moods de l'option, et calculer leurs scores
-        let scoreFromCards = 0;
-        this.playerManager.cardsSelected.forEach(card => {
-            if(this.cardMatchWithDialogueOption(card, option)) {
-                scoreFromCards += card.score;
-            }
-        });
-        return scoreFromCards >= option.score;
     }
 
     /**

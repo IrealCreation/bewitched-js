@@ -27,6 +27,18 @@ export default class PlayerManager {
     }
 
     /**
+     * Sélectionne / déselectionne une carte de la main du joueur
+     * @param card 
+     */
+    toggleCard(card: Card): void {
+        if(!this.cardsSelected.includes(card)) {
+            this.cardsSelected.push(card);
+        } else {
+            this.cardsSelected = this.cardsSelected.filter(c => c !== card);
+        }
+    }
+
+    /**
      * Ajoute des cartes au deck du joueur
      * @param cards - Card[] : liste des cartes gagnées par le joueur
      * @param addTo - PlayerCardStack : endroit où ajouter les nouvelles cartes. Si c'est dans la pioche, elle est mélangée (pioche par défaut)

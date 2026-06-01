@@ -187,6 +187,18 @@ export default class DisplayManager {
         this.awaitTransition(this.deckContainer);
     }
 
+    changeDialogueOptionStatus(index: number, status: "match" | "matchable" | "selected" | null): void {
+        const optionElement = this.dialogueOptionElements[index];
+        if(optionElement) {
+            // On retire les classes non désirées
+            optionElement.classList.remove("match", "matchable", "selected");
+            if(status) {
+                // On ajoute la classe désirée
+                optionElement.classList.add(status);
+            }
+        }
+    }
+
     async displayNewCards(cards: Card[]): Promise<void> {
         this.newCardsFlexbox.innerHTML = ""; // Reset des cartes déjà affichées
         cards.forEach(card => {
@@ -205,6 +217,23 @@ export default class DisplayManager {
 
         // Gestion de l'animation
         await this.awaitTransition(this.newCardsOverlay);
+    }
+
+    /**
+     * Change le statut d'affichage de la carte dans la main du joueur
+     * @param card 
+     * @param status - "match" | "matchable" | "nomatch" | "selected" | null (pour retirer tous les autres statuts)
+     */
+    changeCardStatus(card: Card, status: "match" | "matchable" | "nomatch" | "selected" | null): void {
+        const cardElement = document.getElementById("card-" + card.instanceKey);
+        if(cardElement) {
+            // On retire les classes non désirées
+            cardElement?.classList.remove("match", "matchable", "nomatch", "selected");
+            if(status) {
+                // On ajoute la classe désirée
+                cardElement.classList.add(status);
+            }
+        }
     }
 
     /**
@@ -235,6 +264,8 @@ export default class DisplayManager {
         cardScore.classList.add("score");
         cardScore.textContent = card.score.toString();
         cardElement.append(cardScore);
+
+        cardElement.id = "card-" + card.instanceKey; // ID de l'élément HTML de la carte, pour pouvoir le retrouver facilement dans le DOM
 
         return cardElement;
     }
