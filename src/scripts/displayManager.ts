@@ -219,11 +219,9 @@ export default class DisplayManager {
         await this.awaitTransition(this.newCardsOverlay);
     }
 
-    addCardsInHand(cards: Card[]): void {
-        cards.forEach(card => {
-            const cardElement = this.createCard(card);
-            this.handContainer.append(cardElement);
-        });
+    addCardToHand(card: Card): void {
+        const cardElement = this.createCard(card);
+        this.handContainer.append(cardElement);
     }
 
     /**

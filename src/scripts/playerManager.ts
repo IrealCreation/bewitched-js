@@ -1,5 +1,6 @@
 import { CardModel } from "../types/types";
 import Card from "./card";
+import GameManager from "./gameManager";
 
 
 /**
@@ -67,6 +68,8 @@ export default class PlayerManager {
         }
         const card: Card = this.pioche.pop()!;
         this.hand.push(card);
+        // Affichage de la carte dans la main du joueur
+        GameManager.instance.displayManager.addCardToHand(card);
         return card;
     }
 
