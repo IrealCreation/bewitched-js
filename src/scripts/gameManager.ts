@@ -147,12 +147,15 @@ export default class GameManager {
 
         if(this.dialogueOptionSelected == option) {
             // C'est option qui est déjà sélectionnée : on la deselect
-            this.dialogueOptionSelected = null;
-            // TODO: update de l'affichage pour montrer que l'option n'est plus sélectionnée, ainsi que de l'affichage des cartes pour que toutes celles sélectionnées repassent en "selected"
+            this.unselectDialogueOption();
             return;
         }
-        this.dialogueOptionSelected = option;
+        this.selectDialogueOption(option);
+    }
 
+    selectDialogueOption(option: DialogueOption) {
+        this.dialogueOptionSelected = option;
+        
         /* On passe en revue les cartes du joueur pour mettre à jour leur affichage
          *  - match : la carte est sélectionnée et contribue à l'option
          *  - nomatch : la carte est sélectionnée et ne contribue pas à l'option ou est superflue
@@ -187,8 +190,30 @@ export default class GameManager {
         }
     }
 
-    selectDialogueOption() {
+    unselectDialogueOption() {
+        this.dialogueOptionSelected = null;
+        // Update de l'affichage pour montrer que l'option n'est plus sélectionnée, ainsi que de l'affichage des cartes
+        // On calcule le score par mood pour montrer les options de dialogue matchable
+        const scoreByMood = {
+            "Agressif": 0,
+            "Calme": 0,
+            "Hautain": 0,
+            "Joyeux": 0,
+            "Séducteur": 0
+        } as Record<Mood, number>;
 
+        this.playerManager.hand.forEach(card => {
+            if(this.playerManager.cardsSelected.includes(card)) {
+                // Cette carte est sélectionnée : selected
+                // On ajoute le score des moods
+                card.moods.forEach(mood => {
+                    scoreByMood[mood] += card.score;
+                });
+            }
+            else {
+                // Cette carte n'est pas sélectionnée : affichage normal
+            }
+        });
     }
 
     /**
