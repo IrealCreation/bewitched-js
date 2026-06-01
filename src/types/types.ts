@@ -2,8 +2,8 @@ export interface DialogueStorage {
     [id: string]: Dialogue;
 }
 
-export interface CardStorage {
-    [id: string]: Card;
+export interface CardModelStorage {
+    [id: string]: CardModel;
 }
 
 export interface GameVariableStorage {
@@ -35,9 +35,9 @@ export interface DialogueOption {
 }
 
 /**
- * Carte de psyché du joueur
+ * Modèle de carte de psyché du joueur
  */
-export interface Card {
+export interface CardModel {
     id: string;
     name: string;
     moods: Mood[];

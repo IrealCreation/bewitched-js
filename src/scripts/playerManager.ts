@@ -1,4 +1,6 @@
-import { Card } from "../types/types";
+import { CardModel } from "../types/types";
+import Card from "./card";
+
 
 /**
  * Le PlayerManager contrôle les cartes du joueurs
@@ -30,6 +32,7 @@ export default class PlayerManager {
      * @param addTo - PlayerCardStack : endroit où ajouter les nouvelles cartes. Si c'est dans la pioche, elle est mélangée (pioche par défaut)
      */
     gainCards(cards: Card[], addTo: PlayerCardStack = "pioche") {
+        // On ajoute les cartes instanciées dans la stack demandée du joueur
         this.getPlayerCardStack(addTo).push(...cards);
         if(addTo == "pioche") {
             // Si on a ajouté dans la pioche, on mélange cette dernière

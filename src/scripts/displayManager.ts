@@ -1,5 +1,7 @@
 import GameManager from "./gameManager";
-import { Card, Dialogue, DialogueOption } from "../types/types";
+import { CardModel, Dialogue, DialogueOption } from "../types/types";
+import Card from "./card";
+// import Card from "./card";
 
 /**
  * Le DisplayManager est responsable de l'affichage du jeu

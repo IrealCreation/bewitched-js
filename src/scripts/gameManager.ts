@@ -1,10 +1,11 @@
-import { DialogueStorage, CardStorage, GameVariableStorage, Dialogue, DialogueOption, Card, Mood } from "../types/types";
+import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood } from "../types/types";
 import DisplayManager from "./displayManager";
 import PlayerManager from "./playerManager";
+import Card from "./card";
 
 // JSON data
 import Dialogues from "../data/dialogues.json";
-import Cards from "../data/cards.json";
+import CardModels from "../data/cardModels.json";
 
 /**
  * Le GameManager est responsable de la gestion globale du jeu, et peut être appelé via sa valeur statique "instance".
@@ -14,7 +15,7 @@ export default class GameManager {
     static instance: GameManager;
 
     dialogues: DialogueStorage;
-    cards: CardStorage;
+    cards: CardModelStorage;
     gameVariables: GameVariableStorage;
 
     displayManager: DisplayManager;
@@ -32,7 +33,7 @@ export default class GameManager {
         GameManager.instance = this;
 
         this.dialogues = Dialogues as DialogueStorage;
-        this.cards = Cards as CardStorage;
+        this.cards = CardModels as CardModelStorage;
         this.gameVariables = {} as GameVariableStorage;
 
         this.displayManager = new DisplayManager();
@@ -104,7 +105,7 @@ export default class GameManager {
         const cardsToGain: Card[] = []; 
         // Récupération des objets Card avec leurs id
         this.currentDialogue.cardGain!.forEach(cardId => {
-            cardsToGain.push(this.getCard(cardId));
+            cardsToGain.push(new Card(this.getCardModel(cardId)));
         });
         this.displayManager.displayNewCards(cardsToGain);
         this.currentDialogueCardsGained = true;
@@ -151,33 +152,43 @@ export default class GameManager {
             return;
         }
         this.dialogueOptionSelected = option;
-        this.reviewCardsSelectedForDialogueOptionSelected();
-    }
 
-    /**
-     * Passe en revue les cartes sélectionnées par le joueur pour l'option de dialogue sélectionnée. Appelé quand le joueur pré-sélectionne une option dans un choix de dialogue
-     * @returns boolean True si l'option de dialogue est un match
-     */
-    reviewCardsSelectedForDialogueOptionSelected(): boolean {
-        if(this.playerManager.cardsSelected.length == 0)
-            return false;
-
+        /* On passe en revue les cartes du joueur pour mettre à jour leur affichage
+         *  - match : la carte est sélectionnée et contribue à l'option
+         *  - nomatch : la carte est sélectionnée et ne contribue pas à l'option ou est superflue
+         *  - matchable : la carte n'est pas sélectionnée mais pourrait contribuer à l'option
+         */
         let scoreFromCards = 0;
-        const option: DialogueOption = this.dialogueOptionSelected!;
-        
-        this.playerManager.cardsSelected.forEach(card => {
-            if(scoreFromCards >= option.score) {
-                // Cette option est superflue : nomatch
-            }
-            else if(this.cardMatchWithDialogueOption(card, option)) {
-                // Cette option correspond : match
-                scoreFromCards += card.score;
+        this.playerManager.hand.forEach(card => {
+            if(this.playerManager.cardsSelected.includes(card)) {
+                // Cette carte est sélectionnée...
+                if(scoreFromCards >= option.score) {
+                    // ... et elle est superflue : nomatch
+                    
+                }
+                else if(this.cardMatchWithDialogueOption(card, option)) {
+                    // ... et elle correspond à l'option : match
+                    scoreFromCards += card.score;
+                }
+                else {
+                    // Et elle ne correspond pas à l'option : nomatch
+                }
             }
             else {
-                // Cette option ne correspond pas : nomatch
+                // Cette carte n'est pas sélectionnée...
+                if(this.cardMatchWithDialogueOption(card, option)) {
+                    // ... et elle correspond à l'option : matchable
+                }
             }
         });
-        return scoreFromCards >= option.score;
+
+        if(scoreFromCards >= option.score) {
+            // L'option match
+        }
+    }
+
+    selectDialogueOption() {
+
     }
 
     /**
@@ -230,10 +241,10 @@ export default class GameManager {
     }
 
     /**
-     * Récupère une carte du storage grâce à son id
+     * Récupère un modèle de carte du storage grâce à son id
      * @param cardId - string : l'id de la carte à récupérer
      */
-    getCard(cardId: string): Card {
+    getCardModel(cardId: string): CardModel {
         // Vérification de validité
         if(!(cardId in this.cards)) {
             console.error("GameManager::getCard() : cardId %s inconnu", cardId);
