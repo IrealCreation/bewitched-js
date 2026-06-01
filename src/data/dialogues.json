@@ -1,16 +1,42 @@
 {
-    "test": {
+    "test_001": {
         "id": "test",
         "texts": [
             "[TEST]",
-            "“Tabula Rasa”. Telles sont les grandes lettres en néon intense, brillantes dans la nuit, qui ornent la façade du bâtiment dans lequel tu t'engouffres. Un choix de nom évocateur dont tu ne peux qu'apprécier l'ironie.",
-            "Laissant derrière toi une file d'attente qui ne cesse de s'allonger, tu dépasses le regard d'un videur qui te jauge d'un rapide coup d'oeil puis tu paies le droit de passage à une hôtesse qui t'accueille d'un “bonsoir et amusez-vous bien mademoiselle” tout en scrollant distraitement sur son smartphone.",
-            "Devant toi s'étend un long couloir plongé dans la pénombre enfumée qui fait office d'antichambre de ces profondeurs où résonne une musique encore étouffée ; antre nocturne dédiée aux divinités modernes de stupre et de lucre...",
-            "Mais ce n'est pas pour t'amuser que tu es venue ici. Tu as une tâche à accomplir. Une tâche importante, dont des vies dépendent - à commencer par la tienne. Ce que tu mets en jeu en entrant ici n'est rien de moins que ta propre psyché.",
-            "Face à cette perspective, tu te sens..."
+            "Bienvenue dans Bewitched ! Tiens, voici des cartes."
         ],
         "cardGain": [
-            "2cj_paix_interieure", "2as_en_chasse", "2ch_mental_acier"
+            "2cj_paix_interieure",
+            "2as_en_chasse",
+            "2ch_mental_acier",
+            "1aj",
+            "1cs"
+        ],
+        "gameEffects": ["resetPlayerStacks"],
+        "goto" : "test_002"
+    },
+    "test_002": {
+        "id": "test",
+        "texts": [
+            "[TEST]",
+            "Devant toi, un code TypeScript qui ne compile pas. Que fais-tu ?"
+        ],
+        "options": [
+            {
+                "text": "Je lui fais une germann supplex",
+                "moods": ["Agressif"],
+                "score": 2
+            },
+            {
+                "text": "Je fais les yeux doux à mon fidèle agent IA",
+                "moods": ["Hautain", "Séducteur"],
+                "score": 3
+            },
+            {
+                "text": "Je vais me promener en forêt",
+                "moods": ["Joyeux", "Calme"],
+                "score": 3
+            }
         ],
         "goto" : "intro_001"
     },

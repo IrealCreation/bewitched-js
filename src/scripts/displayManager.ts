@@ -219,6 +219,13 @@ export default class DisplayManager {
         await this.awaitTransition(this.newCardsOverlay);
     }
 
+    addCardsInHand(cards: Card[]): void {
+        cards.forEach(card => {
+            const cardElement = this.createCard(card);
+            this.handContainer.append(cardElement);
+        });
+    }
+
     /**
      * Change le statut d'affichage de la carte dans la main du joueur
      * @param card 
@@ -264,6 +271,10 @@ export default class DisplayManager {
         cardScore.classList.add("score");
         cardScore.textContent = card.score.toString();
         cardElement.append(cardScore);
+        // Event listener
+        cardElement.addEventListener("click", () => {
+            GameManager.instance.cardClick(card);
+        });
 
         cardElement.id = "card-" + card.instanceKey; // ID de l'élément HTML de la carte, pour pouvoir le retrouver facilement dans le DOM
 

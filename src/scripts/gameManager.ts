@@ -1,4 +1,4 @@
-import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood } from "../types/types";
+import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood, GameEffects } from "../types/types";
 import DisplayManager from "./displayManager";
 import PlayerManager from "./playerManager";
 import Card from "./card";
@@ -40,7 +40,7 @@ export default class GameManager {
         this.displayManager = new DisplayManager();
         this.playerManager = new PlayerManager();
 
-        this.currentDialogue = this.dialogues["intro_001"];
+        this.currentDialogue = this.dialogues["test_001"];
         this.playIntroScreen();
     }
 
@@ -164,7 +164,6 @@ export default class GameManager {
             console.error("GameManager::dialogueOptionClick() : optionIndex %d invalide", optionIndex);
             return;
         }
-        console.log("Option cliquée : ", option);
 
         if(this.dialogueOptionSelected == option) {
             // C'est option qui est déjà sélectionnée : on la deselect
@@ -198,6 +197,10 @@ export default class GameManager {
 
         // Update de l'affichage des cartes
         this.cardsUpdateStatus();
+    }
+
+    confirmDialogueOption() {
+
     }
 
     /**
@@ -324,7 +327,12 @@ export default class GameManager {
      * Passe au dialogue indiqué
      * @param dialogueId - string : l'id du dialogue vers lequel aller
      */
-    dialogueGoto(dialogueId: string) {
+    dialogueGoto(dialogueId: string): void {
+        // Avant le goto, on applique les éventuels GameEffects de l'actuel dialogue
+        if(this.currentDialogue?.gameEffects) {
+            this.applyGameEffects(this.currentDialogue.gameEffects)
+        }
+
         // On réinitialise les valeurs de contrôle du dialogue
         this.currentDialogueText = 0;
         this.currentDialogueCardsGained = false;
@@ -336,6 +344,20 @@ export default class GameManager {
         this.currentDialogue = this.dialogues[dialogueId];
 
         this.dialogueShowText();
+    }
+
+    applyGameEffects(gameEffects: GameEffects[]): void {
+        gameEffects.forEach(gameEffect => {
+            switch (gameEffect) {
+                case "resetPlayerStacks":
+                    this.playerManager.resetPlayerStacks();
+                    break;
+            
+                default:
+                    console.error("GameManager::applyGameEffect() : gameEffect %s inconnu", gameEffect);
+                    break;
+            }
+        });
     }
 
     /**

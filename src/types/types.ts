@@ -19,6 +19,7 @@ export interface Dialogue {
     options?: DialogueOption[];
     goto?: string; // ID du dialogue vers lequel aller à la fin de ce dialogue s'il n'y a pas d'options ou si l'option choisie n'a pas de goto
     cardGain?: string[]; // IDs des cartes gagnées à la fin du dialogue
+    gameEffects?: GameEffects[]; // Effets spéciaux à déclencher dans la programmation du jeu
 }
 
 /**
@@ -57,3 +58,7 @@ export interface GameVariableChange {
 }
 
 export type Mood = "Agressif" | "Calme" | "Hautain" | "Joyeux" | "Séducteur";
+
+export type GameEffects = 
+    "resetPlayerStacks" // Remet toutes les cartes du deck dans la pioche, la mélange, puis pioche une main
+;

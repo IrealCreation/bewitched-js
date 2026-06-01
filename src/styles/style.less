@@ -60,6 +60,7 @@ body {
         flex: 1;
         padding: 3em 6em;
         font-size: 1.5rem;
+        border-top: 1px solid var(--bg-light);
 
         display: none; // On doit utiliser display et non visibilité, sans quoi l'élément ne sort pas de la mise en page
         &.active {
@@ -120,6 +121,8 @@ body {
         flex: 1;
         // height: 33vh;
         display: none;
+        border-top: 1px solid var(--bg-light);
+        
         &.active {
             display: flex;
         }
@@ -129,6 +132,7 @@ body {
             justify-content: center;
             gap: 2em;
             padding: 2em;
+            width: 100%;
         }
 
     }

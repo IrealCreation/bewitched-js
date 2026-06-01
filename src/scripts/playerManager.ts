@@ -18,6 +18,8 @@ export default class PlayerManager {
     // Cartes dans la défausse du joueur
     defausse: Card[] = [];
 
+    static playerHandSize: number = 5; // Nombre de cartes par défaut dans la main du joueur
+
     /**
      * Renvoie la liste de toutes les cartes possédées par le joueur, c'est-à-dire l'agrégation de pioche + main + defausse
      */
@@ -50,6 +52,35 @@ export default class PlayerManager {
             // Si on a ajouté dans la pioche, on mélange cette dernière
             this.shuffle(addTo);
         }
+    }
+
+    /**
+     * Pioche une carte, l'ajoute à la main, et la retourne
+     * @returns Card : la carte piochée
+     */
+    drawCard(): Card {
+        if(this.pioche.length == 0) {
+            // Si la pioche est vide, on remélange la défausse pour en faire une nouvelle pioche
+            this.pioche = this.defausse;
+            this.defausse = [];
+            this.shuffle("pioche");
+        }
+        const card: Card = this.pioche.pop()!;
+        this.hand.push(card);
+        return card;
+    }
+
+    /**
+     * Pioche plusieurs cartes, les ajoute à la main, et les retourne
+     * @param quantity - number : combien de cartes piocher
+     * @returns Card[] : les cartes piochées
+     */
+    drawCards(quantity: number): Card[] {
+        const cards: Card[] = [];
+        for (let index = 0; index < quantity; index++) {
+            cards.push(this.drawCard());
+        }
+        return cards;
     }
 
     /**
@@ -88,6 +119,14 @@ export default class PlayerManager {
             case "defausse":
                 return this.defausse;
         }
+    }
+
+    resetPlayerStacks() {
+        this.pioche = this.pioche.concat(this.hand, this.defausse);
+        this.hand = [];
+        this.defausse = [];
+        this.shuffle("pioche");
+        this.drawCards(PlayerManager.playerHandSize);
     }
 }
 
