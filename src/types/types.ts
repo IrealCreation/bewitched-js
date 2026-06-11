@@ -29,10 +29,11 @@ export interface DialogueOption {
     text: string;
     moods: Mood[];
     score: number;
-    cardGain?: string[]; // IDs des cartes gagnées quand cette option est choisie
     goto?: string;
+    cardGain?: string[]; // IDs des cartes gagnées quand cette option est choisie
     conditions?: GameCondition[]; // Conditions à remplir pour que cette option soit disponible
     variableChanges?: GameVariableChange[]; // Changements de variables à appliquer quand cette option est choisie
+    dontWriteInDialogue?: true; // Si cette propriété est spécifiée, on n'écrit pas le contenu de l'option dans le flux des dialogues
 }
 
 /**

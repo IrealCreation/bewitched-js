@@ -23,22 +23,48 @@
         ],
         "options": [
             {
-                "text": "Je lui fais une germann supplex",
+                "text": "Je lui fais une german supplex",
                 "moods": ["Agressif"],
-                "score": 2
+                "score": 2,
+                "goto": "test_002_supplex"
             },
             {
                 "text": "Je fais les yeux doux à mon fidèle agent IA",
                 "moods": ["Hautain", "Séducteur"],
-                "score": 3
+                "score": 3,
+                "goto": "test_002_ia"
             },
             {
                 "text": "Je vais me promener en forêt",
                 "moods": ["Joyeux", "Calme"],
-                "score": 3
+                "score": 3,
+                "goto": "test_002_foret"
             }
+        ]
+    },
+    "test_002_supplex": {
+        "id": "test_002_supplex",
+        "texts": [
+            "Un arbitre jaillit et tape trois fois au sol. Tu es le nouveau champion de la compilation !"
         ],
-        "goto" : "intro_001"
+        "cardGain": ["2ac_poing_justice"],
+        "goto": "intro_001"
+    },
+    "test_002_ia": {
+        "id": "test_002_ia",
+        "texts": [
+            "Copilot t'envoie une facture à 4 chiffres, que tu règles sans difficulté grâce à ton salaire mirobolant de développeur de la fonction publique."
+        ],
+        "cardGain": ["3h_gouts_luxes"],
+        "goto": "intro_001"
+    },
+    "test_002_foret": {
+        "id": "test_002_foret",
+        "texts": [
+            "Tu te reconnectes aux choses qui comptent vraiment, et décide de partir vivre une aventure palpitante au travers de la forêt de Fontainebleau."
+        ],
+        "cardGain": ["3j_hippie"],
+        "goto": "intro_001"
     },
     "intro_001": {
         "id": "intro_001",

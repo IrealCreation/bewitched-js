@@ -1,4 +1,4 @@
-import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood, GameEffects } from "../types/types";
+import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood, GameEffects, GameVariableChange } from "../types/types";
 import DisplayManager from "./displayManager";
 import PlayerManager from "./playerManager";
 import Card from "./card";
@@ -27,6 +27,7 @@ export default class GameManager {
 
     inDialogueChoice: boolean = false; // True si un choix de dialogue est affiché et qu'on attend que le joueur sélectionne une option
     dialogueOptionSelected: DialogueOption | null = null; // L'option de dialogue actuellement sélectionnée par le joueur (null si aucune)
+    dialogueOptionCardsGained: boolean = false; // True si les cartes de l'option sélectionnée ont été gagnées
 
     awaitingForAnimation: boolean = false; // True si on attend une fin d'animation et que les interactions sont interdites pendant ce temps
 
@@ -91,7 +92,7 @@ export default class GameManager {
     }
 
     dialogueShowText() {
-        this.displayManager.displayDialogueText(this.currentDialogue, this.currentDialogueText);
+        this.displayManager.displayDialogueText(this.currentDialogue.texts[this.currentDialogueText]);
     }
 
     dialogueShowOptions() {
@@ -117,6 +118,19 @@ export default class GameManager {
         this.playerManager.gainCards(cardsToGain);
     }
 
+    dialogueOptionCardGain() {
+        const cardsToGain: Card[] = []; 
+        // Récupération des objets Card avec leurs id
+        this.dialogueOptionSelected!.cardGain!.forEach(cardId => {
+            cardsToGain.push(new Card(this.getCardModel(cardId)));
+        });
+        this.displayManager.displayNewCards(cardsToGain);
+        this.dialogueOptionCardsGained = true;
+        
+        // On ajoute ces cartes au deck du joueur (pioche par défaut)
+        this.playerManager.gainCards(cardsToGain);
+    }
+
     /**
      * Déclenché quand le joueur clique sur l'interface d'affichage des nouvelles cartes
      */
@@ -128,7 +142,18 @@ export default class GameManager {
         this.displayManager.hideNewCards()
             .then(() => {
                 // Après la fin de l'animation de disparition de l'overlay, on passe à la suite des dialogues
-                this.dialogueOverlayClick();
+                if(this.currentDialogueCardsGained)
+                    // On confirme le gain de cartes du dialogue avant de passer à la suite du dialogue
+                    this.dialogueOverlayClick();
+                else if(this.dialogueOptionCardsGained && this.dialogueOptionSelected!.goto)
+                    // On confirme le gain de cartes de l'option de dialogue avant de passer au goto de cette option
+                    this.dialogueGoto(this.dialogueOptionSelected!.goto);
+                else 
+                    // On confirme le gain de cartes de l'option de dialogue avant de passer au goto du dialogue
+                    this.dialogueGoto(this.currentDialogue.goto!);
+                
+                this.currentDialogueCardsGained = false;
+                this.dialogueOptionCardsGained = false;
             });
     }
 
@@ -209,6 +234,60 @@ export default class GameManager {
         if(!this.dialogueOptionSelected) {
             console.error("GameManager::confirmDialogueOption() : aucune option sélectionnée");
             return;
+        }
+        const option = this.dialogueOptionSelected;
+
+        // On retire les cartes nécessaires à cette option
+        const cardsToDiscard: Card[] = [];
+        let scoreFromCards = 0;
+        this.playerManager.cardsSelected.some((card) => {
+            // On utilise some() pour pouvoir sortir de la boucle dès que le score des cartes sélectionnées est suffisant pour l'option
+            if(this.cardMatchWithDialogueOption(card, option)) {
+                cardsToDiscard.push(card);
+                scoreFromCards += card.score;
+            }
+            if(scoreFromCards >= option.score) {
+                return true;
+            }
+        });
+        if(scoreFromCards < option.score) {
+            console.error("GameManager::confirmDialogueOption() : score insuffisant");
+            return;
+        }
+        cardsToDiscard.forEach((card) => {
+            this.playerManager.discard(card);
+            this.displayManager.removeCardFromHand(card);
+        })
+
+        // On réinitialise la sélection des cartes et leur affichage
+        this.playerManager.cardsSelected = [];
+        this.playerManager.hand.forEach((card) => {
+            this.displayManager.changeCardStatus(card, null);
+        })
+
+        // On pioche jusqu'à remplir la main
+        this.playerManager.drawCards();
+
+        // On applique les changements de variables
+        if(option.variableChanges) {
+            this.applyGameVariableChanges(option.variableChanges);
+        }
+
+        // On cache les options de dialogue
+        this.displayManager.hideDialogueOptions();
+
+        // On affiche le texte de l'option sélectionnée dans le flux des dialogues si l'option n'a pas l'indication "dontWriteInDialogue"
+        if(!option.dontWriteInDialogue) {
+            this.displayManager.displayDialogueText(option.text, true, ["option-text"]);
+        }
+        
+        if(option.cardGain) {
+            // On gagne les cartes, et on ira au goto après le click
+            this.dialogueOptionCardGain();
+        }
+        else if(option.goto) {
+            // Pas de cartes à gagner, on peut aller directement au goto de l'option
+            this.dialogueGoto(option.goto);
         }
     }
 
@@ -338,7 +417,6 @@ export default class GameManager {
 
         // On réinitialise les valeurs de contrôle du dialogue
         this.currentDialogueText = 0;
-        this.currentDialogueCardsGained = false;
 
         // Vérification de validité
         if(!(dialogueId in this.dialogues)) {
@@ -358,6 +436,42 @@ export default class GameManager {
             
                 default:
                     console.error("GameManager::applyGameEffect() : gameEffect %s inconnu", gameEffect);
+                    break;
+            }
+        });
+    }
+
+    /**
+     * Applique des changements de variables de jeu
+     * @param variableChanges 
+     */
+    applyGameVariableChanges(variableChanges: GameVariableChange[]): void {
+        variableChanges.forEach(change => {
+            let value: number;
+            if(typeof change.value == "string") {
+                // La value est une variable de jeu : on récupère sa valeur
+                value = this.gameVariables[change.value];
+            } else {
+                value = Number(change.value);
+            }
+
+            if(!(change.variable in this.gameVariables)) {
+                // Si la variable n'existe pas encore, on l'initialise à 0
+                this.gameVariables[change.variable] = 0;
+            }
+
+            switch (change.operator) {
+                case "+=":
+                    this.gameVariables[change.variable] += value;
+                    break;
+                case "-=":
+                    this.gameVariables[change.variable] -= value;
+                    break;
+                case "=":
+                    this.gameVariables[change.variable] = value;
+                    break;
+                default:
+                    console.error("GameManager::applyGameVariableChanges() : operator %s inconnu", change.operator);
                     break;
             }
         });

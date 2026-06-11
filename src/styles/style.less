@@ -55,6 +55,14 @@ body {
             margin: 1em auto;
             width: 44em;
             max-width: 100%;
+            
+            &.option-text {
+                font-style: italic;
+                padding-left: 2em;
+                &:before {
+                    content: ">> ";
+                }
+            }
         }
     }
     

@@ -106,17 +106,25 @@ export default class DisplayManager {
 
     /**
      * Lance l'affichage d'un texte de dialogue
-     * @param dialogue - Dialogue
-     * @param key - number : la key de l'entrée du tableau "texts" du dialogue à afficher
+     * @param text - string : contenu textuel à écrire
+     * @param instant - boolean : si true, le texte est affiché instantanément sans animation lettre par lettre (false par défaut)
+     * @param classes - string[] : classes à ajouter à cette ligne de dialogue (vide par défaut)
      */
-    displayDialogueText(dialogue: Dialogue, key: number): void {
+    displayDialogueText(text: string, instant: boolean = false, classes: string[] = []): void {
         // Création de la zone de texte du dialogue
         this.currentDialogueBox = document.createElement("div");
         this.currentDialogueBox.classList.add("dialogue-box");
+        if(classes.length > 0) {
+            this.currentDialogueBox.classList.add(...classes);
+        }
         this.dialoguesContainer.append(this.currentDialogueBox);
 
         this.isWriting = true;
-        this.writingText = dialogue.texts[key];
+        this.writingText = text;
+        if(instant) {
+            this.instantWriteDialogueText();
+            return;
+        }
         this.writeDialogueText();
     }
 
@@ -181,22 +189,27 @@ export default class DisplayManager {
             const optionText = document.createElement("p");
             optionText.classList.add("text");
             optionText.textContent = option.text;
-
             optionElement.append(optionText);
-            const optionMoods = document.createElement("p");
-            optionMoods.classList.add("moods");
-            option.moods.forEach((mood, moodIndex) => {
-                if(moodIndex > 0) {
-                    optionMoods.textContent += " - ";
-                }
-                optionMoods.textContent += mood;
-            });
-            optionElement.append(optionMoods);
+            // Moods
+            if(option.moods.length > 0) {
+                const optionMoods = document.createElement("p");
+                optionMoods.classList.add("moods");
+                option.moods.forEach((mood, moodIndex) => {
+                    if(moodIndex > 0) {
+                        optionMoods.textContent += " - ";
+                    }
+                    optionMoods.textContent += mood;
+                });
+                optionElement.append(optionMoods);
+            }
 
-            const optionScore = document.createElement("p");
-            optionScore.classList.add("score");
-            optionScore.textContent = option.score.toString();
-            optionElement.append(optionScore);
+            // Score
+            if(option.score > 0) {
+                const optionScore = document.createElement("p");
+                optionScore.classList.add("score");
+                optionScore.textContent = option.score.toString();
+                optionElement.append(optionScore);
+            }
 
             optionElement.addEventListener("click", () => {
                 GameManager.instance.dialogueOptionClick(index);
@@ -212,6 +225,17 @@ export default class DisplayManager {
 
         // On affiche le container du deck
         this.deckContainer.classList.add("active");
+        // Gestion de la transition (sans attente)
+        this.awaitTransition(this.deckContainer);
+    }
+
+    hideDialogueOptions(): void {
+        // On cache le container des options
+        this.dialogueOptionsContainer.classList.remove("active");
+        // Gestion de la transition (sans attente)
+        this.awaitTransition(this.dialogueOptionsContainer);
+        // On cache le container du deck
+        this.deckContainer.classList.remove("active");
         // Gestion de la transition (sans attente)
         this.awaitTransition(this.deckContainer);
     }
@@ -258,6 +282,13 @@ export default class DisplayManager {
     addCardToHand(card: Card): void {
         const cardElement = this.createCard(card);
         this.handContainer.append(cardElement);
+    }
+
+    removeCardFromHand(card: Card): void {
+        const cardElement = document.getElementById("card-" + card.instanceKey);
+        if(cardElement) {
+            this.handContainer.removeChild(cardElement);
+        }
     }
 
     /**

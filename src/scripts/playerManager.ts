@@ -75,15 +75,23 @@ export default class PlayerManager {
 
     /**
      * Pioche plusieurs cartes, les ajoute à la main, et les retourne
-     * @param quantity - number : combien de cartes piocher
+     * @param quantity - number : combien de cartes piocher. Si 0, alors on pioche jusqu'à remplir la main du joueur (0 par défaut)
      * @returns Card[] : les cartes piochées
      */
-    drawCards(quantity: number): Card[] {
+    drawCards(quantity: number = 0): Card[] {
+        if(quantity == 0) {
+            quantity = PlayerManager.playerHandSize - this.hand.length;
+        }
         const cards: Card[] = [];
         for (let index = 0; index < quantity; index++) {
             cards.push(this.drawCard());
         }
         return cards;
+    }
+
+    discard(card: Card): void {
+        this.hand = this.hand.filter(c => c !== card);
+        this.defausse.push(card);
     }
 
     /**
