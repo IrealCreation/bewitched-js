@@ -51,12 +51,12 @@ export default class DisplayManager {
         this.dialogueOverlay = document.createElement("div"),
         this.dialogueOverlay.classList.add("dialogue-overlay");
         this.gameContainer.append(this.dialogueOverlay);
-        this.dialogueOverlay.addEventListener("click", () => {
-            GameManager.instance.dialogueOverlayClick();
-        });
         // Container
         this.dialoguesContainer = document.createElement("div");
         this.dialoguesContainer.classList.add("dialogues-container");
+        this.dialoguesContainer.addEventListener("click", () => {
+            GameManager.instance.dialogueOverlayClick();
+        });
         this.dialogueOverlay.append(this.dialoguesContainer);
         // Initialisation de la current dialogue box vide
         this.currentDialogueBox = document.createElement("div");
@@ -168,7 +168,27 @@ export default class DisplayManager {
             const optionElement = document.createElement("div");
             optionElement.classList.add("dialogue-option-box");
             optionElement.id = "dialogue-option-" + index;
-            optionElement.textContent = option.text;
+
+            const optionText = document.createElement("p");
+            optionText.classList.add("text");
+            optionText.textContent = option.text;
+
+            optionElement.append(optionText);
+            const optionMoods = document.createElement("p");
+            optionMoods.classList.add("moods");
+            option.moods.forEach((mood, moodIndex) => {
+                if(moodIndex > 0) {
+                    optionMoods.textContent += " - ";
+                }
+                optionMoods.textContent += mood;
+            });
+            optionElement.append(optionMoods);
+
+            const optionScore = document.createElement("p");
+            optionScore.classList.add("score");
+            optionScore.textContent = option.score.toString();
+            optionElement.append(optionScore);
+
             optionElement.addEventListener("click", () => {
                 GameManager.instance.dialogueOptionClick(index);
             });
@@ -188,13 +208,19 @@ export default class DisplayManager {
     }
 
     changeDialogueOptionStatus(index: number, status: "match" | "matchable" | "selected" | null): void {
-        const optionElement = this.dialogueOptionElements[index];
+        // const optionElement = this.dialogueOptionElements[index];
+        const optionElement = document.getElementById("dialogue-option-" + index);
         if(optionElement) {
             // On retire les classes non désirées
             optionElement.classList.remove("match", "matchable", "selected");
             if(status) {
                 // On ajoute la classe désirée
                 optionElement.classList.add(status);
+
+                if(status === "match") {
+                    // Le statut "match" est également "selected"
+                    optionElement.classList.add("selected");
+                }
             }
         }
     }
@@ -238,6 +264,10 @@ export default class DisplayManager {
                 // On ajoute la classe désirée
                 cardElement.classList.add(status);
             }
+            // Dans le cas des status "match" | "nomatch", cela implique que la carte est également "selected"
+            if(status === "match" || status === "nomatch") {
+                cardElement.classList.add("selected");
+            }
         }
     }
 
@@ -250,12 +280,12 @@ export default class DisplayManager {
         const cardElement = document.createElement("div");
         cardElement.classList.add("card");
         // Name
-        const cardName = document.createElement("div");
+        const cardName = document.createElement("p");
         cardName.classList.add("name");
         cardName.textContent = card.name;
         cardElement.append(cardName);
         // Moods
-        const cardMoods = document.createElement("div");
+        const cardMoods = document.createElement("p");
         cardMoods.classList.add("moods");
         card.moods.forEach(mood => {
             if(cardMoods.textContent) {
@@ -265,7 +295,7 @@ export default class DisplayManager {
         });
         cardElement.append(cardMoods);
         // Score
-        const cardScore = document.createElement("div");
+        const cardScore = document.createElement("p");
         cardScore.classList.add("score");
         cardScore.textContent = card.score.toString();
         cardElement.append(cardScore);

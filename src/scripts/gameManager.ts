@@ -166,9 +166,13 @@ export default class GameManager {
         }
 
         if(this.dialogueOptionSelected == option) {
-            // C'est option qui est déjà sélectionnée : on la deselect
+            // C'est l'option qui est déjà sélectionnée : on la deselect
             this.unselectDialogueOption();
             return;
+        }
+        else if(this.dialogueOptionSelected) {
+            // Une autre option est déjà sélectionnée : on la deselect avant de sélectionner la nouvelle option
+            this.unselectDialogueOption();
         }
         this.selectDialogueOption(option, optionIndex);
     }
@@ -241,6 +245,10 @@ export default class GameManager {
                         // ... et elle correspond à l'option : matchable
                         this.displayManager.changeCardStatus(card, "matchable");
                     }
+                    else {
+                        // ... et elle ne correspond pas à l'option : affichage normal
+                        this.displayManager.changeCardStatus(card, null);
+                    }
                 }
             });
             return scoreFromCards;
@@ -266,28 +274,18 @@ export default class GameManager {
      * @returns boolean
      */
     dialogueOptionsUpdateStatus(): void {
-        // On calcule le score par mood pour montrer les options de dialogue matchable
-        const scoreByMood = {
-            "Agressif": 0,
-            "Calme": 0,
-            "Hautain": 0,
-            "Joyeux": 0,
-            "Séducteur": 0
-        } as Record<Mood, number>;
 
-        this.playerManager.cardsSelected.forEach(card => {
-            // On ajoute le score aux moods correspondants
-            card.moods.forEach(mood => {
-                scoreByMood[mood] += card.score;
-            });
-        });
-
-        // On passe en revue les options de dialogue pour voir lesquelles sont matchable
+        // On passe en revue les options de dialogue pour voir lesquelles sont matchables
         this.currentDialogue.options?.forEach((option, index) => {
             let score: number = 0;
-            option.moods.forEach(mood => {
-                score += scoreByMood[mood];
+
+            this.playerManager.cardsSelected.forEach(card => {
+                // Si les moods de la carte correspondent aux moods de l'option, on l'ajoute au score
+                if(this.cardMatchWithDialogueOption(card, option)) {
+                    score += card.score;
+                }
             });
+
             if(score >= option.score) {
                 // La conditions de score de l'option est remplie...
                 if(this.dialogueOptionSelected == option) {

@@ -58,7 +58,7 @@ body {
     
     .dialogue-options-container {
         flex: 1;
-        padding: 3em 6em;
+        padding: 2em 6em;
         font-size: 1.5rem;
         border-top: 1px solid var(--bg-light);
 
@@ -187,6 +187,7 @@ body {
     height: 200px;
     padding: 1em;
     background-color: var(--bg-light);
+    border: 3px solid var(--bg-light);
     border-radius: 10px;
     text-align: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -198,6 +199,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+
+    position: relative;
 
     .name {
         font-size: 1.12rem;
@@ -212,23 +215,20 @@ body {
     }
 
     &.selected {
-        // Le joueur a cliqué sur cette carte, mais il n'a pas encore sélectionné d'option
-        border-width: 3px;
+        // Le joueur a cliqué sur cette carte
         border-color: yellow;
+        top: -25px;
     }
     &.matchable {
         // Cette carte peut matcher avec l'option qu'il a sélectionné, mais il n'a pas encore cliqué dessus
-        border-width: 3px;
         border-color: rgba(62, 249, 255, 0.5);
     }
     &.match {
         // Le joueur a sélectionné cette carte qui match avec l'option sélectionnée
-        border-width: 3px;
         border-color: rgb(62, 249, 255);
     }
     &.nomatch {
         // Le joueur a sélectionné cette carte qui ne match pas ou est superflue avec l'option sélectionnée
-        border-width: 3px;
         border-color: darkred;
     }
 }
