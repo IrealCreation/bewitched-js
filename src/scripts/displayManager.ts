@@ -29,7 +29,7 @@ export default class DisplayManager {
     dialogueOptionsContainer: HTMLElement;
     dialogueOptionsFlexbox: HTMLElement;
     dialogueOptionElements: HTMLElement[] = [];
-    dialogueOptionsConfirm: HTMLElement;
+    dialogueOptionsConfirm: HTMLButtonElement;
 
     // Affichage du deck
     deckContainer: HTMLElement;
@@ -72,6 +72,9 @@ export default class DisplayManager {
         this.dialogueOptionsConfirm = document.createElement("button");
         this.dialogueOptionsConfirm.classList.add("dialogue-options-confirm");
         this.dialogueOptionsConfirm.textContent = "Choisir";
+        this.dialogueOptionsConfirm.addEventListener("click", () => {
+            GameManager.instance.confirmDialogueOption();
+        });
         this.dialogueOptionsContainer.append(this.dialogueOptionsConfirm);
 
         // Container global du deck du joueur
@@ -167,6 +170,7 @@ export default class DisplayManager {
     displayDialogueOptions(options: DialogueOption[]): void {
         this.dialogueOptionElements = [];
         this.dialogueOptionsFlexbox.innerHTML = "";
+        this.dialogueOptionsConfirm.disabled = true; // Le bouton de confirmation est désactivé par défaut
         
         // On crée le HTML des options de dialogue
         options.forEach((option, index) => {
@@ -224,6 +228,8 @@ export default class DisplayManager {
                 if(status === "match") {
                     // Le statut "match" est également "selected"
                     optionElement.classList.add("selected");
+                    // Et il signifie que le bouton de confirmation devient actif
+                    this.dialogueOptionsConfirm.disabled = false;
                 }
             }
         }

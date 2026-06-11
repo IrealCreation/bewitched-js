@@ -4,6 +4,8 @@
 
     --text-white: white;
     --text-grey: rgb(197, 197, 197);
+
+    --font-sans-serif: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 * {
@@ -57,8 +59,8 @@ body {
     }
     
     .dialogue-options-container {
+        padding: 0 6em;
         flex: 1;
-        padding: 2em 6em;
         font-size: 1.5rem;
         border-top: 1px solid var(--bg-light);
 
@@ -69,6 +71,7 @@ body {
         }
 
         .dialogue-options-flexbox {
+            padding: 2em 0;
             flex-grow: 1;
             display: flex;
             justify-content: space-evenly;
@@ -87,14 +90,12 @@ body {
                 &:not(.disabled):hover {
                     background-color: var(--bg-light);
                 }
-
                 &.disabled {
                     // Pas sûr de le conserver
                     cursor: not-allowed;
                     border-style: dashed;
                     opacity: 0.6;
                 }
-
                 &.selected {
                     // Le joueur a cliqué sur cette option, mais il n'a pas encore sélectionné les cartes requises
                     border-width: 3px;
@@ -110,21 +111,34 @@ body {
                     border-width: 3px;
                     border-color: rgb(62, 249, 255);
                 }
+
+                .moods {
+                    font-size: 0.9em;
+                    color: var(--text-grey);
+                    font-style: italic;
+                    margin: 0.5em 0;
+                }
             }
         }
 
         .dialogue-options-confirm {
             flex-shrink: 0;
             padding: 0.5em;
-            background-color: rgb(94, 94, 94);
-            border: 1px solid grey;
-            border-radius: 5px;
+            background-color: rgb(60, 60, 60);
+            cursor: not-allowed;
+            border: 1px dashed grey;
+            border-radius: 10px 10px 0 0;
             cursor: default;
+            font-family: var(--font-sans-serif);
+            font-size: 1.5rem;
+            color: grey;
 
-            &.active {
+            &:not(:disabled) {
                 border-color: rgb(62, 249, 255);
                 background-color: rgba(62, 249, 255, 0.5);
+                border-style: solid;
                 cursor: pointer;
+                color: white;
             }
         }
 
@@ -206,7 +220,7 @@ body {
     border: 3px solid var(--bg-light);
     border-radius: 10px;
     text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: var(--font-sans-serif);
     cursor: default;
 
     flex-shrink: 0;

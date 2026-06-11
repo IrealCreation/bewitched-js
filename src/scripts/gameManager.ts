@@ -204,7 +204,12 @@ export default class GameManager {
     }
 
     confirmDialogueOption() {
+        console.log("Option confirmée : ", this.dialogueOptionSelected);
 
+        if(!this.dialogueOptionSelected) {
+            console.error("GameManager::confirmDialogueOption() : aucune option sélectionnée");
+            return;
+        }
     }
 
     /**
