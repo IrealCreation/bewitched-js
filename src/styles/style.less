@@ -65,9 +65,11 @@ body {
         display: none; // On doit utiliser display et non visibilité, sans quoi l'élément ne sort pas de la mise en page
         &.active {
             display: flex;
+            flex-direction: column;
         }
 
         .dialogue-options-flexbox {
+            flex-grow: 1;
             display: flex;
             justify-content: space-evenly;
 
@@ -109,7 +111,21 @@ body {
                     border-color: rgb(62, 249, 255);
                 }
             }
+        }
 
+        .dialogue-options-confirm {
+            flex-shrink: 0;
+            padding: 0.5em;
+            background-color: rgb(94, 94, 94);
+            border: 1px solid grey;
+            border-radius: 5px;
+            cursor: default;
+
+            &.active {
+                border-color: rgb(62, 249, 255);
+                background-color: rgba(62, 249, 255, 0.5);
+                cursor: pointer;
+            }
         }
 
         align-items: center;

@@ -29,6 +29,7 @@ export default class DisplayManager {
     dialogueOptionsContainer: HTMLElement;
     dialogueOptionsFlexbox: HTMLElement;
     dialogueOptionElements: HTMLElement[] = [];
+    dialogueOptionsConfirm: HTMLElement;
 
     // Affichage du deck
     deckContainer: HTMLElement;
@@ -68,6 +69,10 @@ export default class DisplayManager {
         this.dialogueOptionsFlexbox = document.createElement("div");
         this.dialogueOptionsFlexbox.classList.add("dialogue-options-flexbox");
         this.dialogueOptionsContainer.append(this.dialogueOptionsFlexbox);
+        this.dialogueOptionsConfirm = document.createElement("button");
+        this.dialogueOptionsConfirm.classList.add("dialogue-options-confirm");
+        this.dialogueOptionsConfirm.textContent = "Choisir";
+        this.dialogueOptionsContainer.append(this.dialogueOptionsConfirm);
 
         // Container global du deck du joueur
         this.deckContainer = document.createElement("div");
@@ -208,8 +213,7 @@ export default class DisplayManager {
     }
 
     changeDialogueOptionStatus(index: number, status: "match" | "matchable" | "selected" | null): void {
-        // const optionElement = this.dialogueOptionElements[index];
-        const optionElement = document.getElementById("dialogue-option-" + index);
+        const optionElement = this.dialogueOptionElements[index];
         if(optionElement) {
             // On retire les classes non désirées
             optionElement.classList.remove("match", "matchable", "selected");
