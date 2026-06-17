@@ -212,7 +212,7 @@ export default class DisplayManager {
             }
 
             optionElement.addEventListener("click", () => {
-                GameManager.instance.dialogueOptionClick(index);
+                GameManager.instance.dialogueOptionClick(option, index);
             });
             this.dialogueOptionsFlexbox.append(optionElement);
             this.dialogueOptionElements.push(optionElement);

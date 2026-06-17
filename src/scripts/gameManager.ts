@@ -1,4 +1,4 @@
-import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood, GameEffects, GameVariableChange } from "../types/types";
+import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood, GameEffects, GameVariableChange, GameCondition } from "../types/types";
 import DisplayManager from "./displayManager";
 import PlayerManager from "./playerManager";
 import Card from "./card";
@@ -95,9 +95,22 @@ export default class GameManager {
         this.displayManager.displayDialogueText(this.currentDialogue.texts[this.currentDialogueText]);
     }
 
+    /**
+     * Affiche les options de dialogue du dialogue en cours
+     */
     dialogueShowOptions() {
-        // TODO: gestion des conditions d'affichage des options
-        this.displayManager.displayDialogueOptions(this.currentDialogue.options!);
+        // Vérification des conditions d'affichage des options
+        const optionsToShow: DialogueOption[] = [];
+        this.currentDialogue.options!.forEach((option) => {
+            if(!option.conditions || this.satisfyConditions(option.conditions)) {
+                // Pas de conditions, ou les conditions sont satisfaites : on affiche
+                optionsToShow.push(option);
+            }
+        })
+        this.displayManager.displayDialogueOptions(optionsToShow);
+        
+        // Update de l'affichage des options de dialogue
+        this.dialogueOptionsUpdateStatus();
 
         this.inDialogueChoice = true;
     }
@@ -177,18 +190,13 @@ export default class GameManager {
 
     /**
      * Clic du joueur sur une option de dialogue
-     * @param optionIndex 
+     * @param option - DialogueOption : l'option de dialogue sur laquelle le joueur a cliqué
+     * @param optionIndex - number : l'index de l'option de dialogue dans les options actuellement affichées (attention, pas forcément l'index de l'option dans le tableau "options" du dialogue car certaines peuvent ne pas être affichées à cause de conditions)
      * @returns 
      */
-    dialogueOptionClick(optionIndex: number): void {
+    dialogueOptionClick(option: DialogueOption, optionIndex: number): void {
         if(this.awaitingForAnimation)
             return;
-        
-        const option = this.currentDialogue.options?.[optionIndex];
-        if(!option) {
-            console.error("GameManager::dialogueOptionClick() : optionIndex %d invalide", optionIndex);
-            return;
-        }
 
         if(this.dialogueOptionSelected == option) {
             // C'est l'option qui est déjà sélectionnée : on la deselect
@@ -475,6 +483,46 @@ export default class GameManager {
                     break;
             }
         });
+    }
+
+    satisfyConditions(conditions: GameCondition[]): boolean {
+        let test: boolean = true;
+        conditions.forEach((condition) => {
+            // Récupération de la valeur des operands
+            const operand1 = this.gameVariables[condition.operand1];
+            let operand2: number;
+            if(typeof condition.operand2 == "number") {
+                // Valeur fixe
+                operand2 = condition.operand2;
+            }
+            else {
+                // Valeur de variable
+                operand2 = this.gameVariables[condition.operand2];
+            }
+
+            // Test de la condition
+            switch(condition.operator) {
+                case "==":
+                    test = test && (operand1 == operand2);
+                    break;
+                case "!=":
+                    test = test && (operand1 != operand2);
+                    break;
+                case ">":
+                    test = test && (operand1 > operand2);
+                    break;
+                case "<":
+                    test = test && (operand1 < operand2);
+                    break;
+                case ">=":
+                    test = test && (operand1 >= operand2);
+                    break;
+                case "<=":
+                    test = test && (operand1 <= operand2);
+                    break;
+            }
+        });
+        return test;
     }
 
     /**
