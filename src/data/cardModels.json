@@ -120,10 +120,16 @@
         "moods": ["Joyeux", "Séducteur"],
         "score": 2
     },
+    "2js_ebriete": {
+        "id": "2js_ebriete",
+        "name": "Douce ébriété",
+        "moods": ["Joyeux", "Séducteur"],
+        "score": 2
+    },
 
 
-    "3h_gouts_luxes": {
-        "id": "3h_gouts_luxes",
+    "3h_gouts_luxe": {
+        "id": "3h_gouts_luxe",
         "name": "Goûts de luxe",
         "moods": ["Hautain"],
         "score": 3
@@ -140,9 +146,21 @@
         "moods": ["Agressif"],
         "score": 3
     },
+    "3a_droit_but": {
+        "id": "3a_droit_but",
+        "name": "Droit au but",
+        "moods": ["Agressif"],
+        "score": 3
+    },
     "3c_oeil_tempete": {
         "id": "3c_oeil_tempete",
         "name": "Oeil de la tempête",
+        "moods": ["Calme"],
+        "score": 3
+    },
+    "3c_straight_edge": {
+        "id": "3c_straight_edge",
+        "name": "Straight Edge",
         "moods": ["Calme"],
         "score": 3
     },
@@ -181,5 +199,12 @@
         "name": "Cocooning",
         "moods": ["Calme"],
         "score": 3
+    },
+
+    "0_vertigo": {
+        "id": "0_vertigo",
+        "name": "Vertigo",
+        "moods": [],
+        "score": 0
     }
 }

@@ -55,7 +55,7 @@
         "texts": [
             "Copilot t'envoie une facture à 4 chiffres, que tu règles sans difficulté grâce à ton salaire mirobolant de développeur de la fonction publique."
         ],
-        "cardGain": ["3h_gouts_luxes"],
+        "cardGain": ["3h_gouts_luxe"],
         "goto": "intro_001"
     },
     "test_002_foret": {
@@ -66,6 +66,9 @@
         "cardGain": ["3j_hippie"],
         "goto": "intro_001"
     },
+
+
+
     "intro_001": {
         "id": "intro_001",
         "texts": [
@@ -203,33 +206,212 @@
                 "text": "Avoir mis ce sale type hors d'état de nuire.",
                 "moods": [],
                 "score": 0,
-                "cardGain": ["2ac_poing_justice"]
+                "cardGain": ["2ac_poing_justice"],
+                "goto": "intro_005_pre_1"
             },
             {
                 "text": "Avoir au moins obtenu une explication à ses actes.",
                 "moods": [],
                 "score": 0,
-                "cardGain": ["2cj_empathie"]
+                "cardGain": ["2cj_empathie"],
+                "goto": "intro_005_pre_2"
             },
             {
                 "text": "Démontrer que nul n'est en mesure de prendre l'ascendant sur toi.",
                 "moods": [],
                 "score": 0,
-                "cardGain": ["2ah_farouche_independance"]
+                "cardGain": ["2ah_farouche_independance"],
+                "goto": "intro_005_pre_3"
             },
             {
                 "text": "Le soumettre et le faire ramper à tes pieds.",
                 "moods": [],
                 "score": 0,
-                "cardGain": ["2hs_domina"]
+                "cardGain": ["2hs_domina"],
+                "goto": "intro_005_pre_4"
             },
             {
                 "text": "Avoir kiffé le moment - après tout, on ne vit qu'une fois.",
                 "moods": [],
                 "score": 0,
-                "cardGain": ["2js_yolo"]
+                "cardGain": ["2js_yolo"],
+                "goto": "intro_005_pre_5"
             }
         ],
-        "goto": "end"
+        "gameEffects": ["allowDisplayHand"]
+    },
+    "intro_005_pre_1": {
+        "id": "intro_005_pre_1",
+        "texts": [
+            "Serrant tes phalanges avec détermination, tu franchis la porte."
+        ],
+        "goto": "intro_005"
+    },
+    "intro_005_pre_2": {
+        "id": "intro_005_pre_2",
+        "texts": [
+            "Relâchant ton souffle avec maîtrise, tu franchis la porte."
+        ],
+        "goto": "intro_005"
+    },
+    "intro_005_pre_3": {
+        "id": "intro_005_pre_3",
+        "texts": [
+            "Redressant la nuque avec fierté, tu franchis la porte."
+        ],
+        "goto": "intro_005"
+    },
+    "intro_005_pre_4": {
+        "id": "intro_005_pre_4",
+        "texts": [
+            "Relevant le regard avec orgueil, tu franchis la porte."
+        ],
+        "goto": "intro_005"
+    },
+    "intro_005_pre_5": {
+        "id": "intro_005_pre_5",
+        "texts": [
+            "Retroussant tes lèvres en un sourire, tu franchis la porte."
+        ],
+        "goto": "intro_005"
+    },
+    "intro_005": {
+        "id": "intro_005_pre_5",
+        "texts": [
+            "Là, tu es accueillie par une explosion de sons et de lumières : les basses font vibrer le sol sous tes pieds, tandis que des faisceaux multicolores dansent au rythme de la musique dans une atmosphère épaisse de fumée artificielle. Autour de toi, des silhouettes se meuvent dans l'extase éphémère de la nuit et de ses tentations.",
+            "C'est un véritable microcosme d'émotions humaines qui s'offre à toi, et tu sais que tu devras naviguer habilement à travers ce tumulte pour atteindre ton objectif. Tu es entrée dans la gueule du loup, mais tu n'as pas peur ; tu es prête à affronter les ténèbres pour atteindre la lumière au bout du tunnel.",
+            "Encore faut-il le trouver à présent, ce loup..."
+        ],
+        "options": [
+            {
+                "text": "S'approcher du bar",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_001"
+            }
+        ]
+    },
+
+    "barmaid001": {
+        "id": "barmaid001",
+        "texts": [
+            "Tu te faufiles jusqu'au bar. De l'autre côté du comptoir sur lequel dansent quelques reflets de projecteurs dansants, une barmaid se tourne vers toi après avoir fini de servir un couple de fêtards, l'air affairé : la soirée semble fort occupée pour elle.",
+            "“Qu'est-ce que ça sera ?” lance-t-elle sans attendre."
+        ],
+        "options": [
+            {
+                "text": "“Qu'est-ce que tu proposes ?”",
+                "moods": ["Joyeux", "Séducteur"],
+                "score": 1,
+                "goto": "barmaid_002_pre_1"
+            },
+            {
+                "text": "“Rien merci, mais j'ai une question...”",
+                "moods": ["Calme", "Agressif", "Hautain"],
+                "score": 1,
+                "goto": "barmaid_002_pre_2"
+            }
+        ]
+    },
+    "barmaid_002_pre_1": {
+        "id": "barmaid_002_pre_1",
+        "texts": [
+            "Elle t'indique une carte des consommations affichée derrière elle. “Si t'es aventureuse, je te conseille notre cocktail spécial maison ! Il risque de te faire tourner la tête...”"
+        ],
+        "goto": "barmaid_002"
+    },
+    "barmaid_002_pre_2": {
+        "id": "barmaid_002_pre_2",
+        "texts": [
+            "Elle hausse les épaules. “Y a pas mal de clients, alors j'ai pas trop de temps. Dis-moi déjà ce que je te sers” - après quoi elle indique d'un geste une carte des consommations affichée derrière elle, avec un cocktail maison généreusement alcoolisé en tête de liste."
+        ],
+        "goto": "barmaid_002"
+    },
+    "barmaid_002": {
+        "id": "barmaid_002",
+        "options": [
+            {
+                "text": "Le cocktail maison, du coup.",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_002_post_1"
+            },
+            {
+                "text": "Ce sera un Clover Club - bien émulsé évidemment, et avec un gin aromatisé de coriandre.",
+                "moods": ["Hautain"],
+                "score": 4,
+                "goto": "barmaid_003_pre_2"
+            },
+            {
+                "text": "Je ne bois pas d'alcool, désolée : question de principe.",
+                "moods": ["Calme"],
+                "score": 4,
+                "goto": "barmaid_003_pre_3"
+            },
+            {
+                "text": "Moi non plus je n'ai pas le temps pour ça. Je suis là pour une affaire importante.",
+                "moods": ["Agressif"],
+                "score": 4,
+                "goto": "barmaid_003_pre_4"
+            }
+        ]
+    },
+    "barmaid_002_post_1": {
+        "id": "barmaid_002_post_1",
+        "texts": [
+            "Elle te sert un vert acidulé et liquoreux. Lorsque la boisson touche tes lèvres et coule dans ta gorge, tu sens la chaleur de l'alcool se répandre en toi et faire quelque peu papilloner tes pensées."
+        ],
+        "cardGain": ["0_vertigo", "2js_ebriete"],
+        "goto": "barmaid_003"
+    },
+    "barmaid_002_post_2": {
+        "id": "barmaid_002_post_2",
+        "texts": [
+            "Quelque peu impressionnée par ta demande mais sans se laisser démonter, elle exécute avec adresse le mélange que tu requiers puis dépose le verre devant toi. Tu lis presque le soulagement dans son regard quand tu hoches légèrement la tête de façon approbatrice en sirotant le breuvage."
+        ],
+        "cardGain": ["3h_gouts_luxe"],
+        "goto": "barmaid_003"
+    },
+    "barmaid_002_post_3": {
+        "id": "barmaid_002_post_3",
+        "texts": [
+            "“Oh, pas de soucis, je respecte totalement. On est inclusifs ici.” Elle sort une bouteille de soft dont elle te sert un verre"
+        ],
+        "cardGain": ["3c_straight_edge"],
+        "goto": "barmaid_003"
+    },
+    "barmaid_002_post_4": {
+        "id": "barmaid_002_post_4",
+        "texts": [
+            "Ton sérieux capte son attention, la sortant de la routine de son travail. “Bon ok... en quoi je peux t'aider ?”"
+        ],
+        "cardGain": ["3a_droit_but"],
+        "goto": "barmaid_003"
+    },
+    "barmaid_003": {
+        "id": "barmaid_003",
+        "texts": [
+            "Ton interlocutrice semble désormais plus ouverte à la discussion."
+        ],
+        "options": [
+            {
+                "text": "Sacrée ambiance ce soir !",
+                "moods": [],
+                "score": 0,
+                "goto": "end"
+            },
+            {
+                "text": "Ca fait longtemps que tu travailles ici ?",
+                "moods": [],
+                "score": 0,
+                "goto": "end"
+            },
+            {
+                "text": "Je cherche un homme prénommé Amir.",
+                "moods": [],
+                "score": 0,
+                "goto": "end"
+            }
+        ]
     }
 }
