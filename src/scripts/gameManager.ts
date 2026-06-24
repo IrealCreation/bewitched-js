@@ -41,8 +41,12 @@ export default class GameManager {
         this.displayManager = new DisplayManager();
         this.playerManager = new PlayerManager();
 
-        this.currentDialogue = this.dialogues["test_001"];
+        this.currentDialogue = this.dialogues["intro_001"];
         this.playIntroScreen();
+
+        // Gain des cartes de départ et pioche
+        this.playerManager.gainStartingDeck();
+        this.playerManager.resetPlayerStacks();
     }
 
     /**
@@ -441,6 +445,9 @@ export default class GameManager {
                 case "resetPlayerStacks":
                     this.playerManager.resetPlayerStacks();
                     break;
+                
+                case "allowDisplayHand":
+                    this.displayManager.canDisplayHand = true;
             
                 default:
                     console.error("GameManager::applyGameEffect() : gameEffect %s inconnu", gameEffect);

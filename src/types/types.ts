@@ -62,4 +62,5 @@ export type Mood = "Agressif" | "Calme" | "Hautain" | "Joyeux" | "Séducteur";
 
 export type GameEffects = 
     "resetPlayerStacks" // Remet toutes les cartes du deck dans la pioche, la mélange, puis pioche une main
+    | "allowDisplayHand" // Autorise l'affichage de la main du joueur
 ;

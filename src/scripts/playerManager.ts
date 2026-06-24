@@ -56,6 +56,26 @@ export default class PlayerManager {
     }
 
     /**
+     * Donne les cartes de début de partie au joueur
+     */
+    gainStartingDeck() {
+        const gameManager = GameManager.instance;
+        const startingDeck: Card[] = [
+            new Card(gameManager.getCardModel("1ac")),
+            new Card(gameManager.getCardModel("1ah")),
+            new Card(gameManager.getCardModel("1aj")),
+            new Card(gameManager.getCardModel("1as")),
+            new Card(gameManager.getCardModel("1ch")),
+            new Card(gameManager.getCardModel("1cj")),
+            new Card(gameManager.getCardModel("1cs")),
+            new Card(gameManager.getCardModel("1hj")),
+            new Card(gameManager.getCardModel("1hs")),
+            new Card(gameManager.getCardModel("1js")),
+        ];
+        this.gainCards(startingDeck);
+    }
+
+    /**
      * Pioche une carte, l'ajoute à la main, et la retourne
      * @returns Card : la carte piochée
      */

@@ -39,6 +39,9 @@ export default class DisplayManager {
     newCardsOverlay: HTMLElement;
     newCardsFlexbox: HTMLElement;
 
+    // Paramètres
+    canDisplayHand: boolean = false; // True si on peut afficher la main du jouer (manuellement ou lors d'un choix d'option). Est false au début du jeu, le temps qu'il fasse ses choix initiaux et qu'on repioche
+
     constructor() {
         this.body = document.querySelector("body") as HTMLBodyElement;
 
@@ -98,6 +101,10 @@ export default class DisplayManager {
         const newCardsContainer = document.createElement("div");
         newCardsContainer.classList.add("new-cards-container");
         this.newCardsOverlay.append(newCardsContainer);
+        // Titre
+        const newCardsTitle = document.createElement("h1");
+        newCardsTitle.textContent = "De nouvelles pensées émergent en ton esprit...";
+        newCardsContainer.append(newCardsTitle);
         // Flexbox
         this.newCardsFlexbox = document.createElement("div");
         this.newCardsFlexbox.classList.add("new-cards-flexbox");
@@ -118,6 +125,7 @@ export default class DisplayManager {
             this.currentDialogueBox.classList.add(...classes);
         }
         this.dialoguesContainer.append(this.currentDialogueBox);
+        this.scrollDialogueContainerToBottom();
 
         this.isWriting = true;
         this.writingText = text;
@@ -135,6 +143,7 @@ export default class DisplayManager {
         if(this.writingIndex < this.writingText.length) {
             const currentChar: string = this.writingText[this.writingIndex];
             this.currentDialogueBox.textContent += currentChar;
+            this.scrollDialogueContainerToBottom();
 
             let delay: number = this.writingDelay;
             if(currentChar === " "){
@@ -170,9 +179,14 @@ export default class DisplayManager {
     instantWriteDialogueText(): void {
         const stringLeft = this.writingText.substring(this.writingIndex);
         this.currentDialogueBox.textContent += stringLeft;
+        this.scrollDialogueContainerToBottom();
         this.isWriting = false;
         this.writingIndex = 0;
         this.writingText = "";
+    }
+
+    scrollDialogueContainerToBottom(): void {
+        this.dialoguesContainer.scrollTop = this.dialoguesContainer.scrollHeight;
     }
 
     displayDialogueOptions(options: DialogueOption[]): void {
@@ -223,10 +237,16 @@ export default class DisplayManager {
         // Gestion de la transition (sans attente)
         this.awaitTransition(this.dialogueOptionsContainer);
 
-        // On affiche le container du deck
-        this.deckContainer.classList.add("active");
-        // Gestion de la transition (sans attente)
-        this.awaitTransition(this.deckContainer);
+        // A-t-on le droit d'afficher la main du joueur ?
+        if(this.canDisplayHand) {
+            // On affiche le container du deck
+            this.deckContainer.classList.add("active");
+            // Gestion de la transition (sans attente)
+            this.awaitTransition(this.deckContainer);
+        }
+
+        // On scroll les textes de dialogue jusqu'en bas
+        this.scrollDialogueContainerToBottom();
     }
 
     hideDialogueOptions(): void {
@@ -378,6 +398,8 @@ export default class DisplayManager {
             }, transitionDuration);
         });
     }
+
+
 
 
 }
