@@ -145,7 +145,7 @@
                 "cardGain": ["3c_oeil_tempete"]
             },
             {
-                "text": "Un mordillement. C'est là où s'ébattent les plus vives passions que tu te sens le plus vivante.",
+                "text": "Un mordillement. C'est là où s'ébattent les plus vives passions que tu te sens la plus vivante.",
                 "moods": [],
                 "score": 0,
                 "cardGain": ["3s_viles_passions"]
@@ -198,7 +198,7 @@
         "id": "intro_004",
         "texts": [
             "Arrivée à la porte au bout du couloir, tu prends une longue inspiration avant de franchir ce dernier sas afin de te recentrer. Tu sais quel est ton objectif en venant ici. La personne que tu es venue traquer, et qui a un nom : Amir.",
-            "Une crispation parcourt ton poing à cette pensée. C'est dans son territoire que tu t'apprêtes à entrer, et tu as parfaitement consciente des risques que tu y encours. Mais pourtant... si toi tu n'accomplis pas cela, personne d'autre ne le fera. Tu sais ce qu'il a fait à ses victimes, et ce qu'il refera encore si tu n'y mets pas un terme ; et tu sais qu'à cette liste de victimes viendra ce soir s'ajouter ton nom si sa volonté surpasse la tienne.",
+            "Une crispation parcourt ton poing à cette pensée. C'est dans son territoire que tu t'apprêtes à entrer, et tu as parfaitement conscience des risques que tu y encours. Mais pourtant... si toi tu n'accomplis pas cela, personne d'autre ne le fera. Tu sais ce qu'il a fait à ses victimes, et ce qu'il refera encore si tu n'y mets pas un terme ; et tu sais qu'à cette liste de victimes viendra ce soir s'ajouter ton nom si sa volonté surpasse la tienne.",
             "Une deuxième profonde inspiration vient calmer ton rythme cardiaque. Tu dois rester concentrée sur ton objectif : trouver Amir, l'isoler, et... faire ce que tu as à faire. D'ici la fin de la soirée, tu comptes bien..."
         ],
         "options": [
@@ -292,8 +292,8 @@
         ]
     },
 
-    "barmaid001": {
-        "id": "barmaid001",
+    "barmaid_001": {
+        "id": "barmaid_001",
         "texts": [
             "Tu te faufiles jusqu'au bar. De l'autre côté du comptoir sur lequel dansent quelques reflets de projecteurs dansants, une barmaid se tourne vers toi après avoir fini de servir un couple de fêtards, l'air affairé : la soirée semble fort occupée pour elle.",
             "“Qu'est-ce que ça sera ?” lance-t-elle sans attendre."
@@ -329,30 +329,31 @@
     },
     "barmaid_002": {
         "id": "barmaid_002",
+        "texts": [],
         "options": [
             {
-                "text": "Le cocktail maison, du coup.",
+                "text": "“Le cocktail maison, du coup.”",
                 "moods": [],
                 "score": 0,
                 "goto": "barmaid_002_post_1"
             },
             {
-                "text": "Ce sera un Clover Club - bien émulsé évidemment, et avec un gin aromatisé de coriandre.",
+                "text": "“Ce sera un Clover Club - bien émulsé évidemment, et avec un gin aromatisé de coriandre.”",
                 "moods": ["Hautain"],
-                "score": 4,
-                "goto": "barmaid_003_pre_2"
+                "score": 3,
+                "goto": "barmaid_002_post_2"
             },
             {
-                "text": "Je ne bois pas d'alcool, désolée : question de principe.",
+                "text": "“Je ne bois pas d'alcool, désolée : question de principe.”",
                 "moods": ["Calme"],
-                "score": 4,
-                "goto": "barmaid_003_pre_3"
+                "score": 3,
+                "goto": "barmaid_002_post_3"
             },
             {
-                "text": "Moi non plus je n'ai pas le temps pour ça. Je suis là pour une affaire importante.",
+                "text": "“On est toutes les deux occupées, alors je vais pas te faire perdre ton temps. Je suis là pour une affaire importante.”",
                 "moods": ["Agressif"],
-                "score": 4,
-                "goto": "barmaid_003_pre_4"
+                "score": 3,
+                "goto": "barmaid_002_post_4"
             }
         ]
     },
@@ -383,7 +384,7 @@
     "barmaid_002_post_4": {
         "id": "barmaid_002_post_4",
         "texts": [
-            "Ton sérieux capte son attention, la sortant de la routine de son travail. “Bon ok... en quoi je peux t'aider ?”"
+            "Ton sérieux capte son attention, la sortant de la routine de son travail. “Bon ok, tu m'intrigues... comment je peux t'aider ?”"
         ],
         "cardGain": ["3a_droit_but"],
         "goto": "barmaid_003"
@@ -395,19 +396,19 @@
         ],
         "options": [
             {
-                "text": "Sacrée ambiance ce soir !",
+                "text": "“Sacrée ambiance ce soir !”",
                 "moods": [],
                 "score": 0,
                 "goto": "end"
             },
             {
-                "text": "Ca fait longtemps que tu travailles ici ?",
+                "text": "“Ca fait longtemps que tu travailles ici ?”",
                 "moods": [],
                 "score": 0,
                 "goto": "end"
             },
             {
-                "text": "Je cherche un homme prénommé Amir.",
+                "text": "“Je cherche un homme prénommé Amir.”",
                 "moods": [],
                 "score": 0,
                 "goto": "end"

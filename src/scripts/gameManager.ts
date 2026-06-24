@@ -436,7 +436,12 @@ export default class GameManager {
         }
         this.currentDialogue = this.dialogues[dialogueId];
 
-        this.dialogueShowText();
+        // S'il y a un texte à afficher, on l'affiche...
+        if(this.currentDialogue.texts.length > 0)
+            this.dialogueShowText();
+        // Sinon et s'il y a un choix à afficher, on l'affiche
+        else if(this.currentDialogue.options && this.currentDialogue.options.length > 0)
+            this.dialogueShowOptions();
     }
 
     applyGameEffects(gameEffects: GameEffects[]): void {
@@ -448,6 +453,7 @@ export default class GameManager {
                 
                 case "allowDisplayHand":
                     this.displayManager.canDisplayHand = true;
+                    break;
             
                 default:
                     console.error("GameManager::applyGameEffect() : gameEffect %s inconnu", gameEffect);
