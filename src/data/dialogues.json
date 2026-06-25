@@ -282,14 +282,47 @@
             "C'est un véritable microcosme d'émotions humaines qui s'offre à toi, et tu sais que tu devras naviguer habilement à travers ce tumulte pour atteindre ton objectif. Tu es entrée dans la gueule du loup, mais tu n'as pas peur ; tu es prête à affronter les ténèbres pour atteindre la lumière au bout du tunnel.",
             "Encore faut-il le trouver à présent, ce loup..."
         ],
+        "goto": "club_hub"
+    },
+
+    "club_hub": {
+        "id": "club_hub",
+        "texts": [],
         "options": [
             {
                 "text": "S'approcher du bar",
                 "moods": [],
                 "score": 0,
-                "goto": "barmaid_001"
+                "goto": "barmaid_001",
+                "conditions": [
+                    {
+                        "operand1": "barmaid_progress",
+                        "operator": "==",
+                        "operand2": 0
+                    }
+                ]
+            },
+            {
+                "text": "Retourner vers le bar",
+                "moods": [],
+                "score": 0,
+                "gotoCheckpoint": "barmaid",
+                "conditions": [
+                    {
+                        "operand1": "barmaid_progress",
+                        "operator": ">",
+                        "operand2": 0
+                    }
+                ]
             }
         ]
+    },
+    "club_hub_backto": {
+        "id": "club_hub_backto",
+        "texts": [
+            "Tu reviens vers l'entrée du club, d'où tu considères tes options pour la suite..."
+        ],
+        "goto": "club_hub"
     },
 
     "barmaid_001": {
@@ -350,7 +383,7 @@
                 "goto": "barmaid_002_post_3"
             },
             {
-                "text": "“On est toutes les deux occupées, alors je vais pas te faire perdre ton temps. Je suis là pour une affaire importante.”",
+                "text": "“On est toutes les deux occupées, alors ne perdons pas notre temps. Je suis là pour une affaire importante, pas pour boire.”",
                 "moods": ["Agressif"],
                 "score": 3,
                 "goto": "barmaid_002_post_4"
@@ -363,7 +396,7 @@
             "Elle te sert un vert acidulé et liquoreux. Lorsque la boisson touche tes lèvres et coule dans ta gorge, tu sens la chaleur de l'alcool se répandre en toi et faire quelque peu papilloner tes pensées."
         ],
         "cardGain": ["0_vertigo", "2js_ebriete"],
-        "goto": "barmaid_003"
+        "goto": "barmaid_003_pre"
     },
     "barmaid_002_post_2": {
         "id": "barmaid_002_post_2",
@@ -371,7 +404,7 @@
             "Quelque peu impressionnée par ta demande mais sans se laisser démonter, elle exécute avec adresse le mélange que tu requiers puis dépose le verre devant toi. Tu lis presque le soulagement dans son regard quand tu hoches légèrement la tête de façon approbatrice en sirotant le breuvage."
         ],
         "cardGain": ["3h_gouts_luxe"],
-        "goto": "barmaid_003"
+        "goto": "barmaid_003_pre"
     },
     "barmaid_002_post_3": {
         "id": "barmaid_002_post_3",
@@ -379,7 +412,7 @@
             "“Oh, pas de soucis, je respecte totalement. On est inclusifs ici.” Elle sort une bouteille de soft dont elle te sert un verre"
         ],
         "cardGain": ["3c_straight_edge"],
-        "goto": "barmaid_003"
+        "goto": "barmaid_003_pre"
     },
     "barmaid_002_post_4": {
         "id": "barmaid_002_post_4",
@@ -387,13 +420,29 @@
             "Ton sérieux capte son attention, la sortant de la routine de son travail. “Bon ok, tu m'intrigues... comment je peux t'aider ?”"
         ],
         "cardGain": ["3a_droit_but"],
+        "goto": "barmaid_003_pre"
+    },
+    "barmaid_003_pre": {
+        "id": "barmaid_003_pre",
+        "texts": [
+            "Ton interlocutrice semble désormais plus ouverte à la discussion."
+        ],
+        "goto": "barmaid_003"
+    },
+    "barmaid_003_checkpoint": {
+        "id": "barmaid_003_checkpoint",
+        "texts": [
+            "Tu t'approches à nouveau du bar, où la barmaid est toujours en poste."
+        ],
         "goto": "barmaid_003"
     },
     "barmaid_003": {
         "id": "barmaid_003",
-        "texts": [
-            "Ton interlocutrice semble désormais plus ouverte à la discussion."
-        ],
+        "texts": [],
+        "checkpoint": {
+            "scene": "barmaid",
+            "dialogue": "barmaid_003_checkpoint"
+        },
         "options": [
             {
                 "text": "“Sacrée ambiance ce soir !”",
@@ -412,6 +461,12 @@
                 "moods": [],
                 "score": 0,
                 "goto": "end"
+            },
+            {
+                "text": "“Je reviens plus tard.” (S'éloigner temporairement)",
+                "moods": [],
+                "score": 0,
+                "goto": "club_hub_backto"
             }
         ]
     }

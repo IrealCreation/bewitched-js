@@ -1,4 +1,4 @@
-import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood, GameEffects, GameVariableChange, GameCondition } from "../types/types";
+import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood, GameEffects, GameVariableChange, GameCondition, CheckpointStorage, CheckpointChange } from "../types/types";
 import DisplayManager from "./displayManager";
 import PlayerManager from "./playerManager";
 import Card from "./card";
@@ -17,6 +17,7 @@ export default class GameManager {
     dialogues: DialogueStorage;
     cards: CardModelStorage;
     gameVariables: GameVariableStorage;
+    checkpoints: CheckpointStorage;
 
     displayManager: DisplayManager;
     playerManager: PlayerManager;
@@ -37,6 +38,7 @@ export default class GameManager {
         this.dialogues = Dialogues as DialogueStorage;
         this.cards = CardModels as CardModelStorage;
         this.gameVariables = {} as GameVariableStorage;
+        this.checkpoints = {} as CheckpointStorage;
 
         this.displayManager = new DisplayManager();
         this.playerManager = new PlayerManager();
@@ -160,14 +162,11 @@ export default class GameManager {
             .then(() => {
                 // Après la fin de l'animation de disparition de l'overlay, on passe à la suite des dialogues
                 if(this.currentDialogueCardsGained)
-                    // On confirme le gain de cartes du dialogue avant de passer à la suite du dialogue
+                    // Cartes gagnées par un Dialogue. On confirme le gain de cartes du dialogue avant de passer à la suite du dialogue
                     this.dialogueOverlayClick();
-                else if(this.dialogueOptionCardsGained && this.dialogueOptionSelected!.goto)
-                    // On confirme le gain de cartes de l'option de dialogue avant de passer au goto de cette option
-                    this.dialogueGoto(this.dialogueOptionSelected!.goto);
-                else 
-                    // On confirme le gain de cartes de l'option de dialogue avant de passer au goto du dialogue
-                    this.dialogueGoto(this.currentDialogue.goto!);
+                else
+                    // Cartes gagnées par une DialogueOption
+                    this.dialogueAfterOption(this.dialogueOptionSelected!);
                 
                 this.currentDialogueCardsGained = false;
                 this.dialogueOptionCardsGained = false;
@@ -298,8 +297,27 @@ export default class GameManager {
             this.dialogueOptionCardGain();
         }
         else if(option.goto) {
-            // Pas de cartes à gagner, on peut aller directement au goto de l'option
+            // Pas de cartes à gagner, on passe à la suite des dialogues
+            this.dialogueAfterOption(option);
+        }
+    }
+
+    /**
+     * Gère la suite d'un dialogue après qu'une option ait été sélectionnée
+     * @param option 
+     */
+    dialogueAfterOption(option: DialogueOption) {
+        if(option.gotoCheckpoint) {
+            // S'il y a un checkpoint, on y va
+            this.dialogueGoto(this.getCheckpoint(option.gotoCheckpoint));
+        }
+        else if(option.goto) {
+            // Il y a un goto spécifique à l'option, on y va
             this.dialogueGoto(option.goto);
+        }
+        else {
+            // Sinon on va au goto du dialogue contenant l'option
+            this.dialogueGoto(this.currentDialogue.goto!);
         }
     }
 
@@ -370,7 +388,6 @@ export default class GameManager {
      * @returns boolean
      */
     dialogueOptionsUpdateStatus(): void {
-
         // On passe en revue les options de dialogue pour voir lesquelles sont matchables
         this.currentDialogue.options?.forEach((option, index) => {
             let score: number = 0;
@@ -436,12 +453,28 @@ export default class GameManager {
         }
         this.currentDialogue = this.dialogues[dialogueId];
 
+        // Mise à jour éventuelle de checkpoint
+        if(this.currentDialogue.checkpoint) {
+            this.updateCheckpoint(this.currentDialogue.checkpoint);
+        }
+
         // S'il y a un texte à afficher, on l'affiche...
         if(this.currentDialogue.texts.length > 0)
             this.dialogueShowText();
         // Sinon et s'il y a un choix à afficher, on l'affiche
         else if(this.currentDialogue.options && this.currentDialogue.options.length > 0)
             this.dialogueShowOptions();
+    }
+
+    updateCheckpoint(checkpointChange: CheckpointChange): void {
+        this.checkpoints[checkpointChange.scene] = checkpointChange.dialogue;
+    }
+
+    getCheckpoint(scene: string): string {
+        if(this.checkpoints[scene])
+            return this.checkpoints[scene];
+        console.error("GameManager::getCheckpoint() : checkpoint scene %s inconnue", scene);
+        return "";
     }
 
     applyGameEffects(gameEffects: GameEffects[]): void {
