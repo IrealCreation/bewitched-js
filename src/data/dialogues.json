@@ -290,30 +290,16 @@
         "texts": [],
         "options": [
             {
-                "text": "S'approcher du bar",
+                "text": "Prendre la direction du bar",
                 "moods": [],
                 "score": 0,
-                "goto": "barmaid_001",
-                "conditions": [
-                    {
-                        "operand1": "barmaid_progress",
-                        "operator": "==",
-                        "operand2": 0
-                    }
-                ]
+                "goto": "club_hub_bar"
             },
             {
-                "text": "Retourner vers le bar",
+                "text": "Marcher vers la piste de danse",
                 "moods": [],
                 "score": 0,
-                "gotoCheckpoint": "barmaid",
-                "conditions": [
-                    {
-                        "operand1": "barmaid_progress",
-                        "operator": ">",
-                        "operand2": 0
-                    }
-                ]
+                "goto": "club_hub_dancefloor"
             }
         ]
     },
@@ -324,11 +310,37 @@
         ],
         "goto": "club_hub"
     },
+    "club_hub_bar": {
+        "id": "club_hub_bar",
+        "texts": [
+            "Tu te fonds parmi la clientèle qui abonde près du bar. Une trouée dans la foule te permet d'apercevoir une barmaid qui achève de s'occuper de clients. Un peu plus loin, un jeune homme lève les yeux de son verre avant de le lever dans ta direction avec un sourire se voulant sans doute sympathique."
+        ],
+        "options": [
+            {
+                "text": "S'adresser à la barmaid",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_001"
+            },
+            {
+                "text": "Aller vers le jeune homme",
+                "moods": [],
+                "score": 0,
+                "goto": "TODO"
+            },
+            {
+                "text": "Retourner vers l'entrée",
+                "moods": [],
+                "score": 0,
+                "goto": "club_hub_backto"
+            }
+        ]
+    },
 
     "barmaid_001": {
         "id": "barmaid_001",
         "texts": [
-            "Tu te faufiles jusqu'au bar. De l'autre côté du comptoir sur lequel dansent quelques reflets de projecteurs dansants, une barmaid se tourne vers toi après avoir fini de servir un couple de fêtards, l'air affairé : la soirée semble fort occupée pour elle.",
+            "De l'autre côté du comptoir sur la surface en vinyle duquel dansent quelques reflets de projecteurs, la barmaid se tourne vers toi après avoir fini de servir un couple de fêtards, l'air affairé : la soirée semble fort occupée pour elle.",
             "“Qu'est-ce que ça sera ?” lance-t-elle sans attendre."
         ],
         "options": [
@@ -445,22 +457,64 @@
         },
         "options": [
             {
-                "text": "“Sacrée ambiance ce soir !”",
+                "text": "“Sacrée foule... pas trop épuisant comme boulot ?”",
                 "moods": [],
                 "score": 0,
-                "goto": "end"
+                "goto": "barmaid_004_001",
+                "conditions": [
+                    {
+                        "operand1": "barmaid_004_done",
+                        "operator": "==",
+                        "operand2": 0
+                    }
+                ],
+                "variableChanges": [
+                    {
+                        "variable": "barmaid_004_done",
+                        "operator": "=",
+                        "value": 1
+                    }
+                ]
             },
             {
                 "text": "“Ca fait longtemps que tu travailles ici ?”",
                 "moods": [],
                 "score": 0,
-                "goto": "end"
+                "goto": "barmaid_005_001",
+                "conditions": [
+                    {
+                        "operand1": "barmaid_005_done",
+                        "operator": "==",
+                        "operand2": 0
+                    }
+                ],
+                "variableChanges": [
+                    {
+                        "variable": "barmaid_005_done",
+                        "operator": "=",
+                        "value": 1
+                    }
+                ]
             },
             {
                 "text": "“Je cherche un homme prénommé Amir.”",
                 "moods": [],
                 "score": 0,
-                "goto": "end"
+                "goto": "barmaid_006_001",
+                "conditions": [
+                    {
+                        "operand1": "barmaid_006_done",
+                        "operator": "==",
+                        "operand2": 0
+                    }
+                ],
+                "variableChanges": [
+                    {
+                        "variable": "barmaid_006_done",
+                        "operator": "=",
+                        "value": 1
+                    }
+                ]
             },
             {
                 "text": "“Je reviens plus tard.” (S'éloigner temporairement)",
@@ -469,5 +523,71 @@
                 "goto": "club_hub_backto"
             }
         ]
+    },
+    "barmaid_004_001": {
+        "id": "barmaid_004_001",
+        "texts": [
+            "Ton interlocutrice hoche la tête. “Tu m'étonnes : c'est une des soirées les plus en vue de la ville en ce moment, les orgas ont réussi leur coup y a pas à dire. Moi, tant que tout le monde s'amuse, ça me va.”",
+            "“D'ailleurs je crois pas me souvenir t'avoir déjà vue par ici...” ajoute-t-elle en te regardant davantage. “C'est ta première fois ? Tu passes un bon moment ?”"
+        ],
+        "options": [
+            {
+                "text": "“Ça peut aller...”",
+                "moods": ["Calme", "Agressif", "Hautain"],
+                "score": 1,
+                "goto": "barmaid_004_002"
+            },
+            {
+                "text": "“T'inquiète, je m'amuse comme une folle ! Cheers !”",
+                "moods": ["Joyeux"],
+                "score": 3,
+                "variableChanges": [
+                    {
+                        "variable": "barmaid_approval",
+                        "operator": "+",
+                        "value": 1
+                    }
+                ],
+                "goto": "barmaid_004_003"
+            },
+            {
+                "text": "“Si j'avais su qu'on y croisait d'aussi fascinantes créatures, je serais venue plus tôt.” *clin d'oeil*",
+                "moods": ["Séducteur"],
+                "score": 3,
+                "variableChanges": [
+                    {
+                        "variable": "barmaid_approval",
+                        "operator": "+",
+                        "value": 1
+                    }
+                ],
+                "goto": "barmaid_004_004"
+            }
+        ]
+    },
+    "barmaid_004_002": {
+        "id": "barmaid_004_002",
+        "texts": [
+            "“Cool. T'as besoin d'autre chose ?”"
+        ],
+        "goto": "barmaid_003"
+    },
+    "barmaid_004_003": {
+        "id": "barmaid_004_003",
+        "texts": [
+            "Tu lèves ton verre à la santé de ton hôtesse avec un enthousiasme qui arrache un sourire à celle-ci. “Haha doucement, et pas d'abus ce soir. Mais cheers à toi aussi !”",
+            "Elle s'attrape un verre d'eau puis trinque avec toi avant de se désaltérer."
+        ],
+        "cardGain": ["2js_yolo"],
+        "goto": "barmaid_003"
+    },
+    "barmaid_004_004": {
+        "id": "barmaid_004_004",
+        "texts": [
+            "Elle détourne le regard avec un sourire mi-blasé mi-amusé, mais ses yeux reviennent vers toi avec une oeillade qui te glisse que le compliment n'est pas totalement passé à côté.",
+            "“Haha, pas de ça pendant le service... Mais si on se revoit après, peut-être que je ne dirais pas non.”"
+        ],
+        "cardGain": ["2js_yolo"],
+        "goto": "barmaid_003"
     }
 }
