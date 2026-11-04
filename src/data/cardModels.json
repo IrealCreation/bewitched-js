@@ -87,7 +87,13 @@
     "2aj_rage_vivre": {
         "id": "2aj_rage_vivre",
         "name": "Rage de vivre",
-        "moods": ["Joyeux", "Agressif"],
+        "moods": ["Agressif", "Joyeux"],
+        "score": 2
+    },
+    "2aj_sororite": {
+        "id": "2aj_sororite",
+        "name": "Sororité",
+        "moods": ["Agressif", "Joyeux"],
         "score": 2
     },
     "2hs_femme_experience": {

@@ -697,7 +697,94 @@
     "barmaid_005_001": {
         "id": "barmaid_005_001",
         "texts": [
-            "TODO"
+            "“Dans ce club ? Ça fait juste quelques semaines, je travaillais dans un autre avant... Barmaid, ça aide à payer la fac, même si c'est pas le job le plus tranquille.”"
+        ],
+        "options": [
+            {
+                "text": "“Ce n'est pas trop difficile ? J'ai entendu des rumeurs sur cet endroit...”",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_005_002"
+            }
+        ]
+    },
+    "barmaid_005_002": {
+        "id": "barmaid_005_002",
+        "texts": [
+            "A cette évocation, la jeune femme semble se mettre quelque peu sur la défensive.",
+            "“Les rumeurs, c'est souvent le lot de beaucoup de nightclubs hein. Moi je suis là pour le boulot, je marque mes limites, je me défends, je me débrouille, et franchement tout le monde gagnerait à en faire autant. Il y en a qui viennent et qui jouent avec le feu, alors faut pas s'étonner d'être brulée...”"
+        ],
+        "options": [
+            {
+                "text": "“Tu es forte et tu sais te défendre, mais on est toutes plus fortes unies.”",
+                "moods": ["Agressif", "Joyeux"],
+                "score": 4,
+                "variableChanges": [
+                    {
+                        "variable": "barmaid_approval",
+                        "operator": "+",
+                        "value": 1
+                    }
+                ],
+                "goto": "barmaid_005_003"
+            },
+            {
+                "text": "“Tu as bien raison. Nous, le feu, on le dompte.”",
+                "moods": ["Hautain", "Séducteur"],
+                "score": 4,
+                "variableChanges": [
+                    {
+                        "variable": "barmaid_approval",
+                        "operator": "+",
+                        "value": 1
+                    }
+                ],
+                "goto": "barmaid_005_004"
+            },
+            {
+                "text": "“Je ne viens pas chercher les ennuis, ne t'en fais pas.”",
+                "moods": ["Calme"],
+                "score": 3,
+                "variableChanges": [
+                    {
+                        "variable": "barmaid_approval",
+                        "operator": "+",
+                        "value": 1
+                    }
+                ],
+                "cardGain": ["3c_oeil_tempete"],
+                "goto": "barmaid_005_005"
+            },
+            {
+                "text": "“Désolée d'avoir abordé ça... changeons de sujet.”",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_003"
+            }
+        ]
+    },
+    "barmaid_005_003": {
+        "id": "barmaid_005_003",
+        "texts": [
+            "Ton interlocutrice baisse les yeux vers le comptoir, et reste silencieuse. Au moment où tu commençais à te dire que c'est peut-être sa manière de mettre fin à la conversation et que tu ferais mieux de partir, elle reprends la parole.",
+            "“Tu as raison, et c'était insensible de ma part de dire ça. Peut-être que je me laisse un peu trop gagner par... l'état d'esprit de cet endroit. Mais je vais tâcher de m'en souvenir.”"
+        ],
+        "cardGain": ["2aj_sororite"],
+        "goto": "barmaid_003"
+    },
+    "barmaid_005_004": {
+        "id": "barmaid_005_004",
+        "texts": [
+            "L'éclat en ton regard se reflète dans celui de ton interlocutrice et semble faire impression sur elle. Sans qu'il n'y ait rien besoin d'ajouter, elle hoche la tête."
+        ],
+        "cardGain": ["2hs_domina"],
+        "goto": "barmaid_003"
+    },
+    "barmaid_005_005": {
+        "id": "barmaid_005_005",
+        "texts": [
+            "Ton interlocutrice pose ses coudes sur le comptoir et expire profondément, semblant se resaisir. “Désolée, ma réponse était... énervée. Tu es clairement quelqu'un qui a la tête sur les épaules, et là ça n'a pas été le cas pour moi.”",
+            "“Peut-être que cet endroit... et ces rumeurs... me pèsent plus sur les nerfs que j'ai envie de l'admettre. Mais c'est pas le moment de m'apensantir là-dessus. Tu voulais parler d'autres chose ?”"
         ],
         "goto": "barmaid_003"
     },
