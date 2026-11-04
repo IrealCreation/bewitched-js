@@ -78,6 +78,12 @@
         "moods": ["Calme", "Hautain"],
         "score": 2
     },
+    "2ch_inquisitrice": {
+        "id": "2ch_inquisitrice",
+        "name": "Inquisitrice",
+        "moods": ["Calme", "Hautain"],
+        "score": 2
+    },
     "2aj_rage_vivre": {
         "id": "2aj_rage_vivre",
         "name": "Rage de vivre",

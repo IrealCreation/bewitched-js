@@ -197,7 +197,8 @@
     "intro_004": {
         "id": "intro_004",
         "texts": [
-            "Arrivée à la porte au bout du couloir, tu prends une longue inspiration avant de franchir ce dernier sas afin de te recentrer. Tu sais quel est ton objectif en venant ici. La personne que tu es venue traquer, et qui a un nom : Amir.",
+            "Arrivée à la porte au bout du couloir, tu prends une longue inspiration avant de franchir ce dernier sas afin de te recentrer. Tu sais quel est ton objectif en venant ici. La personne que tu es venue traquer, et qui a un nom.",
+            "Amir.",
             "Une crispation parcourt ton poing à cette pensée. C'est dans son territoire que tu t'apprêtes à entrer, et tu as parfaitement conscience des risques que tu y encours. Mais pourtant... si toi tu n'accomplis pas cela, personne d'autre ne le fera. Tu sais ce qu'il a fait à ses victimes, et ce qu'il refera encore si tu n'y mets pas un terme ; et tu sais qu'à cette liste de victimes viendra ce soir s'ajouter ton nom si sa volonté surpasse la tienne.",
             "Une deuxième profonde inspiration vient calmer ton rythme cardiaque. Tu dois rester concentrée sur ton objectif : trouver Amir, l'isoler, et... faire ce que tu as à faire. D'ici la fin de la soirée, tu comptes bien..."
         ],
@@ -300,6 +301,19 @@
                 "moods": [],
                 "score": 0,
                 "goto": "club_hub_dancefloor"
+            },
+            {
+                "text": "Trouver les escaliers vers le salon VIP",
+                "moods": [],
+                "score": 0,
+                "conditions": [
+                    {
+                        "operand1": "path_to_vip",
+                        "operator": ">",
+                        "operand2": 0
+                    }
+                ],
+                "goto": "club_hub_vip"
             }
         ]
     },
@@ -337,10 +351,12 @@
         ]
     },
 
+
+
     "barmaid_001": {
         "id": "barmaid_001",
         "texts": [
-            "De l'autre côté du comptoir sur la surface en vinyle duquel dansent quelques reflets de projecteurs, la barmaid se tourne vers toi après avoir fini de servir un couple de fêtards, l'air affairé : la soirée semble fort occupée pour elle.",
+            "De l'autre côté du comptoir sur la surface en vinyle duquel dansent quelques reflets de projecteurs, la barmaid se tourne vers toi, l'air affairé : la soirée semble fort occupée pour elle.",
             "“Qu'est-ce que ça sera ?” lance-t-elle sans attendre."
         ],
         "options": [
@@ -361,7 +377,7 @@
     "barmaid_002_pre_1": {
         "id": "barmaid_002_pre_1",
         "texts": [
-            "Elle t'indique une carte des consommations affichée derrière elle. “Si t'es aventureuse, je te conseille notre cocktail spécial maison ! Il risque de te faire tourner la tête...”"
+            "Elle t'indique une carte des consommations affichée derrière elle. “Je te conseille notre cocktail spécial maison. Mais je te préviens, il risque de te faire tourner la tête...”"
         ],
         "goto": "barmaid_002"
     },
@@ -377,13 +393,13 @@
         "texts": [],
         "options": [
             {
-                "text": "“Le cocktail maison, du coup.”",
+                "text": "“Va pour le cocktail maison.”",
                 "moods": [],
                 "score": 0,
                 "goto": "barmaid_002_post_1"
             },
             {
-                "text": "“Ce sera un Clover Club - bien émulsé évidemment, et avec un gin aromatisé de coriandre.”",
+                "text": "“Un Clover Club - bien émulsé évidemment, et avec un gin aromatisé de coriandre.”",
                 "moods": ["Hautain"],
                 "score": 3,
                 "goto": "barmaid_002_post_2"
@@ -463,14 +479,14 @@
                 "goto": "barmaid_004_001",
                 "conditions": [
                     {
-                        "operand1": "barmaid_004_done",
+                        "operand1": "barmaid_004_picked",
                         "operator": "==",
                         "operand2": 0
                     }
                 ],
                 "variableChanges": [
                     {
-                        "variable": "barmaid_004_done",
+                        "variable": "barmaid_004_picked",
                         "operator": "=",
                         "value": 1
                     }
@@ -483,14 +499,14 @@
                 "goto": "barmaid_005_001",
                 "conditions": [
                     {
-                        "operand1": "barmaid_005_done",
+                        "operand1": "barmaid_005_picked",
                         "operator": "==",
                         "operand2": 0
                     }
                 ],
                 "variableChanges": [
                     {
-                        "variable": "barmaid_005_done",
+                        "variable": "barmaid_005_picked",
                         "operator": "=",
                         "value": 1
                     }
@@ -503,16 +519,29 @@
                 "goto": "barmaid_006_001",
                 "conditions": [
                     {
-                        "operand1": "barmaid_006_done",
+                        "operand1": "barmaid_006_picked",
                         "operator": "==",
                         "operand2": 0
                     }
                 ],
                 "variableChanges": [
                     {
-                        "variable": "barmaid_006_done",
+                        "variable": "barmaid_006_picked",
                         "operator": "=",
                         "value": 1
+                    }
+                ]
+            },
+            {
+                "text": "“Tu peux me dire où trouver Amir ?”",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_006_002",
+                "conditions": [
+                    {
+                        "operand1": "barmaid_006_picked",
+                        "operator": "!=",
+                        "operand2": 0
                     }
                 ]
             },
@@ -524,21 +553,22 @@
             }
         ]
     },
+
     "barmaid_004_001": {
         "id": "barmaid_004_001",
         "texts": [
-            "Ton interlocutrice hoche la tête. “Tu m'étonnes : c'est une des soirées les plus en vue de la ville en ce moment, les orgas ont réussi leur coup y a pas à dire. Moi, tant que tout le monde s'amuse, ça me va.”",
-            "“D'ailleurs je crois pas me souvenir t'avoir déjà vue par ici...” ajoute-t-elle en te regardant davantage. “C'est ta première fois ? Tu passes un bon moment ?”"
+            "Ton interlocutrice hoche la tête. “Tu m'étonnes : c'est une des soirées les plus en vue de la ville en ce moment. Moi, tant que tout le monde s'amuse, que l'orga est content, et qu'à la fin de la nuit je suis payée, ça me va.”",
+            "“D'ailleurs je crois pas me souvenir t'avoir déjà vue par ici...” ajoute-t-elle en te regardant davantage. “C'est ta première fois ?”"
         ],
         "options": [
             {
-                "text": "“Ça peut aller...”",
-                "moods": ["Calme", "Agressif", "Hautain"],
-                "score": 1,
-                "goto": "barmaid_004_002"
+                "text": "“Changeons de sujet.”",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_003"
             },
             {
-                "text": "“T'inquiète, je m'amuse comme une folle ! Cheers !”",
+                "text": "“Yep, et le service est génial ! Cheers !”",
                 "moods": ["Joyeux"],
                 "score": 3,
                 "variableChanges": [
@@ -548,7 +578,7 @@
                         "value": 1
                     }
                 ],
-                "goto": "barmaid_004_003"
+                "goto": "barmaid_004_002"
             },
             {
                 "text": "“Si j'avais su qu'on y croisait d'aussi fascinantes créatures, je serais venue plus tôt.” *clin d'oeil*",
@@ -561,6 +591,25 @@
                         "value": 1
                     }
                 ],
+                "goto": "barmaid_004_003"
+            },
+            {
+                "text": "“Oui, et l'orga a bien réussi son event... D'ailleurs puisque tu le mentionnes, tu le connais ?”",
+                "moods": ["Calme", "Hautain"],
+                "cardGain": ["2ch_inquisitrice"],
+                "score": 4,
+                "variableChanges": [
+                    {
+                        "variable": "barmaid_approval",
+                        "operator": "+",
+                        "value": 1
+                    },
+                    {
+                        "variable": "barmaid_006_picked",
+                        "operator": "=",
+                        "value": 1
+                    }
+                ],
                 "goto": "barmaid_004_004"
             }
         ]
@@ -568,15 +617,17 @@
     "barmaid_004_002": {
         "id": "barmaid_004_002",
         "texts": [
-            "“Cool. T'as besoin d'autre chose ?”"
+            "Tu lèves ton verre à la santé de ton hôtesse avec un enthousiasme qui arrache un sourire à celle-ci. “Haha doucement, et pas d'abus ce soir. Mais cheers à toi aussi !”",
+            "Elle s'attrape un verre d'eau puis trinque avec toi avant de se désaltérer."
         ],
+        "cardGain": ["2js_yolo"],
         "goto": "barmaid_003"
     },
     "barmaid_004_003": {
         "id": "barmaid_004_003",
         "texts": [
-            "Tu lèves ton verre à la santé de ton hôtesse avec un enthousiasme qui arrache un sourire à celle-ci. “Haha doucement, et pas d'abus ce soir. Mais cheers à toi aussi !”",
-            "Elle s'attrape un verre d'eau puis trinque avec toi avant de se désaltérer."
+            "Elle détourne le regard avec un sourire mi-blasé mi-amusé, mais ses yeux reviennent vers toi avec une oeillade qui te glisse que le compliment n'est pas totalement passé à côté.",
+            "“Haha, pas de ça pendant le service... Mais si on se revoit après, peut-être que je ne dirais pas non.”"
         ],
         "cardGain": ["2js_yolo"],
         "goto": "barmaid_003"
@@ -584,10 +635,180 @@
     "barmaid_004_004": {
         "id": "barmaid_004_004",
         "texts": [
-            "Elle détourne le regard avec un sourire mi-blasé mi-amusé, mais ses yeux reviennent vers toi avec une oeillade qui te glisse que le compliment n'est pas totalement passé à côté.",
-            "“Haha, pas de ça pendant le service... Mais si on se revoit après, peut-être que je ne dirais pas non.”"
+            "“Oui - enfin, pas personnellement, mais forcèment je le croise. Il s'appelle Amir ; dans ce milieu on s'appelle tous par nos prénoms mais ça reste strictement pro. Puis bon, moi je sers des verres, lui il est surtout occupé à faire du... relationnel.”"
         ],
-        "cardGain": ["2js_yolo"],
+        "options": [
+            {
+                "text": "“Je vois le genre... Il passe sa nuit à serrer des paluches pendant que d'autres bossent vraiment.”",
+                "moods": ["Agressif", "Hautain"],
+                "score": 1,
+                "goto": "barmaid_004_005"
+            },
+            {
+                "text": "“Si je le croise, je lui glisserais un mot sympa à ton égard.”",
+                "moods": ["Calme", "Joyeux", "Séducteur"],
+                "score": 1,
+                "goto": "barmaid_004_006"
+            },
+            {
+                "text": "“Tu sais où je peux le trouver ?”",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_006_002"
+            }
+        ]
+    },
+    "barmaid_004_005": {
+        "id": "barmaid_004_005",
+        "texts": [
+            "Ton interlocutrice réprime un sourire. “Pas besoin de te faire un dessin, camarade... Heureusement qu'il y a des gens pour vraiment faire tourner la baraque.”"
+        ],
+        "options": [
+            {
+                "text": "“Et tu sais où est-ce qu'il se la coule douce pendant que tu cravaches au bar ?”",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_004_007"
+            }
+        ]
+    },
+    "barmaid_004_006": {
+        "id": "barmaid_004_006",
+        "texts": [
+            "Le visage de ton interlocutrice se réchauffe. “Merci, c'est sympa. Les avis clients positifs, c'est toujours bon à prendre !”"
+        ],
+        "options": [
+            {
+                "text": "“D'ailleurs, tu sais où je peux le trouver pour m'en occuper tout de suite ?”",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_004_007"
+            }
+        ]
+    },
+    "barmaid_004_007": {
+        "id": "barmaid_004_007",
+        "texts": [
+            "“Oh, il est sans doute dans le salon VIP à l'étage, à l'écart de la plèbe et avec ses... favorites de la soirée. Conseil d'amie : évite d'y mettre les pieds.”"
+        ],
+        "goto": "barmaid_reward"
+    },
+
+    "barmaid_005_001": {
+        "id": "barmaid_005_001",
+        "texts": [
+            "TODO"
+        ],
         "goto": "barmaid_003"
+    },
+
+    "barmaid_006_001": {
+        "id": "barmaid_006_001",
+        "texts": [
+            "“Amir ? Bien sûr, c'est un des orgas de la soirée... Pourquoi tu poses la question ?”"
+        ],
+        "options": [
+            {
+                "text": "“Tu sais où je peux le trouver ?”",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_006_002"
+            }
+        ]
+    },
+    "barmaid_006_002": {
+        "id": "barmaid_006_002",
+        "texts": [
+            "“C'est plutôt lui qui choisit qui il veut voir que l'inverse... Et honnêtement, je suis pas sûre que tu souhaites qu'il ait envie de te voir. Qu'est-ce que tu lui veux ?”"
+        ],
+        "options": [
+            {
+                "text": "“Allez, s'te-plait ! Tout le monde en parle tellement, j'aimerais trop le rencontrer !”",
+                "moods": ["Joyeux"],
+                "score": 4,
+                "goto": "barmaid_006_003"
+            },
+            {
+                "text": "“Honnêtement, ce n'est pas une histoire très honorable pour lui...”",
+                "moods": ["Agressif", "Calme"],
+                "score": 5,
+                "goto": "barmaid_006_004"
+            },
+            {
+                "text": "“Une affaire entre adultes consentants, si tu vois ce que je veux dire...”",
+                "moods": ["Hautain", "Séducteur"],
+                "score": 5,
+                "goto": "barmaid_006_005"
+            },
+            {
+                "text": "“Ça va aller, tu peux me faire confiance là-dessus.”",
+                "moods": [],
+                "score": 0,
+                "conditions": [
+                    {
+                        "operand1": "barmaid_approval",
+                        "operator": ">",
+                        "operand2": 0
+                    }
+                ],
+                "goto": "barmaid_006_006"
+            }
+        ]
+    },
+    "barmaid_006_003": {
+        "id": "barmaid_006_003",
+        "texts": [
+            "La barmaid laisse échapper un soupir résigné. “Si t'insistes... Puis il y a carrément moyen que tu lui plaises avec tes étoiles dans les yeux. Il est au salon VIP, à l'étage ; mais c'est à tes risques et périls.”"
+        ],
+        "goto": "barmaid_reward"
+    },
+    "barmaid_006_004": {
+        "id": "barmaid_006_004",
+        "texts": [
+            "“Honnêtement, je ne suis pas totalement surprise d'entendre ça... Tu le trouveras au salon VIP, à l'étage. Mais fais attention à toi.”"
+        ],
+        "goto": "barmaid_reward"
+    },
+    "barmaid_006_005": {
+        "id": "barmaid_006_005",
+        "texts": [
+            "“Oh, ok. Je respecte la vie privée de mes clients. Tu le trouveras au salon VIP, à l'étage... Mais j'imagine que tu sais dans quoi tu t'avances.”"
+        ],
+        "goto": "barmaid_reward"
+    },
+    "barmaid_006_006": {
+        "id": "barmaid_006_006",
+        "texts": [
+            "“Tu m'es sympathique, puis ça fait un moment qu'on discute et j'ai d'autres clients à servir, donc... Si tu veux vraiment le voir va au salon VIP à l'étage. Mais fais attention à toi, ok ?”"
+        ],
+        "options": [
+            {
+                "text": "“Merci. De l'info et du conseil.”",
+                "moods": ["Calme", "Joyeux", "Séducteur"],
+                "score": 1,
+                "goto": "barmaid_reward"
+            },
+            {
+                "text": "“T'en fais pas pour moi : je sais me défendre”",
+                "moods": ["Agressif", "Hautain"],
+                "score": 1,
+                "goto": "barmaid_reward"
+            }
+        ]
+    },
+    "barmaid_reward": {
+        "id": "barmaid_reward",
+        "texts": [
+            "TODO: insérer ici la récompense de fin de l'arbre de dialogue de la barmaid."
+        ],
+        "variableChanges": [
+            {
+                "variable": "path_to_vip",
+                "operator": "+=",
+                "value": 1
+            }
+        ],
+        "goto": "club_hub"
     }
+
 }

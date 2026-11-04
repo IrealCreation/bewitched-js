@@ -22,7 +22,7 @@ export default class GameManager {
     displayManager: DisplayManager;
     playerManager: PlayerManager;
 
-    currentDialogue: Dialogue;
+    currentDialogue!: Dialogue;
     currentDialogueText: number = 0; // Key de l'entrée du tableau "texts" actuellement affichée du dialogue en cours
     currentDialogueCardsGained: boolean = false;
 
@@ -43,20 +43,12 @@ export default class GameManager {
         this.displayManager = new DisplayManager();
         this.playerManager = new PlayerManager();
 
-        this.currentDialogue = this.dialogues["intro_001"];
-        this.playIntroScreen();
+        // this.dialogueGoto("intro_001");
+        this.dialogueGoto("barmaid_003_pre");
 
         // Gain des cartes de départ et pioche
         this.playerManager.gainStartingDeck();
         this.playerManager.resetPlayerStacks();
-    }
-
-    /**
-     * Affiche l'écran d'introduction du jeu
-     */
-    playIntroScreen() {
-        // TODO: do stylish intro stuff
-        this.dialogueShowText();
     }
 
     /** Le joueur a cliqué pour la prochaine interaction au sein d'un dialogue */
@@ -453,6 +445,11 @@ export default class GameManager {
         }
         this.currentDialogue = this.dialogues[dialogueId];
 
+        // On applique les changements de variables du nouveau dialogue
+        if(this.currentDialogue.variableChanges) {
+            this.applyGameVariableChanges(this.currentDialogue.variableChanges);
+        }
+
         // Mise à jour éventuelle de checkpoint
         if(this.currentDialogue.checkpoint) {
             this.updateCheckpoint(this.currentDialogue.checkpoint);
@@ -535,7 +532,7 @@ export default class GameManager {
         let test: boolean = true;
         conditions.forEach((condition) => {
             // Récupération de la valeur des operands
-            const operand1 = this.gameVariables[condition.operand1];
+            const operand1 = this.gameVariables[condition.operand1] ?? 0;
             let operand2: number;
             if(typeof condition.operand2 == "number") {
                 // Valeur fixe
@@ -543,7 +540,7 @@ export default class GameManager {
             }
             else {
                 // Valeur de variable
-                operand2 = this.gameVariables[condition.operand2];
+                operand2 = this.gameVariables[condition.operand2] ?? 0;
             }
 
             // Test de la condition
