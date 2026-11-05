@@ -43,8 +43,7 @@ export default class GameManager {
         this.displayManager = new DisplayManager();
         this.playerManager = new PlayerManager();
 
-        // this.dialogueGoto("intro_001");
-        this.dialogueGoto("barmaid_003_pre");
+        this.dialogueGoto("intro_001");
 
         // Gain des cartes de départ et pioche
         this.playerManager.gainStartingDeck();

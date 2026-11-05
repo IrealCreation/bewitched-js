@@ -197,7 +197,7 @@
     "intro_004": {
         "id": "intro_004",
         "texts": [
-            "Arrivée à la porte au bout du couloir, tu prends une longue inspiration avant de franchir ce dernier sas afin de te recentrer. Tu sais quel est ton objectif en venant ici. La personne que tu es venue traquer, et qui a un nom.",
+            "Arrivée à la porte au bout du couloir, tu prends une longue inspiration avant de franchir ce dernier sas afin de te recentrer. Tu sais quel est ton objectif en passant cette porte. La personne que tu es venue traquer jusqu'en ce lieu.",
             "Amir.",
             "Une crispation parcourt ton poing à cette pensée. C'est dans son territoire que tu t'apprêtes à entrer, et tu as parfaitement conscience des risques que tu y encours. Mais pourtant... si toi tu n'accomplis pas cela, personne d'autre ne le fera. Tu sais ce qu'il a fait à ses victimes, et ce qu'il refera encore si tu n'y mets pas un terme ; et tu sais qu'à cette liste de victimes viendra ce soir s'ajouter ton nom si sa volonté surpasse la tienne.",
             "Une deuxième profonde inspiration vient calmer ton rythme cardiaque. Tu dois rester concentrée sur ton objectif : trouver Amir, l'isoler, et... faire ce que tu as à faire. D'ici la fin de la soirée, tu comptes bien..."
@@ -557,7 +557,7 @@
     "barmaid_004_001": {
         "id": "barmaid_004_001",
         "texts": [
-            "Ton interlocutrice hoche la tête. “Tu m'étonnes : c'est une des soirées les plus en vue de la ville en ce moment. Moi, tant que tout le monde s'amuse, que l'orga est content, et qu'à la fin de la nuit je suis payée, ça me va.”",
+            "Ton interlocutrice hoche la tête. “Tu m'étonnes : ces soirées sont le secret le moins bien gardé de la ville en ce moment. Moi, tant que tout le monde s'amuse, que l'orga est content, et qu'à la fin de la nuit je suis payée, ça me va.”",
             "“D'ailleurs je crois pas me souvenir t'avoir déjà vue par ici...” ajoute-t-elle en te regardant davantage. “C'est ta première fois ?”"
         ],
         "options": [
@@ -635,7 +635,7 @@
     "barmaid_004_004": {
         "id": "barmaid_004_004",
         "texts": [
-            "“Oui - enfin, pas personnellement, mais forcèment je le croise. Il s'appelle Amir ; dans ce milieu on s'appelle tous par nos prénoms mais ça reste strictement pro. Puis bon, moi je sers des verres, lui il est surtout occupé à faire du... relationnel.”"
+            "“Oui - enfin, pas personnellement, mais forcèment je le croise. Il s'appelle Amir ; dans ce milieu on s'appelle tous par nos prénoms mais ça reste strictement pro. Puis bon, moi je sers des verres, lui il est surtout occupé à faire du... relationnel.” Elle dit ces derniers mots avec une certaine réserve dans la voix."
         ],
         "options": [
             {
@@ -712,7 +712,7 @@
         "id": "barmaid_005_002",
         "texts": [
             "A cette évocation, la jeune femme semble se mettre quelque peu sur la défensive.",
-            "“Les rumeurs, c'est souvent le lot de beaucoup de nightclubs hein. Moi je suis là pour le boulot, je marque mes limites, je me défends, je me débrouille, et franchement tout le monde gagnerait à en faire autant. Il y en a qui viennent et qui jouent avec le feu, alors faut pas s'étonner d'être brulée...”"
+            "“Les rumeurs, c'est le lot de beaucoup de nightclubs hein. Moi je suis là pour le boulot, je marque mes limites, je me défends, je me débrouille, et franchement tout le monde gagnerait à en faire autant. Il y en a qui viennent et qui jouent avec le feu, alors faut pas s'étonner d'être brulée...”"
         ],
         "options": [
             {
@@ -766,8 +766,8 @@
     "barmaid_005_003": {
         "id": "barmaid_005_003",
         "texts": [
-            "Ton interlocutrice baisse les yeux vers le comptoir, et reste silencieuse. Au moment où tu commençais à te dire que c'est peut-être sa manière de mettre fin à la conversation et que tu ferais mieux de partir, elle reprends la parole.",
-            "“Tu as raison, et c'était insensible de ma part de dire ça. Peut-être que je me laisse un peu trop gagner par... l'état d'esprit de cet endroit. Mais je vais tâcher de m'en souvenir.”"
+            "Ton interlocutrice baisse les yeux vers le comptoir, et reste silencieuse un certain temps. Au moment où tu commence à te dire que c'est peut-être sa manière de mettre fin à la conversation et que tu ferais mieux de partir, elle reprends la parole.",
+            "“Tu as raison, et c'était insensible de ma part de dire ça. Peut-être que je me laisse un peu trop gagner par... l'état d'esprit de cet endroit. Mais merci du rappel. Je vais tâcher de m'en souvenir.”"
         ],
         "cardGain": ["2aj_sororite"],
         "goto": "barmaid_003"
@@ -775,7 +775,7 @@
     "barmaid_005_004": {
         "id": "barmaid_005_004",
         "texts": [
-            "L'éclat en ton regard se reflète dans celui de ton interlocutrice et semble faire impression sur elle. Sans qu'il n'y ait rien besoin d'ajouter, elle hoche la tête."
+            "L'éclat en ton regard se reflète dans celui de ton interlocutrice et semble faire forte impression sur elle. Sans qu'il n'y ait rien besoin d'ajouter, elle hoche la tête."
         ],
         "cardGain": ["2hs_domina"],
         "goto": "barmaid_003"
@@ -839,6 +839,12 @@
                     }
                 ],
                 "goto": "barmaid_006_006"
+            },
+            {
+                "text": "“Laissons ça de côté pour l'instant”",
+                "moods": [],
+                "score": 0,
+                "goto": "barmaid_003"
             }
         ]
     },
