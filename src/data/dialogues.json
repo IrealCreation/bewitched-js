@@ -350,6 +350,32 @@
             }
         ]
     },
+    "club_hub_danse": {
+        "id": "club_hub_danse",
+        "texts": [
+            "TODO"
+        ],
+        "options": [
+            {
+                "text": "La meuf foncedé",
+                "moods": [],
+                "score": 0,
+                "goto": "TODO"
+            },
+            {
+                "text": "Le mec qui se la pète",
+                "moods": [],
+                "score": 0,
+                "goto": "ludovic_001"
+            },
+            {
+                "text": "Retourner vers l'entrée",
+                "moods": [],
+                "score": 0,
+                "goto": "club_hub_backto"
+            }
+        ]
+    },
 
 
 
@@ -900,6 +926,219 @@
                 "operator": "+=",
                 "value": 1
             }
+        ],
+        "goto": "club_hub"
+    },
+
+
+    
+    "ludovic_001": {
+        "id": "ludovic_001",
+        "texts": [
+            "Tu t'approches de Ludovic et de son groupe."
+        ],
+        "options": [
+            {
+                "text": "“Hé, c’est par ici qu’on s’amuse ?”",
+                "moods": ["Joyeux"],
+                "score": 3,
+                "goto": "ludovic_002"
+            },
+            {
+                "text": "Etablir un eye-contact",
+                "moods": ["Séducteur"],
+                "score": 3,
+                "goto": "ludovic_002"
+            },
+            {
+                "text": "Le bousculer “involontairement”",
+                "moods": ["Agressif"],
+                "score": 3,
+                "goto": "ludovic_002"
+            },
+            {
+                "text": "Se présenter formellement",
+                "moods": ["Calme", "Hautain"],
+                "score": 4,
+                "goto": "ludovic_002"
+            }
+        ]
+    },
+    "ludovic_002": {
+        "id": "ludovic_002",
+        "texts": [
+            "Ludovic se présente : “Je crois bien que c’est la première fois qu’on se rencontre.”"
+        ],
+        "options": [
+            {
+                "text": "“Oui, je n’ai pas trop l’habitude de ce genre d’endroit...”",
+                "moods": ["Calme"],
+                "score": 1,
+                "goto": "ludovic_003"
+            },
+            {
+                "text": "“Je suis plutôt du style vernissage que boîte de nuit, mais la nouveauté ne tue pas.”",
+                "moods": ["Hautain"],
+                "score": 1,
+                "goto": "ludovic_003"
+            },
+            {
+                "text": "“J’adore me faire de nouveaux amis !”",
+                "moods": ["Joyeux"],
+                "score": 1,
+                "goto": "ludovic_003"
+            },
+            {
+                "text": "“Sans doute... J’ai tendance à laisser ma marque dans l’esprit des gens que je rencontre.”",
+                "moods": ["Séducteur", "Agressif"],
+                "score": 1,
+                "goto": "ludovic_003"
+            }
+        ]
+    },
+    "ludovic_003": {
+        "id": "ludovic_003",
+        "texts": [
+            "“On va essayer de faire en sorte que tu passes une bonne soirée ! Messieurs-dames, et si on allait profiter un peu de la piste de danse ?” propose Ludovic."
+        ],
+        "options": [
+            {
+                "text": "“Accroche-toi, parce que moi j’ai grandi à l’école des pogos !”",
+                "moods": ["Agressif", "Joyeux"],
+                "score": 4,
+                "cardGain": ["3a_punk_rock"],
+                "goto": "ludovic_004"
+            },
+            {
+                "text": "“Laisse-moi te montrer ce que des années de danse classique peuvent inculquer.”",
+                "moods": ["Hautain"],
+                "score": 3,
+                "cardGain": ["3h_gouts_luxe"],
+                "goto": "ludovic_004"
+            },
+            {
+                "text": "“Approche : mes danses, je les aime très charnelles...”",
+                "moods": ["Séducteur"],
+                "score": 3,
+                "cardGain": ["3s_viles_passions"],
+                "goto": "ludovic_004"
+            },
+            {
+                "text": "Danser timidement",
+                "moods": [],
+                "score": 0,
+                "goto": "ludovic_004"
+            }
+        ]
+    },
+    "ludovic_004": {
+        "id": "ludovic_004",
+        "texts": [
+            "Après avoir dansé, vous vous installez sur des fauteuils, dans une ambiance plus propice à la discussion."
+        ],
+        "goto": "ludovic_005"
+    },
+    "ludovic_005": {
+        "id": "ludovic_005",
+        "texts": [],
+        "options": [
+            {
+                "text": "“Tu sembles être un habitué des lieux.”",
+                "moods": [],
+                "score": 0,
+                "goto": "ludovic_006"
+            },
+            {
+                "text": "“Connais-tu un certain Amir ?”",
+                "moods": [],
+                "score": 0,
+                "goto": "ludovic_007"
+            }
+        ]
+    },
+    "ludovic_006": {
+        "id": "ludovic_006",
+        "texts": [
+            "Ludovic te donne quelques informations sur lui."
+        ],
+        "goto": "ludovic_005"
+    },
+    "ludovic_007": {
+        "id": "ludovic_007",
+        "texts": [
+            "Ludovic t’explique qu’il a des relations professionnelles avec Amir, puis commence à se méfier et te demande ce que tu lui veux."
+        ],
+        "options": [
+            {
+                "text": "“Un ami commun m’a recommandé à lui, lors de ma dernière soirée à Ibiza...”",
+                "moods": ["Hautain", "Joyeux"],
+                "score": 5,
+                "goto": "ludovic_008"
+            },
+            {
+                "text": "“Je viens moi aussi pour affaires. Le genre qui ne s’ébruite pas.”",
+                "moods": ["Calme", "Agressif"],
+                "score": 5,
+                "goto": "ludovic_008"
+            },
+            {
+                "text": "“T’es mignon quand tu prends cet air sérieux... Laisse-moi détendre cette jolie bouche.”",
+                "moods": ["Séducteur"],
+                "score": 4,
+                "goto": "ludovic_008"
+            }
+        ]
+    },
+    "ludovic_008": {
+        "id": "ludovic_008",
+        "texts": [
+            "Ludovic finit par te répondre, mais reste vague sur la nature de ses rapports professionnels avec Amir."
+        ],
+        "options": [
+            {
+                "text": "“Quel genre de relation professionnelle ?”",
+                "moods": [],
+                "score": 0,
+                "goto": "ludovic_009"
+            },
+            {
+                "text": "“Laissons ça de côté pour l’instant.”",
+                "moods": [],
+                "score": 0,
+                "goto": "ludovic_005"
+            }
+        ]
+    },
+    "ludovic_009": {
+        "id": "ludovic_009",
+        "texts": [
+            "Ludovic t’explique qu’il ramène des filles à ses soirées, parfois au salon VIP."
+        ],
+        "options": [
+            {
+                "text": "“Ces filles ne sont que des marchandises pour toi ?”",
+                "moods": ["Agressif", "Hautain"],
+                "score": 4,
+                "goto": "ludovic_010"
+            },
+            {
+                "text": "“Tu n’as pas l’air d’avoir un mauvais fond, mais fais attention à qui tu choisis de fréquenter.”",
+                "moods": ["Calme", "Séducteur", "Joyeux"],
+                "score": 5,
+                "goto": "ludovic_010"
+            },
+            {
+                "text": "Whatever bro",
+                "moods": [],
+                "score": 0,
+                "goto": "ludovic_010"
+            }
+        ]
+    },
+    "ludovic_010": {
+        "id": "ludovic_010",
+        "texts": [
+            "La conversation avec Ludovic s’achève."
         ],
         "goto": "club_hub"
     }
