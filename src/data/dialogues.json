@@ -327,7 +327,7 @@
     "club_hub_bar": {
         "id": "club_hub_bar",
         "texts": [
-            "Tu te fonds parmi la clientèle qui abonde près du bar. Une trouée dans la foule te permet d'apercevoir une barmaid qui achève de s'occuper de clients. Un peu plus loin, un jeune homme lève les yeux de son verre avant de le lever dans ta direction avec un sourire se voulant sans doute sympathique."
+            "Tu te fonds parmi la clientèle qui abonde près du bar. Une trouée dans la foule te permet d'apercevoir la barmaid qui achève d'encaisser une commande. Un peu plus loin, un jeune homme accoudé au comptoir lève les yeux de son verre avant de le lever dans ta direction avec un sourire se voulant sans doute sympathique."
         ],
         "options": [
             {
@@ -353,17 +353,17 @@
     "club_hub_danse": {
         "id": "club_hub_danse",
         "texts": [
-            "TODO"
+            "Au centre de la salle, de nombreux corps s'ébattent dans la pénombre entrecoupée de flashs lumineux de la piste de danse, portés par la musique incessante qui sonne en ce lieu. Au coeur de ce malestrom, une jeune fêtarde qui se déhanche à corps perdu attire ton regard ; ainsi que, légèrement à l'écart, un homme entouré d'un petit groupe qu'il semble divertir de sa discussion."
         ],
         "options": [
             {
-                "text": "La meuf foncedé",
+                "text": "Se fondre dans le dancefloor pour s'approcher de la jeune femme",
                 "moods": [],
                 "score": 0,
-                "goto": "TODO"
+                "goto": "alba_001"
             },
             {
-                "text": "Le mec qui se la pète",
+                "text": "Contourner la piste pour s'approcher du groupe de l'homme",
                 "moods": [],
                 "score": 0,
                 "goto": "ludovic_001"
@@ -932,42 +932,109 @@
 
 
     
+    "ludovic_001_pre": {
+        "id": "ludovic_001_pre",
+        "texts": [
+            "L'homme vers lequel tu te fraies un chemin se tient avec assurance. Quelques bijoux dorés ornent ses tresses d'ébène, assortis à ceux qu'il porte à ses mains assez larges qu'il agite tandis qu'il semble finir de narrer une plaisanterie - laquelle provoque une hilarité chez les personnes qui l'entourent. Il y a dans leurs sourires, chez lui comme ches les membres de sa côterie, un petit quelque chose d'artificiel du masque que l'on revêt pour bien paraître en société.",
+            "Te faufiler au sein de ce groupe ne semble pas être chose aisée, et y faire soudainement irruption risque de donner une étrange impression..."
+        ],
+        "checkpoint": {
+            "scene": "ludovic",
+            "dialogue": "ludovic_001_re"
+        },
+        "variableChanges": [
+            {
+                "variable": "ludovic_progress",
+                "operator": "+=",
+                "value": 1
+            }
+        ],
+        "goto": "ludovic_001"
+    },
+    "ludovic_001_re": {
+        "id": "ludovic_001_re",
+        "texts": [
+            "L'homme que tu as remarqué est toujours bien entouré et bien occupé au sein de sa petite côterie. Comment l'approcher ?"
+        ],
+        "goto": "ludovic_001"
+    },
     "ludovic_001": {
         "id": "ludovic_001",
-        "texts": [
-            "Tu t'approches de Ludovic et de son groupe."
-        ],
+        "texts": [],
         "options": [
             {
-                "text": "“Hé, c’est par ici qu’on s’amuse ?”",
+                "text": "S'avancer en s'exclammant “hé, c'est par ici qu'on s'amuse ?”",
                 "moods": ["Joyeux"],
                 "score": 3,
-                "goto": "ludovic_002"
+                "goto": "ludovic_001_post_j"
             },
             {
-                "text": "Etablir un eye-contact",
+                "text": "Établir un eye-contact avec l'homme",
                 "moods": ["Séducteur"],
                 "score": 3,
-                "goto": "ludovic_002"
+                "goto": "ludovic_001_post_s"
             },
             {
                 "text": "Le bousculer “involontairement”",
                 "moods": ["Agressif"],
                 "score": 3,
-                "goto": "ludovic_002"
+                "goto": "ludovic_001_post_a"
             },
             {
-                "text": "Se présenter formellement",
+                "text": "S'avancer et se présenter, tout simplement",
                 "moods": ["Calme", "Hautain"],
                 "score": 4,
-                "goto": "ludovic_002"
+                "goto": "ludovic_001_post_ch"
+            },
+            {
+                "text": "S'éloigner",
+                "moods": [],
+                "score": 0,
+                "goto": "club_hub_dancefloor"
             }
-        ]
+        ],
+        "checkpoint": {
+            "scene": "ludovic",
+            "dialogue": "ludovic_001_bis"
+        }
     },
+    "ludovic_001_post_j": {
+        "id": "ludovic_001_post_j",
+        "texts": [
+            "On est dans une boîte de nuit après tout ; quoi de plus naturel que de vouloir s'amuser ? Tu t'avances dans le cercle avec exubérance, naturel et enthousiasme. L'homme au centre de celui-ci écarte les bras d'un air ravi.",
+            "“Bien sûr que tu es au bon endroit pour ça ! Primo, parce que tu es au Tabula Rasa... Deuzio, parce que t'es auprès de moi ! Ludovic, pour te servir.”"
+        ],
+        "goto": "ludovic_002"
+    },
+    "ludovic_001_post_s": {
+        "id": "ludovic_001_post_s",
+        "texts": [
+            "Tu te places dans la périphérie du regard de cet homme, et lui lances des oeillades savamment calculées. Quand il tourne les yeux vers toi, tu tiens son regard une seconde avant de te détourner avec le plus grand des naturels. Vous jouez à ce petit jeu quelques minutes jusqu'à ce que, comme prévu, il morde à ton hameçon et que ce soit lui qui vienne vers toi.",
+            "“Mademoiselle... Il ne me semble pas te connaître, mais quelque chose me dit que ça va bientôt être le cas. Ludovic, enchanté.”"
+        ],
+        "goto": "ludovic_002"
+    },
+    "ludovic_001_post_a": {
+        "id": "ludovic_001_post_a",
+        "texts": [
+            "Ta technique pourrait être qualifiée de “rentre-dedans”, mais elle a le mérite de fonctionner sans détour. Quand ton épaule heurte avec la plus parfaite inadvertance celle de l'homme tandis qu'il concluait une phrase avec un large geste, il se tourne vers toi d'un air quelque peu désarçonné. Une petite dose offusquée dans ton regard fait le reste du travail.",
+            "“Je suis navré ! Les collisions en bordure de piste de danse font partie des risques du métier, mais ça n'excuse pas mon manque de conscience corporelle. Ludovic - dont la carcasse est un petit peu trop large - pour te servir.”"
+        ],
+        "goto": "ludovic_002"
+    },
+    "ludovic_001_post_ch": {
+        "id": "ludovic_001_post_ch",
+        "texts": [
+            "Pourquoi chercher des solutions complexes à des problèmes simples ? Tu t'avances, avec le plus candide des naturels, au sein du groupe ; tu laisses l'homme finir sa petite narration - une anecdote au sujet d'une fête mémorable à Los Angeles - et offres à celle-ci un sourire poli. Quand son regard finit par se poser sur toi, tu lui tends la main et te présentes, sobrement et cordialement.",
+            "“Quelles bonnes manières ! Si seulement tout le monde avait les mêmes dans le monde de la nuit” commente ton interlocuteur en acceptant ta poignée de main. “A mon tour de me présenter : Ludovic, toujours ravi d'être en bonne compagnie de gens civilisés.”"
+        ],
+        "goto": "ludovic_002"
+    },
+
     "ludovic_002": {
         "id": "ludovic_002",
         "texts": [
-            "Ludovic se présente : “Je crois bien que c’est la première fois qu’on se rencontre.”"
+            "Ludovic ajoute, poussant sur sa voix grave pour couvrir un nouveau morceau de musique : “Je suis plutôt physionomiste, et je crois bien que c'est la première fois que nous nous rencontrons.”"
         ],
         "options": [
             {
