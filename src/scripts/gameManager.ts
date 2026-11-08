@@ -1,4 +1,4 @@
-import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood, GameEffects, GameVariableChange, GameCondition, CheckpointStorage, CheckpointChange } from "../types/types";
+import { DialogueStorage, CardModelStorage, GameVariableStorage, Dialogue, DialogueOption, CardModel, Mood, GameEffects, GameVariableChange, GameCondition, GameConditionBlock, CheckpointStorage, CheckpointChange } from "../types/types";
 import DisplayManager from "./displayManager";
 import PlayerManager from "./playerManager";
 import Card from "./card";
@@ -96,14 +96,7 @@ export default class GameManager {
      * Affiche les options de dialogue du dialogue en cours
      */
     dialogueShowOptions() {
-        // Vérification des conditions d'affichage des options
-        const optionsToShow: DialogueOption[] = [];
-        this.currentDialogue.options!.forEach((option) => {
-            if(!option.conditions || this.satisfyConditions(option.conditions)) {
-                // Pas de conditions, ou les conditions sont satisfaites : on affiche
-                optionsToShow.push(option);
-            }
-        })
+        const optionsToShow = this.getAvailableDialogueOptions();
         this.displayManager.displayDialogueOptions(optionsToShow);
         
         // Update de l'affichage des options de dialogue
@@ -380,7 +373,7 @@ export default class GameManager {
      */
     dialogueOptionsUpdateStatus(): void {
         // On passe en revue les options de dialogue pour voir lesquelles sont matchables
-        this.currentDialogue.options?.forEach((option, index) => {
+        this.getAvailableDialogueOptions().forEach((option, index) => {
             let score: number = 0;
 
             this.playerManager.cardsSelected.forEach(card => {
@@ -525,6 +518,23 @@ export default class GameManager {
                     break;
             }
         });
+    }
+
+    getAvailableDialogueOptions(): DialogueOption[] {
+        return (this.currentDialogue.options ?? []).filter(option =>
+            !option.conditionBlock || this.satisfyConditionBlock(option.conditionBlock)
+        );
+    }
+
+    satisfyConditionBlock(conditionBlock: GameConditionBlock): boolean {
+        if(conditionBlock.operator === "AND") {
+            // Toutes les conditions du bloc doivent être satisfaites
+            return this.satisfyConditions(conditionBlock.conditions);
+        }
+        else {
+            // Au moins une condition du bloc doit être satisfaite
+            return conditionBlock.conditions.some(condition => this.satisfyConditions([condition]))
+        }
     }
 
     satisfyConditions(conditions: GameCondition[]): boolean {

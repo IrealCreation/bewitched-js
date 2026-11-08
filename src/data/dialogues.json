@@ -306,13 +306,17 @@
                 "text": "Trouver les escaliers vers le salon VIP",
                 "moods": [],
                 "score": 0,
-                "conditions": [
-                    {
-                        "operand1": "path_to_vip",
-                        "operator": ">",
-                        "operand2": 0
-                    }
-                ],
+                "conditionBlock": 
+                {
+                    "conditions": [
+                        {
+                            "operand1": "path_to_vip",
+                            "operator": ">",
+                            "operand2": 0
+                        }
+                    ],
+                    "operator": "AND"
+                },
                 "goto": "club_hub_vip"
             }
         ]
@@ -503,13 +507,17 @@
                 "moods": [],
                 "score": 0,
                 "goto": "barmaid_004_001",
-                "conditions": [
-                    {
-                        "operand1": "barmaid_004_picked",
-                        "operator": "==",
-                        "operand2": 0
-                    }
-                ],
+                "conditionBlock":
+                {
+                    "conditions": [
+                        {
+                            "operand1": "barmaid_004_picked",
+                            "operator": "==",
+                            "operand2": 0
+                        }
+                    ],
+                    "operator": "AND"
+                },
                 "variableChanges": [
                     {
                         "variable": "barmaid_004_picked",
@@ -523,13 +531,17 @@
                 "moods": [],
                 "score": 0,
                 "goto": "barmaid_005_001",
-                "conditions": [
-                    {
-                        "operand1": "barmaid_005_picked",
-                        "operator": "==",
-                        "operand2": 0
-                    }
-                ],
+                "conditionBlock":
+                {
+                    "conditions": [
+                        {
+                            "operand1": "barmaid_005_picked",
+                            "operator": "==",
+                            "operand2": 0
+                        }
+                    ],
+                    "operator": "AND"
+                },
                 "variableChanges": [
                     {
                         "variable": "barmaid_005_picked",
@@ -543,13 +555,17 @@
                 "moods": [],
                 "score": 0,
                 "goto": "barmaid_006_001",
-                "conditions": [
-                    {
-                        "operand1": "barmaid_006_picked",
-                        "operator": "==",
-                        "operand2": 0
-                    }
-                ],
+                "conditionBlock":
+                {
+                    "conditions": [
+                        {
+                            "operand1": "barmaid_006_picked",
+                            "operator": "==",
+                            "operand2": 0
+                        }
+                    ],
+                    "operator": "AND"
+                },
                 "variableChanges": [
                     {
                         "variable": "barmaid_006_picked",
@@ -563,13 +579,17 @@
                 "moods": [],
                 "score": 0,
                 "goto": "barmaid_006_002",
-                "conditions": [
-                    {
-                        "operand1": "barmaid_006_picked",
-                        "operator": "!=",
-                        "operand2": 0
-                    }
-                ]
+                "conditionBlock":
+                {
+                    "conditions": [
+                        {
+                            "operand1": "barmaid_006_picked",
+                            "operator": "!=",
+                            "operand2": 0
+                        }
+                    ],
+                    "operator": "AND"
+                }
             },
             {
                 "text": "“Je reviens plus tard.” (S'éloigner temporairement)",
@@ -857,13 +877,17 @@
                 "text": "“Ça va aller, tu peux me faire confiance là-dessus.”",
                 "moods": [],
                 "score": 0,
-                "conditions": [
-                    {
-                        "operand1": "barmaid_approval",
-                        "operator": ">",
-                        "operand2": 0
-                    }
-                ],
+                "conditionBlock":
+                {
+                    "conditions": [
+                        {
+                            "operand1": "barmaid_approval",
+                            "operator": ">",
+                            "operand2": 0
+                        }
+                    ],
+                    "operator": "AND"
+                },
                 "goto": "barmaid_006_006"
             },
             {
