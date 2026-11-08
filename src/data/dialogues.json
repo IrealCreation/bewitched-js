@@ -1269,18 +1269,61 @@
                 "text": "“Un ami commun m’a recommandé à lui, lors de ma dernière soirée à Ibiza...”",
                 "moods": ["Hautain", "Joyeux"],
                 "score": 5,
+                "gameConditionBlock":
+                {
+                    "conditions": [
+                        {
+                            "operand1": "ludovic_h",
+                            "operator": ">=",
+                            "operand2": 1
+                        },
+                        {
+                            "operand1": "ludovic_j",
+                            "operator": ">=",
+                            "operand2": 1
+                        }
+                    ],
+                    "operator": "OR"
+                },
                 "goto": "ludovic_008"
             },
             {
                 "text": "“Je viens moi aussi pour affaires. Le genre qui ne s’ébruite pas.”",
                 "moods": ["Calme", "Agressif"],
                 "score": 5,
+                "gameConditionBlock":
+                {
+                    "conditions": [
+                        {
+                            "operand1": "ludovic_a",
+                            "operator": ">=",
+                            "operand2": 1
+                        },
+                        {
+                            "operand1": "ludovic_c",
+                            "operator": ">=",
+                            "operand2": 1
+                        }
+                    ],
+                    "operator": "OR"
+                },
                 "goto": "ludovic_008"
             },
             {
                 "text": "“T’es mignon quand tu prends cet air sérieux... Laisse-moi détendre cette jolie bouche.”",
                 "moods": ["Séducteur"],
                 "score": 4,
+                "gameConditionBlock":
+                {
+                    "conditions": [
+                        {
+                            "operand1": "ludovic_s",
+                            "operator": ">=",
+                            "operand2": 1
+                        }
+                    ],
+                    "operator": "OR"
+                },
                 "goto": "ludovic_008"
             }
         ]

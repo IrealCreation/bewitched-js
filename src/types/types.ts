@@ -67,7 +67,7 @@ export interface CardModel {
 
 export interface GameConditionBlock {
     conditions: GameCondition[];
-    operator: "AND" | "OR";
+    operator?: "AND" | "OR"; // "AND" par défaut (optionnel pour ne pas s'embarasser à le préciser sur les conditions uniques)
 }
 
 export interface GameCondition {

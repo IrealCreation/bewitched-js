@@ -520,14 +520,24 @@ export default class GameManager {
         });
     }
 
+    /**
+     * Renvoie la liste des options de dialogue valables pour le dialogue en cours
+     * @returns 
+     */
     getAvailableDialogueOptions(): DialogueOption[] {
         return (this.currentDialogue.options ?? []).filter(option =>
             !option.conditionBlock || this.satisfyConditionBlock(option.conditionBlock)
         );
     }
 
+    /**
+     * Vérifie si un block de condition est satisfait
+     * @param conditionBlock 
+     * @returns 
+     */
     satisfyConditionBlock(conditionBlock: GameConditionBlock): boolean {
-        if(conditionBlock.operator === "AND") {
+        const condition = conditionBlock.operator ?? "AND"; // "AND" par défaut
+        if(condition === "AND") {
             // Toutes les conditions du bloc doivent être satisfaites
             return this.satisfyConditions(conditionBlock.conditions);
         }
@@ -537,6 +547,11 @@ export default class GameManager {
         }
     }
 
+    /**
+     * Vérifie si une liste de conditions est satisfaite
+     * @param conditions 
+     * @returns 
+     */
     satisfyConditions(conditions: GameCondition[]): boolean {
         let test: boolean = true;
         conditions.forEach((condition) => {
