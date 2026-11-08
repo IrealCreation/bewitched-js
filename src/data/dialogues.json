@@ -1,6 +1,6 @@
 {
     "test_001": {
-        "id": "test",
+        "id": "test_001",
         "texts": [
             "[TEST]",
             "Bienvenue dans Bewitched ! Tiens, voici des cartes."
@@ -16,7 +16,7 @@
         "goto" : "test_002"
     },
     "test_002": {
-        "id": "test",
+        "id": "test_002",
         "texts": [
             "[TEST]",
             "Devant toi, un code TypeScript qui ne compile pas. Que fais-tu ?"
@@ -277,7 +277,7 @@
         "goto": "intro_005"
     },
     "intro_005": {
-        "id": "intro_005_pre_5",
+        "id": "intro_005",
         "texts": [
             "Là, tu es accueillie par une explosion de sons et de lumières : les basses font vibrer le sol sous tes pieds, tandis que des faisceaux multicolores dansent au rythme de la musique dans une atmosphère épaisse de fumée artificielle. Autour de toi, des silhouettes se meuvent dans l'extase éphémère de la nuit et de ses tentations.",
             "C'est un véritable microcosme d'émotions humaines qui s'offre à toi, et tu sais que tu devras naviguer habilement à travers ce tumulte pour atteindre ton objectif. Tu es entrée dans la gueule du loup, mais tu n'as pas peur ; tu es prête à affronter les ténèbres pour atteindre la lumière au bout du tunnel.",
@@ -1095,7 +1095,7 @@
         ],
         "options": [
             {
-                "text": "“Oui, je n’ai pas trop l’habitude de ce genre d’endroit...”",
+                "text": "“Oui, je n'ai pas trop l'habitude de ce genre d'endroit...”",
                 "moods": ["Calme"],
                 "score": 1,
                 "variableChanges": [
@@ -1105,7 +1105,7 @@
                         "value": 1
                     }
                 ],
-                "goto": "ludovic_003"
+                "goto": "ludovic_003_pre"
             },
             {
                 "text": "“Je suis plutôt du style vernissage que boîte de nuit, mais la nouveauté ne tue pas.”",
@@ -1118,10 +1118,10 @@
                         "value": 1
                     }
                 ],
-                "goto": "ludovic_003"
+                "goto": "ludovic_003_pre"
             },
             {
-                "text": "“J’adore me faire de nouveaux amis !”",
+                "text": "“J'adore me faire de nouveaux amis !”",
                 "moods": ["Joyeux"],
                 "score": 1,
                 "variableChanges": [
@@ -1131,10 +1131,10 @@
                         "value": 1
                     }
                 ],
-                "goto": "ludovic_003"
+                "goto": "ludovic_003_pre"
             },
             {
-                "text": "“Sans doute... J’ai tendance à laisser ma marque dans l’esprit des gens que je rencontre.”",
+                "text": "“Sans doute... J'ai tendance à laisser ma marque dans l'esprit des gens que je rencontre.”",
                 "moods": ["Séducteur", "Agressif"],
                 "score": 1,
                 "variableChanges": [
@@ -1149,18 +1149,34 @@
                         "value": 1
                     }
                 ],
-                "goto": "ludovic_003"
+                "goto": "ludovic_003_pre"
             }
         ]
     },
-    "ludovic_003": {
-        "id": "ludovic_003",
+    "ludovic_003_pre": {
+        "id": "ludovic_003_pre",
         "texts": [
             "“On va essayer de faire en sorte que tu passes une bonne soirée ! Messieurs-dames, la piste de danse est juste ici, et si on allait en profiter ?” propose Ludovic."
         ],
+        "checkpoint": {
+            "scene": "ludovic",
+            "dialogue": "ludovic_003_re"
+        },
+        "goto": "ludovic_003"
+    },
+    "ludovic_003_re": {
+        "id": "ludovic_003_re",
+        "texts": [
+            "Ludovic et son groupe n'attendent que toi pour rejoindre le dancefloor."
+        ],
+        "goto": "ludovic_003"
+    },
+    "ludovic_003": {
+        "id": "ludovic_003",
+        "texts": [],
         "options": [
             {
-                "text": "“Accroche-toi, parce que moi j'ai grandi à l'école des pogos !”",
+                "text": "“Accroche-toi : les fosses de concert, ça me connait !”",
                 "moods": ["Agressif", "Joyeux"],
                 "score": 4,
                 "variableChanges": [
@@ -1175,8 +1191,7 @@
                         "value": 1
                     }
                 ],
-                "cardGain": ["3a_punk_rock"],
-                "goto": "ludovic_004"
+                "goto": "ludovic_003_post_aj"
             },
             {
                 "text": "“Laisse-moi te montrer ce que des années de danse classique peuvent inculquer.”",
@@ -1189,11 +1204,10 @@
                         "value": 1
                     }
                 ],
-                "cardGain": ["3h_gouts_luxe"],
-                "goto": "ludovic_004"
+                "goto": "ludovic_003_post_h"
             },
             {
-                "text": "“Approche : mes danses, je les aime très charnelles...”",
+                "text": "“Approche... mes danses, je les aime très charnelles.”",
                 "moods": ["Séducteur"],
                 "score": 3,
                 "variableChanges": [
@@ -1204,7 +1218,7 @@
                     }
                 ],
                 "cardGain": ["3s_chaleur_des_corps"],
-                "goto": "ludovic_004"
+                "goto": "ludovic_003_post_s"
             },
             {
                 "text": "Danser timidement",
@@ -1217,16 +1231,47 @@
                         "value": 1
                     }
                 ],
-                "goto": "ludovic_004"
+                "goto": "ludovic_003_post_c"
             },
             {
                 "text": "“Heu... Je vous rejoins plus tard.”",
-                "moods": ["Calme"],
-                "score": 1,
-                "goto": "ludovic_004"
+                "moods": [],
+                "score": 0,
+                "goto": "club_hub_dancefloor"
             }
         ]
     },
+    "ludovic_003_post_aj": {
+        "id": "ludovic_003_post_aj",
+        "texts": [
+            "Tu ouvres la marche jusqu'au milieu du dancefloor, te sentant parfaitement à ton aise au milieu qui s'agitent. Là, tu t'abandonnes à la musique, fièrement, sauvagement, flamme incandescente brûlant au milieu de la nuit."
+        ],
+        "cardGain": ["3a_punk_rock"],
+        "goto:": "ludovic_003_post_aj2"
+    },
+    "ludovic_003_post_aj2": {
+        "id": "ludovic_003_post_aj2",
+        "texts": [
+            "Quand tu adresses un regard à Ludovic, il semble presque timide comparé à toi et à ta férocité de vivre. Il finit par s'essoufler bien avant que tu ne faiblisses et, comme un aveu de défaite, il sonne le repli hors de la piste de danse jusqu'à un coin de la salle plus calme."
+        ],
+        "goto:": "ludovic_004"
+    },
+    "ludovic_003_post_h": {
+        "id": "ludovic_003_post_h",
+        "texts": [
+            "Tu t'avances sur la piste de danse, le port altier, le pas maîtrisé. D'un simple redressement du menton, tu sembles dominer tous ceux qui s'ébattent autour de toi. Lorsque tu te mets à danser, il n'y a rien de leur amateurisme ni de leur vulgarité : chacun de tes mouvements est précis, appris, conçu pour la grâce."
+        ],
+        "cardGain": ["3h_gouts_luxe"],
+        "goto:": "ludovic_003_post_h2"
+    },
+    "ludovic_003_post_h2": {
+        "id": "ludovic_003_post_h2",
+        "texts": [
+            "Tu perçois le regard de Ludovic sur toi, où il ne peut cacher une lueur d'admiration - voire de fascination."
+        ],
+        "goto:": ""
+    },
+
     "ludovic_004": {
         "id": "ludovic_004",
         "texts": [
@@ -1245,7 +1290,13 @@
                 "goto": "ludovic_006"
             },
             {
-                "text": "“Connais-tu un certain Amir ?”",
+                "text": "“C'est toi qui organise cette soirée ?”",
+                "moods": [],
+                "score": 0,
+                "goto": "ludovic_006"
+            },
+            {
+                "text": "“Est-ce que tu connais Amir ?”",
                 "moods": [],
                 "score": 0,
                 "goto": "ludovic_007"
@@ -1269,7 +1320,7 @@
                 "text": "“Un ami commun m’a recommandé à lui, lors de ma dernière soirée à Ibiza...”",
                 "moods": ["Hautain", "Joyeux"],
                 "score": 5,
-                "gameConditionBlock":
+                "conditionBlock":
                 {
                     "conditions": [
                         {
@@ -1291,7 +1342,7 @@
                 "text": "“Je viens moi aussi pour affaires. Le genre qui ne s’ébruite pas.”",
                 "moods": ["Calme", "Agressif"],
                 "score": 5,
-                "gameConditionBlock":
+                "conditionBlock":
                 {
                     "conditions": [
                         {
@@ -1313,7 +1364,7 @@
                 "text": "“T’es mignon quand tu prends cet air sérieux... Laisse-moi détendre cette jolie bouche.”",
                 "moods": ["Séducteur"],
                 "score": 4,
-                "gameConditionBlock":
+                "conditionBlock":
                 {
                     "conditions": [
                         {
