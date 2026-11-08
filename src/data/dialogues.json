@@ -353,8 +353,8 @@
             }
         ]
     },
-    "club_hub_danse": {
-        "id": "club_hub_danse",
+    "club_hub_dancefloor": {
+        "id": "club_hub_dancefloor",
         "texts": [
             "Au centre de la salle, de nombreux corps s'ébattent dans la pénombre entrecoupée de flashs lumineux de la piste de danse, portés par la musique incessante qui sonne en ce lieu. Au coeur de ce malestrom, une jeune fêtarde qui se déhanche à corps perdu attire ton regard ; ainsi que, légèrement à l'écart, un homme entouré d'un petit groupe qu'il semble divertir de sa discussion."
         ],
@@ -369,7 +369,7 @@
                 "text": "Contourner la piste pour s'approcher du groupe de l'homme",
                 "moods": [],
                 "score": 0,
-                "goto": "ludovic_001"
+                "goto": "ludovic_001_pre"
             },
             {
                 "text": "Retourner vers l'entrée",
@@ -882,8 +882,7 @@
                             "operator": ">",
                             "operand2": 0
                         }
-                    ],
-                    "operator": "AND"
+                    ]
                 },
                 "goto": "barmaid_006_006"
             },
@@ -956,7 +955,7 @@
     "ludovic_001_pre": {
         "id": "ludovic_001_pre",
         "texts": [
-            "L'homme vers lequel tu te fraies un chemin se tient avec assurance. Quelques bijoux dorés ornent ses tresses d'ébène, assortis à ceux qu'il porte à ses mains assez larges qu'il agite tandis qu'il semble finir de narrer une plaisanterie - laquelle provoque une hilarité chez les personnes qui l'entourent. Il y a dans leurs sourires, chez lui comme ches les membres de sa côterie, un petit quelque chose d'artificiel du masque que l'on revêt pour bien paraître en société.",
+            "L'homme vers lequel tu te fraies un chemin se tient avec assurance. Quelques bijoux dorés ornent ses tresses d'ébène, assortis à ceux qu'il porte à ses mains assez larges qu'il agite tandis qu'il semble finir de narrer une plaisanterie - laquelle provoque l'hilarité des personnes qui l'entourent. Il y a dans leurs sourires, chez lui comme chez les membres de sa côterie, un petit quelque chose d'artificiel du masque que l'on revêt pour bien paraître en société.",
             "Te faufiler au sein de ce groupe ne semble pas être chose aisée, et y faire soudainement irruption risque de donner une étrange impression..."
         ],
         "checkpoint": {
@@ -1070,8 +1069,8 @@
     "ludovic_001_post_a": {
         "id": "ludovic_001_post_a",
         "texts": [
-            "Ta technique pourrait être qualifiée de “rentre-dedans”, mais elle a le mérite de fonctionner sans détour. Quand ton épaule heurte avec la plus parfaite inadvertance celle de l'homme tandis qu'il concluait une phrase avec un large geste, il se tourne vers toi d'un air quelque peu désarçonné. Une petite dose offusquée dans ton regard fait le reste du travail.",
-            "“Je suis navré ! Les collisions en bordure de piste de danse font partie des risques du métier, mais ça n'excuse pas mon manque de conscience corporelle. Ludovic - dont la carcasse est un petit peu trop large - pour te servir.”"
+            "Ta technique pourrait être qualifiée de “rentre-dedans”, mais elle a le mérite de fonctionner sans détour. Quand ton épaule heurte avec la plus parfaite inadvertance celle de l'homme tandis qu'il concluait une phrase avec un large geste, il se tourne vers toi d'un air quelque peu désarçonné. Une petite moue offusquée sur ton visage fait le reste du travail.",
+            "“Je suis navré ! Les collisions en bordure de piste de danse font partie des risques du métier, mais ça n'excuse pas mon manque de conscience corporelle. Ludovic - dont la carcasse est un petit peu trop large - pour te servir” - se présente-t-il."
         ],
         "goto": "ludovic_002"
     },
@@ -1239,17 +1238,17 @@
     "ludovic_003_post_aj": {
         "id": "ludovic_003_post_aj",
         "texts": [
-            "Tu ouvres la marche jusqu'au milieu du dancefloor, te sentant parfaitement à ton aise au milieu qui s'agitent. Là, tu t'abandonnes à la musique, fièrement, sauvagement, flamme incandescente brûlant au milieu de la nuit."
+            "Tu ouvres la marche jusqu'au milieu du dancefloor, te sentant parfaitement à ton aise au milieu des corps qui s'agitent. Là, tu t'abandonnes à la musique, fièrement, sauvagement, flamme incandescente brûlant au milieu de la nuit."
         ],
         "cardGain": ["3a_punk_rock"],
-        "goto:": "ludovic_003_post_aj2"
+        "goto": "ludovic_003_post_aj2"
     },
     "ludovic_003_post_aj2": {
         "id": "ludovic_003_post_aj2",
         "texts": [
             "Quand tu adresses un regard à Ludovic, il semble presque timide comparé à toi et à ta férocité de vivre. Il finit par s'essoufler bien avant que tu ne faiblisses et, comme un aveu de défaite, il sonne le repli hors de la piste de danse jusqu'à un coin de la salle plus calme."
         ],
-        "goto:": "ludovic_004"
+        "goto": "ludovic_004"
     },
     "ludovic_003_post_h": {
         "id": "ludovic_003_post_h",
@@ -1257,14 +1256,14 @@
             "Tu t'avances sur la piste de danse, le port altier, le pas maîtrisé. D'un simple redressement du menton, tu sembles dominer tous ceux qui s'ébattent autour de toi. Lorsque tu te mets à danser, il n'y a rien de leur amateurisme ni de leur vulgarité : chacun de tes mouvements est précis, appris, conçu pour la grâce."
         ],
         "cardGain": ["3h_gouts_luxe"],
-        "goto:": "ludovic_003_post_h2"
+        "goto": "ludovic_003_post_h2"
     },
     "ludovic_003_post_h2": {
         "id": "ludovic_003_post_h2",
         "texts": [
             "Tu perçois le regard de Ludovic sur toi, où il ne peut cacher une lueur d'admiration - voire de fascination."
         ],
-        "goto:": ""
+        "goto": ""
     },
 
     "ludovic_004": {
