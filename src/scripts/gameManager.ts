@@ -65,7 +65,8 @@ export default class GameManager {
         this.currentDialogueText ++;
 
         // Reste-t-il des textes dans le dialogue en cours ?
-        if(this.currentDialogueText < this.currentDialogue.texts.length) {
+        const texts = this.currentDialogue.texts ?? [];
+        if(this.currentDialogueText < texts.length) {
             this.dialogueShowText();
             return;
         }
@@ -89,7 +90,12 @@ export default class GameManager {
     }
 
     dialogueShowText() {
-        this.displayManager.displayDialogueText(this.currentDialogue.texts[this.currentDialogueText]);
+        const text = this.currentDialogue.texts?.[this.currentDialogueText];
+        if(text === undefined) {
+            console.error("GameManager::dialogueShowText() : aucun texte à afficher");
+            return;
+        }
+        this.displayManager.displayDialogueText(text);
     }
 
     /**
@@ -448,11 +454,14 @@ export default class GameManager {
         }
 
         // S'il y a un texte à afficher, on l'affiche...
-        if(this.currentDialogue.texts.length > 0)
+        if(this.currentDialogue.texts && this.currentDialogue.texts.length > 0)
             this.dialogueShowText();
         // Sinon et s'il y a un choix à afficher, on l'affiche
         else if(this.currentDialogue.options && this.currentDialogue.options.length > 0)
             this.dialogueShowOptions();
+        // Sinon on poursuit immédiatement le dialogue (cartes à gagner ou transition)
+        else
+            this.dialogueOverlayClick();
     }
 
     updateCheckpoint(checkpointChange: CheckpointChange): void {

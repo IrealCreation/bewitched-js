@@ -288,7 +288,6 @@
 
     "club_hub": {
         "id": "club_hub",
-        "texts": [],
         "options": [
             {
                 "text": "Prendre la direction du bar",
@@ -420,7 +419,6 @@
     },
     "barmaid_002": {
         "id": "barmaid_002",
-        "texts": [],
         "options": [
             {
                 "text": "“Va pour le cocktail maison.”",
@@ -496,7 +494,6 @@
     },
     "barmaid_003": {
         "id": "barmaid_003",
-        "texts": [],
         "checkpoint": {
             "scene": "barmaid",
             "dialogue": "barmaid_003_checkpoint"
@@ -984,7 +981,6 @@
     },
     "ludovic_001": {
         "id": "ludovic_001",
-        "texts": [],
         "options": [
             {
                 "text": "S'avancer en s'exclammant “hé, c'est par ici qu'on s'amuse ?”",
@@ -1173,7 +1169,6 @@
     },
     "ludovic_003": {
         "id": "ludovic_003",
-        "texts": [],
         "options": [
             {
                 "text": "“Accroche-toi : les fosses de concert, ça me connait !”",
@@ -1281,7 +1276,6 @@
     },
     "ludovic_005": {
         "id": "ludovic_005",
-        "texts": [],
         "options": [
             {
                 "text": "“Tu sembles être un habitué des lieux.”",

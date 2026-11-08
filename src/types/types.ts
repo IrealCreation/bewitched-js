@@ -23,7 +23,7 @@ export interface CheckpointStorage {
  */
 export interface Dialogue {
     id: string;
-    texts: string[];
+    texts?: string[];
     options?: DialogueOption[];
     goto?: string; // ID du dialogue vers lequel aller à la fin de ce dialogue s'il n'y a pas d'options ou si l'option choisie n'a pas de goto
     cardGain?: string[]; // IDs des cartes gagnées à la fin du dialogue
