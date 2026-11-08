@@ -966,24 +966,57 @@
                 "text": "S'avancer en s'exclammant “hé, c'est par ici qu'on s'amuse ?”",
                 "moods": ["Joyeux"],
                 "score": 3,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_j",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
                 "goto": "ludovic_001_post_j"
             },
             {
                 "text": "Établir un eye-contact avec l'homme",
                 "moods": ["Séducteur"],
                 "score": 3,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_s",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
                 "goto": "ludovic_001_post_s"
             },
             {
                 "text": "Le bousculer “involontairement”",
                 "moods": ["Agressif"],
                 "score": 3,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_a",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
                 "goto": "ludovic_001_post_a"
             },
             {
                 "text": "S'avancer et se présenter, tout simplement",
                 "moods": ["Calme", "Hautain"],
                 "score": 4,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_c",
+                        "operator": "+=",
+                        "value": 1
+                    },
+                    {
+                        "variable": "ludovic_h",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
                 "goto": "ludovic_001_post_ch"
             },
             {
@@ -1041,24 +1074,57 @@
                 "text": "“Oui, je n’ai pas trop l’habitude de ce genre d’endroit...”",
                 "moods": ["Calme"],
                 "score": 1,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_c",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
                 "goto": "ludovic_003"
             },
             {
                 "text": "“Je suis plutôt du style vernissage que boîte de nuit, mais la nouveauté ne tue pas.”",
                 "moods": ["Hautain"],
                 "score": 1,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_h",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
                 "goto": "ludovic_003"
             },
             {
                 "text": "“J’adore me faire de nouveaux amis !”",
                 "moods": ["Joyeux"],
                 "score": 1,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_j",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
                 "goto": "ludovic_003"
             },
             {
                 "text": "“Sans doute... J’ai tendance à laisser ma marque dans l’esprit des gens que je rencontre.”",
                 "moods": ["Séducteur", "Agressif"],
                 "score": 1,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_a",
+                        "operator": "+=",
+                        "value": 1
+                    },
+                    {
+                        "variable": "ludovic_s",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
                 "goto": "ludovic_003"
             }
         ]
@@ -1066,13 +1132,25 @@
     "ludovic_003": {
         "id": "ludovic_003",
         "texts": [
-            "“On va essayer de faire en sorte que tu passes une bonne soirée ! Messieurs-dames, et si on allait profiter un peu de la piste de danse ?” propose Ludovic."
+            "“On va essayer de faire en sorte que tu passes une bonne soirée ! Messieurs-dames, la piste de danse est juste ici, et si on allait en profiter ?” propose Ludovic."
         ],
         "options": [
             {
-                "text": "“Accroche-toi, parce que moi j’ai grandi à l’école des pogos !”",
+                "text": "“Accroche-toi, parce que moi j'ai grandi à l'école des pogos !”",
                 "moods": ["Agressif", "Joyeux"],
                 "score": 4,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_a",
+                        "operator": "+=",
+                        "value": 1
+                    },
+                    {
+                        "variable": "ludovic_j",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
                 "cardGain": ["3a_punk_rock"],
                 "goto": "ludovic_004"
             },
@@ -1080,6 +1158,13 @@
                 "text": "“Laisse-moi te montrer ce que des années de danse classique peuvent inculquer.”",
                 "moods": ["Hautain"],
                 "score": 3,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_h",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
                 "cardGain": ["3h_gouts_luxe"],
                 "goto": "ludovic_004"
             },
@@ -1087,13 +1172,33 @@
                 "text": "“Approche : mes danses, je les aime très charnelles...”",
                 "moods": ["Séducteur"],
                 "score": 3,
-                "cardGain": ["3s_viles_passions"],
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_s",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
+                "cardGain": ["3s_chaleur_des_corps"],
                 "goto": "ludovic_004"
             },
             {
                 "text": "Danser timidement",
-                "moods": [],
-                "score": 0,
+                "moods": ["Calme"],
+                "score": 1,
+                "variableChanges": [
+                    {
+                        "variable": "ludovic_c",
+                        "operator": "+=",
+                        "value": 1
+                    }
+                ],
+                "goto": "ludovic_004"
+            },
+            {
+                "text": "“Heu... Je vous rejoins plus tard.”",
+                "moods": ["Calme"],
+                "score": 1,
                 "goto": "ludovic_004"
             }
         ]

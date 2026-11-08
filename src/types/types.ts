@@ -42,7 +42,7 @@ export interface DialogueOption {
     goto?: string;
     gotoCheckpoint?: string; // Permet d'aller vers le dialogue enregistré dans un checkpoint
     cardGain?: string[]; // IDs des cartes gagnées quand cette option est choisie
-    conditions?: GameCondition[]; // Conditions à remplir pour que cette option soit disponible
+    conditions?: GameConditionBlock[]; // Bloc de conditions à remplir pour que cette option soit disponible
     variableChanges?: GameVariableChange[]; // Changements de variables à appliquer quand cette option est choisie
     dontWriteInDialogue?: true; // Si cette propriété est spécifiée, on n'écrit pas le contenu de l'option dans le flux des dialogues
 }
@@ -63,6 +63,11 @@ export interface CardModel {
     name: string;
     moods: Mood[];
     score: number;
+}
+
+export interface GameConditionBlock {
+    conditions: GameCondition[];
+    operator: "AND" | "OR";
 }
 
 export interface GameCondition {

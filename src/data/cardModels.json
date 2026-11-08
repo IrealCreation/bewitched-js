@@ -140,16 +140,10 @@
     },
 
 
-    "3h_gouts_luxe": {
-        "id": "3h_gouts_luxe",
-        "name": "Goûts de luxe",
-        "moods": ["Hautain"],
-        "score": 3
-    },
-    "3j_optimisme": {
-        "id": "3j_optimisme",
-        "name": "Optimisme",
-        "moods": ["Joyeux"],
+    "3a_punk_rock": {
+        "id": "3a_punk_rock",
+        "name": "Punk rock",
+        "moods": ["Agressif"],
         "score": 3
     },
     "3a_traversee_enfers": {
@@ -176,22 +170,10 @@
         "moods": ["Calme"],
         "score": 3
     },
-    "3s_viles_passions": {
-        "id": "3s_viles_passions",
-        "name": "Viles passions",
-        "moods": ["Séducteur"],
-        "score": 3
-    },
-    "3a_punk_rock": {
-        "id": "3a_punk_rock",
-        "name": "Punk rock",
-        "moods": ["Agressif"],
-        "score": 3
-    },
-    "3s_glamour": {
-        "id": "3s_glamour",
-        "name": "Glamour",
-        "moods": ["Séducteur"],
+    "3c_cocooning": {
+        "id": "3c_cocooning",
+        "name": "Cocooning",
+        "moods": ["Calme"],
         "score": 3
     },
     "3h_haute_couture": {
@@ -200,16 +182,40 @@
         "moods": ["Hautain"],
         "score": 3
     },
+    "3h_gouts_luxe": {
+        "id": "3h_gouts_luxe",
+        "name": "Goûts de luxe",
+        "moods": ["Hautain"],
+        "score": 3
+    },
+    "3j_optimisme": {
+        "id": "3j_optimisme",
+        "name": "Optimisme",
+        "moods": ["Joyeux"],
+        "score": 3
+    },
     "3j_hippie": {
         "id": "3j_hippie",
         "name": "Hippie",
         "moods": ["Joyeux"],
         "score": 3
     },
-    "3c_cocooning": {
-        "id": "3c_cocooning",
-        "name": "Cocooning",
-        "moods": ["Calme"],
+    "3s_glamour": {
+        "id": "3s_glamour",
+        "name": "Glamour",
+        "moods": ["Séducteur"],
+        "score": 3
+    },
+    "3s_chaleur_des_corps": {
+        "id": "3s_chaleur_des_corps",
+        "name": "Chaleur des corps",
+        "moods": ["Séducteur"],
+        "score": 3
+    },
+    "3s_viles_passions": {
+        "id": "3s_viles_passions",
+        "name": "Viles passions",
+        "moods": ["Séducteur"],
         "score": 3
     },
 
