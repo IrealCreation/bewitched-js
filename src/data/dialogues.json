@@ -337,7 +337,44 @@
                 "text": "S'adresser à la barmaid",
                 "moods": [],
                 "score": 0,
+                "conditionBlock": {
+                    "conditions": [
+                        {
+                            "operand1": "barmaid_progress",
+                            "operator": "==",
+                            "operand2": 0
+                        }
+                    ]
+                },
+                "variableChanges": [
+                    {
+                        "variable": "barmaid_progress",
+                        "operator": "=",
+                        "value": 1
+                    }
+                ],
                 "goto": "barmaid_001"
+            },
+            {
+                "text": "Retourner voir la barmaid",
+                "moods": [],
+                "score": 0,
+                "conditionBlock": {
+                    "conditions": [
+                        {
+                            "operand1": "barmaid_progress",
+                            "operator": ">",
+                            "operand2": 0
+                        },
+                        {
+                            "operand1": "barmaid_finished",
+                            "operator": "==",
+                            "operand2": 0
+                        }
+                    ],
+                    "operator": "AND"
+                },
+                "gotoCheckpoint": "barmaid"
             },
             {
                 "text": "Aller vers le jeune homme",
@@ -369,7 +406,52 @@
                 "text": "Contourner la piste pour s'approcher du groupe de l'homme",
                 "moods": [],
                 "score": 0,
+                "conditionBlock": {
+                    "conditions": [
+                        {
+                            "operand1": "ludovic_progress",
+                            "operator": "==",
+                            "operand2": 0
+                        }
+                    ]
+                },
                 "goto": "ludovic_001_pre"
+            },
+            {
+                "text": "Contourner la piste pour s'approcher du groupe de l'homme",
+                "moods": [],
+                "score": 0,
+                "conditionBlock": {
+                    "conditions": [
+                        {
+                            "operand1": "ludovic_progress",
+                            "operator": "==",
+                            "operand2": 1
+                        }
+                    ]
+                },
+                "gotoCheckpoint": "ludovic"
+            },
+            {
+                "text": "Retourner voir Ludovic",
+                "moods": [],
+                "score": 0,
+                "conditionBlock": {
+                    "conditions": [
+                        {
+                            "operand1": "ludovic_progress",
+                            "operator": ">",
+                            "operand2": 1
+                        },
+                        {
+                            "operand1": "ludovic_finished",
+                            "operator": "==",
+                            "operand2": 0
+                        }
+                    ],
+                    "operator": "AND"
+                },
+                "gotoCheckpoint": "ludovic"
             },
             {
                 "text": "Retourner vers l'entrée",
@@ -945,6 +1027,11 @@
                 "variable": "path_to_vip",
                 "operator": "+=",
                 "value": 1
+            },
+            {
+                "variable": "barmaid_finished",
+                "operator": "=",
+                "value": 1
             }
         ],
         "goto": "club_hub"
@@ -1087,6 +1174,13 @@
         "id": "ludovic_002",
         "texts": [
             "Ludovic ajoute, poussant sur sa voix grave pour couvrir un nouveau morceau de musique : “Je suis plutôt physionomiste, et je crois bien que c'est la première fois que nous nous rencontrons.”"
+        ],
+        "variableChanges": [
+            {
+                "variable": "ludovic_progress",
+                "operator": "+=",
+                "value": 1
+            }
         ],
         "options": [
             {
