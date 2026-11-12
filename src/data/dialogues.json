@@ -1355,20 +1355,46 @@
     "ludovic_003_post_h2": {
         "id": "ludovic_003_post_h2",
         "texts": [
-            "Tu perçois le regard de Ludovic sur toi, où il ne peut cacher une lueur d'admiration - voire de fascination."
+            "Tu perçois le regard de Ludovic sur toi, où il ne peut cacher une lueur d'admiration - voire de fascination. Tirant partie d'une transition entre deux morceaux de musique, il s'incline vers toi et te propose de profiter d'un temps plus calme dans un petit carré à l'écart du dancefloor."
         ],
-        "goto": ""
+        "goto": "ludovic_004"
+    },
+    "ludovic_003_post_s": {
+        "id": "ludovic_003_post_s",
+        "texts": [
+            "Tu t'avances sur la piste de danse, le port altier, le pas maîtrisé. D'un simple redressement du menton, tu sembles dominer tous ceux qui s'ébattent autour de toi. Lorsque tu te mets à danser, il n'y a rien de leur amateurisme ni de leur vulgarité : chacun de tes mouvements est précis, appris, conçu pour la grâce."
+        ],
+        "cardGain": ["3h_gouts_luxe"],
+        "goto": "ludovic_003_post_s2"
+    },
+    "ludovic_003_post_s2": {
+        "id": "ludovic_003_post_s2",
+        "texts": [
+            "Tu perçois le regard de Ludovic sur toi, où il ne peut cacher une lueur d'admiration - voire de fascination. Tirant partie d'une transition entre deux morceaux de musique, il s'incline vers toi et te propose de profiter d'un temps plus calme dans un petit carré à l'écart du dancefloor."
+        ],
+        "goto": "ludovic_004"
     },
 
     "ludovic_004": {
         "id": "ludovic_004",
         "texts": [
-            "Après avoir dansé, vous vous installez sur des fauteuils, dans une ambiance plus propice à la discussion."
+            "Vous vous installez sur des fauteuils, dans une ambiance plus propice à la discussion. Les amis de Ludovic s'embarquent dans une conversation, mais ce dernier s'est assis non loin de toi et semble intrigué par ta personne. L'occasiond de l'interroger quelque peu..."
+        ],
+        "goto": "ludovic_005"
+    },
+    "ludovic_005_re": {
+        "id": "ludovic_005_re",
+        "texts": [
+            "Tu t'approche à nouveau des canapés où s'étaient installés Ludovic et ses amis, et constate que ta place non loin de lui est toujours disponible. Quelques instants après que tu t'y sois à nouveau installée, il ponctue la discussion avec son groupe d'un rire puis se tourne vers toi."
         ],
         "goto": "ludovic_005"
     },
     "ludovic_005": {
         "id": "ludovic_005",
+        "checkpoint": {
+            "scene": "ludovic",
+            "dialogue": "ludovic_005_re"
+        },
         "options": [
             {
                 "text": "“Tu sembles être un habitué des lieux.”",
@@ -1387,6 +1413,12 @@
                 "moods": [],
                 "score": 0,
                 "goto": "ludovic_007"
+            },
+            {
+                "text": "“Je vais me cherche quelque chose, je reviens”",
+                "moods": [],
+                "score": 0,
+                "goto": "club_hub_backto"
             }
         ]
     },
